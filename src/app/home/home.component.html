@@ -4,29 +4,27 @@
   <app-skills class="skills"></app-skills>
   <div class="presentation">
     <ng-container *ngIf="edithMode">
-      <button routerLink="newUser" class="btn add_btn"
-        >Editar usuario</button
-      >
+      <button routerLink="newUser" class="btn add_btn">Editar usuario</button>
     </ng-container>
-      <h2>Hola!</h2>
-      <p class="text_presentation">
-        Mi nombre es {{ user.name }} {{ user.surname }}, tengo {{user.age}} años y soy desarrollador web
-        full stack Junior.
-      </p>
+    <h2>Hola!</h2>
+    <p class="text_presentation">
+      Mi nombre es {{ user.name }} {{ user.surname }}, tengo {{ user.age }} años
+      y soy desarrollador web full stack Junior.
+    </p>
 
-      <a routerLink="contacto" class="btn">Contactar</a>
+    <a routerLink="contacto" class="btn">Contactar</a>
 
     <img class="arrow" src="assets/img/arrowDown.svg" />
   </div>
 </section>
 <div class="ill_container">
-  <img class="illustration" src="assets/img/illustrations/ill-01.png">
-  <p>{{user.description}}</p>
+  <img class="illustration" src="assets/img/illustrations/ill-01.png" />
+  <p>{{ user.description }}</p>
 </div>
 
-  <app-education></app-education>
-  <app-soft-skills></app-soft-skills>
-  <app-user-exp></app-user-exp>
+<app-education></app-education>
+<app-soft-skills></app-soft-skills>
+<app-user-exp></app-user-exp>
 <section>
   <ng-container *ngIf="isLogged">
     <ng-container *ngIf="!edithMode">
@@ -41,4 +39,3 @@
     </ng-container>
   </ng-container>
 </section>
-
