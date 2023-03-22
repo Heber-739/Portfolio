@@ -1,0 +1,13 @@
+<div class="cont">
+  <app-nav></app-nav>
+  <router-outlet (activate)="onActivate()"></router-outlet>
+  <app-footer></app-footer>
+</div>
+<div *ngIf="haveMessage" class="container_popup">
+  <div class="popup box">
+    <p class="popupMessage">
+      {{ content }}
+    </p>
+    <button type="button" class="btn" (click)="closePopup()">OK</button>
+  </div>
+</div>

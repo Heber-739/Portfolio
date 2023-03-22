@@ -1,0 +1,47 @@
+<button type="button" class="hamburguer">
+  <span class="line"></span>
+  <span class="line"></span>
+  <span class="line"></span>
+</button>
+<nav class="nav">
+  <ul class="list">
+    <li class="item">
+      <a routerLink="" class="a_item"
+        ><img class="img" src="assets/img/home.svg" />Inicio</a
+      >
+    </li>
+    <li class="item">
+      <a routerLink="proyectos" class="a_item"
+        ><img class="img" src="assets/img/proyectos.svg" /> Proyectos</a
+      >
+    </li>
+    <li class="item">
+      <a routerLink="contacto" class="a_item"
+        ><img class="img" src="assets/img/contacto.svg" />Contacto</a
+      >
+    </li>
+    <li class="item" *ngIf="!isLogged">
+      <a routerLink="login" class="a_item"
+        ><img class="img" src="assets/img/login.svg" />Login</a
+      >
+    </li>
+    <li class="item" *ngIf="isLogged" (click)="logout()">
+      <a class="a_item"><img class="img" src="assets/img/home.svg" />Logout</a>
+    </li>
+    <li class="item" (click)="changeTheme('open')">
+      <a class="a_item"><img class="img" src="assets/img/temas.svg" />Temas</a>
+    </li>
+  </ul>
+  <div class="blue_theme box" *ngIf="selColor" (click)="changeTheme('blue')">
+    Azul
+  </div>
+  <div class="red_theme box" *ngIf="selColor" (click)="changeTheme('red')">
+    Rojo
+  </div>
+  <div class="green_theme box" *ngIf="selColor" (click)="changeTheme('green')">
+    Verde
+  </div>
+  <div class="dark_theme box" *ngIf="selColor" (click)="changeTheme('dark')">
+    Negro
+  </div>
+</nav>
