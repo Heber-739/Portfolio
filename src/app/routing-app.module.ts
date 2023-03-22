@@ -38,7 +38,7 @@ import { SpinnerService } from './service/spinner-interceptor/spinner.service';
 
 const routing: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'proyectos', component: ProyectsComponent },
+  /*   { path: 'proyectos', component: ProyectsComponent },
   { path: 'contacto', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -49,7 +49,7 @@ const routing: Routes = [
     path: 'newUser',
     component: NewUserComponent,
     canActivate: [CanLoadUserGuard],
-  },
+  }, */
   {
     path: 'proyectos/encriptador',
     loadChildren: () =>
@@ -97,7 +97,7 @@ const routing: Routes = [
     FormSoftSkillComponent,
     FormUserExpComponent,
     TagsComponent,
-    SpinnerInterceptorComponent
+    SpinnerInterceptorComponent,
   ],
   imports: [
     RouterModule.forRoot(routing, {
@@ -119,7 +119,7 @@ const routing: Routes = [
     SoftSkillService,
     TagService,
     WorkExperienceService,
-    SpinnerService
+    SpinnerService,
   ],
 })
 export class RoutingAppModule {}
