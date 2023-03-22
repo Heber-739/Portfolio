@@ -10,11 +10,7 @@
         placeholder="Ingrese su nombre"
         autocomplete="off"
         formControlName="name"
-      /><label
-        for="name"
-        class="label"
-        [ngClass]="edithMode ? 'active' : ''"
-        #Name
+      /><label for="name" class="label" [class.active]="edithMode" #Name
         >Nombre</label
       >
     </div>
@@ -27,11 +23,7 @@
         placeholder="Ingrese su apellido"
         autocomplete="off"
         formControlName="surname"
-      /><label
-        for="username"
-        class="label"
-        [ngClass]="edithMode ? 'active' : ''"
-        #Username
+      /><label for="username" class="label" [class.active]="edithMode" #Username
         >Apellido</label
       >
     </div>
@@ -56,11 +48,7 @@
         placeholder="Ingrese su edad"
         autocomplete="off"
         formControlName="age"
-      /><label
-        for="age"
-        class="label"
-        [ngClass]="edithMode ? 'active' : ''"
-        #Age
+      /><label for="age" class="label" [class.active]="edithMode" #Age
         >Edad</label
       >
     </div>
@@ -73,11 +61,7 @@
         placeholder="Link github"
         autocomplete="off"
         formControlName="github"
-      /><label
-        for="github"
-        class="label"
-        [ngClass]="edithMode ? 'active' : ''"
-        #Github
+      /><label for="github" class="label" [class.active]="edithMode" #Github
         >Github</label
       >
     </div>
@@ -90,11 +74,7 @@
         placeholder="Link Linkedin"
         autocomplete="off"
         formControlName="linkedin"
-      /><label
-        for="linkedin"
-        class="label"
-        [ngClass]="edithMode ? 'active' : ''"
-        #Linkedin
+      /><label for="linkedin" class="label" [class.active]="edithMode" #Linkedin
         >Linkedin</label
       >
     </div>
@@ -113,14 +93,14 @@
       <label
         for="description"
         class="label"
-        [ngClass]="edithMode ? 'active' : ''"
+        [class.active]="edithMode"
         #Description
         >Descripción</label
       >
     </div>
     <div class="img_container">
-    <small>Tamañoo máximo de imagen 1MB</small>
-      <img *ngIf="myimage" class="outputImg" [src]="myimage"/>
+      <small>Tamañoo máximo de imagen 1MB</small>
+      <img *ngIf="myimage" class="outputImg" [src]="myimage" />
 
       <label for="file" class="btn"
         >Cargar foto de pérfil<input

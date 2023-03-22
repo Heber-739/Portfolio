@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { DataUser } from 'src/app/interface/dataUser';
-import { ModalService } from 'src/app/service/modal.service';
 
 @Component({
   selector: 'app-new-user',
