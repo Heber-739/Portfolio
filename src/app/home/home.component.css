@@ -58,6 +58,10 @@
   }
 }
 @media screen and (min-width: 600px) {
+  .body {
+    width: calc(100vw - 170px);
+    margin-left: auto;
+  }
   .presentation {
     justify-content: space-between;
     width: 70vw;
