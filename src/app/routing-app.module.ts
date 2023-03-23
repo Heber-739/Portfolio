@@ -3,7 +3,6 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloadService } from './service/preload.service';
-import { NewUserComponent } from './register/new-user/new-user.component';
 import { CanLoadUserGuard } from './register/new-user/can-load-user.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -30,14 +29,15 @@ const routing: Routes = [
   },
   {
     path: 'newUser',
-    component: NewUserComponent,
+    loadChildren: () =>
+      import('./register/new-user/user.module').then((m) => m.UserModule),
     canActivate: [CanLoadUserGuard],
   },
   { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
-  declarations: [NewUserComponent],
+  declarations: [],
   imports: [
     RouterModule.forRoot(routing, {
       preloadingStrategy: PreloadService,
