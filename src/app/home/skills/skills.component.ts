@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { HardSkill } from 'src/app/interface/hardSkill';

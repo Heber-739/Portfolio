@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="formEd" *ngIf="!edSent">
+<form class="form" formGroup="formEd" *ngIf="!edSent">
   <div class="input_container">
     <input
       class="input_text"
@@ -36,21 +36,21 @@
       >Link</label
     >
   </div>
-    <button class="btn status" (click)="this.edFinish = !this.edFinish">
-      {{ this.edFinish ? "Finalizado" : "En Progreso" }}
-    </button>
+  <button class="btn status" (click)="this.edFinish = !this.edFinish">
+    {{ this.edFinish ? "Finalizado" : "En Progreso" }}
+  </button>
   <div class="img_container">
     <small>Tamaño máximo de imagen 1MB</small>
 
-      <label for="file" class="btn"
-        >Logo o foto ilustrativa<input
-          id="file"
-          type="file"
-          accept="image/*"
-          (change)="onchange($event)"
-      /></label>
+    <label for="file" class="btn"
+      >Logo o foto ilustrativa<input
+        id="file"
+        type="file"
+        accept="image/*"
+        (change)="onchange($event)"
+    /></label>
 
-        <img *ngIf="myimage" class="outputImg" [src]="myimage"/>
+    <img *ngIf="myimage" class="outputImg" [src]="myimage" />
   </div>
   <button class="btn" (click)="saveEducation()">Guardar</button>
   <button class="btn" (click)="toTags()">Agregar sus contenidos</button>
@@ -58,6 +58,5 @@
 <ng-container *ngIf="edSent">
   <app-tags (end)="finished($event)"></app-tags>
 </ng-container>
-
 
 <!-- HAY QUE  JUNTAR EL FORM TAGS CON EL FORM EDUCATION -->

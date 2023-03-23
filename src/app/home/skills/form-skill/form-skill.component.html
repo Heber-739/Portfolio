@@ -1,4 +1,4 @@
-<form class="edith_form" [formGroup]="formHS">
+<form class="edith_form" formGroup="formHS">
   <div class="input_container">
     <input
       class="input_text"
@@ -40,15 +40,15 @@
   <div class="img_container">
     <small>Tamaño máximo de imagen 1MB</small>
 
-      <label for="file" class="btn"
-        >Logo<input
-          id="file"
-          type="file"
-          accept="image/*"
-          (change)="onchange($event)"
-      /></label>
+    <label for="file" class="btn"
+      >Logo<input
+        id="file"
+        type="file"
+        accept="image/*"
+        (change)="onchange($event)"
+    /></label>
 
-        <img *ngIf="myimage" class="outputImg" [src]="myimage"/>
+    <img *ngIf="myimage" class="outputImg" [src]="myimage" />
   </div>
   <button class="btn" (click)="saveHardSkill()">Guardar</button>
 </form>

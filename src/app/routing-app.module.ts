@@ -3,10 +3,9 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloadService } from './service/preload.service';
-import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NewUserComponent } from './register/new-user/new-user.component';
-import { CanLoadUserGuard } from './register/new-registration/can-load-user.guard';
-import { NewRegistrationComponent } from './register/new-registration/new-registration.component';
+import { CanLoadUserGuard } from './register/new-user/can-load-user.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routing: Routes = [
   { path: '', component: HomeComponent },
@@ -30,10 +29,6 @@ const routing: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'newRegistration',
-    component: NewRegistrationComponent,
-  },
-  {
     path: 'newUser',
     component: NewUserComponent,
     canActivate: [CanLoadUserGuard],
@@ -42,13 +37,14 @@ const routing: Routes = [
 ];
 
 @NgModule({
-  declarations: [NewUserComponent, NewRegistrationComponent],
+  declarations: [NewUserComponent],
   imports: [
     RouterModule.forRoot(routing, {
       preloadingStrategy: PreloadService,
     }),
-    NgCircleProgressModule.forRoot({}),
+
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule],
   providers: [],

@@ -9,7 +9,7 @@
       <p class="add_tag" (click)="deleteTag(i)">{{ i.name }} <span>x</span></p>
     </ng-container>
   </div>
-  <form class="form" [formGroup]="tagForm">
+  <form class="form" formGroup="tagForm">
     <div class="input_container">
       <input
         class="input_text"
@@ -25,7 +25,9 @@
       <div class="allTags" *ngIf="showAllTags">
         <ng-container *ngFor="let i of matchTags">
           <div class="matchTags">
-            <p class="op_tag" (click)="tagSelect(i)">{{ i.name }}<span>+</span></p>
+            <p class="op_tag" (click)="tagSelect(i)">
+              {{ i.name }}<span>+</span>
+            </p>
           </div>
         </ng-container>
       </div>
