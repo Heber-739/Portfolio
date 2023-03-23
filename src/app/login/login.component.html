@@ -70,4 +70,4 @@
     <a class="btn" routerLink="">Regresar</a>
   </div>
 </section>
-<app-new-registration></app-new-registration>
+<app-new-registration *ngIf="isLogged"></app-new-registration>
