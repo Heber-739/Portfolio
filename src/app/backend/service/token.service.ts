@@ -57,11 +57,9 @@ export class TokenService {
     window.sessionStorage.removeItem(usernameKey);
     window.sessionStorage.setItem(usernameKey, username);
   }
-  public prueba(): string {
-    return sessionStorage.getItem(usernameKey) || '';
-  }
+
   public getUsername(): string {
-    return sessionStorage.getItem(usernameKey) || 'Heber739';
+    return sessionStorage.getItem(usernameKey) || '';
   }
   public setAuthorities(authorities: string[]): void {
     window.sessionStorage.removeItem(authoritiesKey);

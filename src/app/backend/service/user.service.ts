@@ -32,7 +32,7 @@ export class UserService {
   }
 
   public getUser(): void {
-    let userId = '/' + this.token.prueba();
+    let userId = '/' + this.token.getUsername();
     console.log(userId);
     this.http.get<DataUser>(this.URL + `/get${userId}`).subscribe({
       next: (res) => this.changeObservable(res),

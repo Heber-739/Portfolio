@@ -37,7 +37,7 @@ export class EducationService {
   public getAllDBEducations(): Education[] {
     return JSON.parse(window.sessionStorage.getItem(ALL_DB_ED) || '[]');
   }
-  public setAllDBEducationns(eds: Education[]) {
+  public setAllDBEducations(eds: Education[]) {
     window.sessionStorage.setItem(ALL_DB_ED, JSON.stringify(eds));
   }
 
@@ -52,11 +52,9 @@ export class EducationService {
   /* -------------CRUD´s Methods------------- */
   public getAllEducations() {
     this.http.get<Education[]>(this.URL + '/listAll').subscribe({
-      next: (res) => this.setAllDBEducationns(res),
+      next: (res) => this.setAllDBEducations(res),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () =>
         this.popup.showMessage(
           'Ya puede ver las educaciones existentes en la Base de Datos.'
@@ -67,54 +65,38 @@ export class EducationService {
     return this.http.get<Education>(this.URL + `/getOne/${id}`);
   }
   public getEducation() {
-    let username = this.token.getUsername();
-    this.http.get<Education[]>(this.URL + `/list/${username}`).subscribe({
+    let userId = '/' + this.token.getUsername();
+    this.http.get<Education[]>(this.URL + `/list${userId}`).subscribe({
       next: (res) => {
         this.setLocalEducations(res);
         this.changeObservable(res);
       },
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N°${err.status}`),
     });
   }
   public createEducation(ed: Education) {
-    let username = this.token.getUsername();
-    this.http.post<Message>(this.URL + `/create/${username}`, ed).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+    let userId = this.token.getUsername();
+    this.http.post<Message>(this.URL + `/create/${userId}`, ed).subscribe({
+      next: (res) => console.log(res),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => {
-        this.http.get<Education[]>(this.URL + `/list/${username}`).subscribe({
-          next: (res) => {
-            let education = res.find((e) => e.name == ed.name);
-            this.tagService.setEducationId(education?.id!);
-          },
-        });
-      },
+        this.popup.showMessage(`${err.error.message}\n Error N° ${err.status}`),
     });
   }
   public deleteEducation(id: number) {
-    let username = this.token.getUsername();
-    this.http
-      .delete<Message>(this.URL + `/delete/${id}/${username}`)
-      .subscribe({
-        next: (res) => this.popup.showMessage(res.message),
-        error: (err) =>
-          this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-          ),
-        complete: () => {
-          this.getEducation();
-          if (this.getLocalEducations().length === 1) {
-            window.sessionStorage.removeItem(LOCAL_ED);
-            this.changeObservable([]);
-          }
-        },
-      });
+    let userId = this.token.getUsername();
+    this.http.delete<Message>(this.URL + `/delete/${id}/${userId}`).subscribe({
+      next: (res) => this.popup.showMessage(res.message),
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => {
+        this.getEducation();
+        if (this.getLocalEducations().length === 1) {
+          window.sessionStorage.removeItem(LOCAL_ED);
+          this.changeObservable([]);
+        }
+      },
+    });
   }
   public updateEducation(ed: Education) {
     let username = this.token.getUsername();
@@ -124,7 +106,7 @@ export class EducationService {
         next: (res) => this.popup.showMessage(res.message),
         error: (err) =>
           this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
+            `${err.error.message}\nError N° ${err.status}`
           ),
         complete: () => this.getEducation(),
       });

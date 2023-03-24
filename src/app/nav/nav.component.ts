@@ -15,7 +15,11 @@ export class NavComponent implements OnInit {
   selColor: boolean = false;
   isLogged: boolean = false;
   user!: DataUser;
-  constructor(private tokenService: TokenService, private userS: UserService) {
+  constructor(
+    private popup: ModalService,
+    private tokenService: TokenService,
+    private userS: UserService
+  ) {
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
   }
   ngOnInit(): void {
@@ -25,15 +29,16 @@ export class NavComponent implements OnInit {
     this.changeTheme(JSON.parse(localStorage.getItem('theme')!));
   }
 
-  /*   ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     if (this.tokenService.getToken()) {
       if (this.tokenService.isExistInDatabase()) {
-        this.userService.getUser();
+        this.userS.getUser();
       } else {
         this.popup.showMessage(
           'Ya se encuentra logueado en la página, ahora puede ingresar sus datos.'
         );
-        this.router.navigate(['newUser']);
+        /*         this.router.navigate(['newUser']);
+         */
       }
     }
     if (this.tokenService.isAdmin()) {
@@ -42,7 +47,7 @@ export class NavComponent implements OnInit {
       );
       localStorage.removeItem('isAdmin');
     }
-  } */
+  }
 
   changeTheme(v: string) {
     if (v == 'open') {
