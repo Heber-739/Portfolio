@@ -38,13 +38,9 @@ export class HomeComponent implements OnInit {
     this.token.edithObservable().subscribe({
       next: (res) => (this.edithMode = res),
     });
+
     if (!this.token.getUser()) {
-      this.userService.getDefault().subscribe({
-        next: (res) => {
-          this.user = res;
-          this.token.setUser(res);
-        },
-      });
+      this.userService.getUser();
     } else {
       this.user = this.token.getUser();
       this.token.changeObservable(true);

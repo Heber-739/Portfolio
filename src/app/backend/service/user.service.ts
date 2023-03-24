@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { DataUser } from 'src/app/interface/dataUser';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
@@ -32,15 +31,15 @@ export class UserService {
     this.user$.next(user);
   }
 
-  public getDefault(): Observable<DataUser> {
-    return this.http.get<DataUser>(this.URL + `/get`);
-  }
   public getUser(): void {
-    let userId = this.token.getUsername();
-    this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
+    let userId = '/' + this.token.prueba();
+    console.log(userId);
+    this.http.get<DataUser>(this.URL + `/get${userId}`).subscribe({
       next: (res) => this.changeObservable(res),
-      error: (err) =>
-        this.popup.showMessage(this.token.errorsMessage(err.error)),
+      error: (error) =>
+        this.popup.showMessage(
+          `Ocurrió un error inesperado. Código ${error.status}`
+        ),
       complete: () => this.router.navigate(['']),
     });
   }
@@ -52,10 +51,9 @@ export class UserService {
           `${res.message}! Ahora puede completar otros datos como educación y skills más abajo.`
         );
       },
-      error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+      error: (err) => {
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
+      },
       complete: () => {
         this.getUser();
         this.router.navigate(['']);
@@ -73,7 +71,7 @@ export class UserService {
         },
         error: (err) =>
           this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
+            `${err.error.message}\nError N° ${err.status}`
           ),
         complete: () => {
           this.getUser();
@@ -86,9 +84,7 @@ export class UserService {
     this.http.delete<Message>(this.URL + `/delete/${id}`).subscribe({
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
 }

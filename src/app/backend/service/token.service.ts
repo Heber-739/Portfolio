@@ -57,6 +57,9 @@ export class TokenService {
     window.sessionStorage.removeItem(usernameKey);
     window.sessionStorage.setItem(usernameKey, username);
   }
+  public prueba(): string {
+    return sessionStorage.getItem(usernameKey) || '';
+  }
   public getUsername(): string {
     return sessionStorage.getItem(usernameKey) || 'Heber739';
   }
@@ -78,22 +81,7 @@ export class TokenService {
     }
     return this.rols;
   }
-  public errorsMessage(error: HttpErrorResponse): string {
-    switch (error.status) {
-      case 400:
-        return 'Hubo un error en la solicitud. Revise la información y pruebe nuevamente.';
-      case 401:
-        return 'Error de autenticación. Pruebe salir e iniciar sesión nuevamente.';
-      case 403:
-        return 'No posee la autorización para esta operación.Pruebe salir e iniciar sesión nuevamente.';
-      case 404:
-        return 'Existe información que no se encuentra en la base de datos.';
-      case 500 - 599:
-        return 'Error de la pagina web, estamos intentando solucionar el error. Puede probar con otras operaciones o contenido similar.';
-      default:
-        return `Codigo de error: ${error.status}`;
-    }
-  }
+
   public isAdmin(): string {
     return window.sessionStorage.getItem('isAdmin')!;
   }

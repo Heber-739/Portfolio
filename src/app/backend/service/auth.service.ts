@@ -13,7 +13,7 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  authURL: string = `${environment.URL}/auth`
+  authURL: string = `${environment.URL}/auth`;
 
   constructor(
     private popup: ModalService,
@@ -29,9 +29,7 @@ export class AuthService {
         this.popup.showMessage(res.message);
       },
       error: (err) => {
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        );
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
       },
       complete: () => {
         this.router.navigate(['/login']);
@@ -47,18 +45,14 @@ export class AuthService {
         this.token.setToken(data.token);
         this.token.setExistUser(data.exist);
         this.token.changeObservable(true);
-      },
-      error: (err) => {
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        );
-      },
-      complete: () => {
-        if (this.token.isExistInDatabase()) {
+        if (data.exist) {
           this.userS.getUser();
         } else {
           this.router.navigate(['newUser']);
         }
+      },
+      error: (err) => {
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
       },
     });
   }
