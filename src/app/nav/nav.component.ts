@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { TokenService } from '../backend/service/token.service';
 import { UserService } from '../backend/service/user.service';
 import { ModalService } from '../service/modal.service';
+import { DataUser } from '../interface/dataUser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +14,10 @@ import { ModalService } from '../service/modal.service';
 export class NavComponent implements OnInit {
   selColor: boolean = false;
   isLogged: boolean = false;
-  constructor(private tokenService: TokenService) {}
+  user!: DataUser;
+  constructor(private tokenService: TokenService, private userS: UserService) {
+    this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
+  }
   ngOnInit(): void {
     this.tokenService
       .loggedObservable()

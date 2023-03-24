@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
+import { share } from 'rxjs/operators';
 import { DataUser } from 'src/app/interface/dataUser';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
@@ -34,14 +35,12 @@ export class UserService {
   public getDefault(): Observable<DataUser> {
     return this.http.get<DataUser>(this.URL + `/get`);
   }
-  public getUser() {
+  public getUser(): void {
     let userId = this.token.getUsername();
     this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
       next: (res) => this.changeObservable(res),
       error: (err) =>
-        this.popup.showMessage(
-          this.token.errorsMessage(err.error)
-        ),
+        this.popup.showMessage(this.token.errorsMessage(err.error)),
       complete: () => this.router.navigate(['']),
     });
   }

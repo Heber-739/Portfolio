@@ -7,8 +7,6 @@ import { DataUser } from 'src/app/interface/dataUser';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() user!: DataUser;
-
   constructor() {}
 
   ngOnInit(): void {}

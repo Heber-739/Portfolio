@@ -1,3 +1,12 @@
+<!-- <div class="background"></div> -->
+<a href="{{ user.linkedin }}" target="_blank"
+  ><img src="assets/img/linkedin.svg" class="header_in box" alt="linkedin"
+/></a>
+<img class="picture" src="{{ user.img }}" alt="Foto Perfil" />
+<a href="{{ user.github }}" target="_blank"
+  ><img src="assets/img/github.svg" class="header_git box" alt="github" />
+</a>
+
 <button type="button" class="hamburguer">
   <span class="line"></span>
   <span class="line"></span>
@@ -5,6 +14,7 @@
 </button>
 <nav class="nav">
   <ul class="list">
+    <a class="btn contact">Contactar <span></span></a>
     <li class="item">
       <a routerLink="" class="a_item"
         ><img class="img" src="assets/img/home.svg" />Inicio</a

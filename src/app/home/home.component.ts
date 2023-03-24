@@ -10,15 +10,19 @@ import { SpinnerService } from '../service/spinner-interceptor/spinner.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  isLoading: boolean=false;
+  isLoading: boolean = false;
   edithMode: boolean = false;
   user: DataUser = {} as DataUser;
   isLogged: boolean = false;
 
-  constructor(private spinnerService: SpinnerService,private userService: UserService, private token: TokenService) {
+  constructor(
+    private spinnerService: SpinnerService,
+    private userService: UserService,
+    private token: TokenService
+  ) {
     this.spinnerService.subscribeLoading().subscribe({
-      next:(res)=>this.isLoading=res
-    })
+      next: (res) => (this.isLoading = res),
+    });
     this.token.loggedObservable().subscribe({
       next: (res) => {
         this.isLogged = res;

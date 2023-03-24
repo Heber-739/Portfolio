@@ -1,7 +1,7 @@
 .nav {
   margin: 0;
   width: 170px;
-  z-index: 12;
+  z-index: 2;
   height: 100vh;
   background: var(--color4);
 }
@@ -16,7 +16,7 @@
   background-color: var(--color1);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  z-index: 6;
+  z-index: 2;
 }
 .line {
   width: 30px;
@@ -36,35 +36,159 @@
 .hamburguer.menu .line:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
+.header {
+  height: fit-content;
+}
+
+.picture {
+  position: absolute;
+  background-color: var(--color4);
+  top: 0;
+  left: 52%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid white;
+  filter: drop-shadow(0 0 5px black);
+  z-index: 4;
+  animation: toDown 5s ease-in-out forwards;
+}
+
+.header_git,
+.header_in {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 52%;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+.header_git {
+  animation: moveRight 6s ease-in-out forwards;
+}
+.header_in {
+  animation: moveLeft 6s ease-in-out forwards;
+}
+
+@keyframes moveRight {
+  0% {
+    top: 5%;
+    left: 55%;
+  }
+  27% {
+    top: 35%;
+    left: 55%;
+  }
+  55%,
+  85% {
+    top: 35%;
+    left: 75%;
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.6);
+    top: 150px;
+    left: 80px;
+  }
+}
+@keyframes moveLeft {
+  0% {
+    top: 5%;
+    left: 55%;
+  }
+  27% {
+    top: 35%;
+    left: 55%;
+  }
+  55%,
+  85% {
+    top: 35%;
+    left: 35%;
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.6);
+    top: 150px;
+    left: 15px;
+  }
+}
+@keyframes toDown {
+  0% {
+    left: 52%;
+    top: 0%;
+    transform: scale(1);
+  }
+  30%,
+  85% {
+    transform: scale(1);
+    left: 52%;
+    top: 30%;
+  }
+  100% {
+    transform: scale(0.8);
+    top: 5px;
+    left: 8px;
+  }
+}
+.contact {
+  position: relative;
+  align-self: center;
+  justify-self: flex-start;
+  animation: border 15s infinite 6s;
+}
+
+@keyframes border {
+  0% {
+    color: var(--text);
+    box-shadow: rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+  }
+  2% {
+    color: var(--color1);
+    box-shadow: inset rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+  }
+  3.5% {
+    color: var(--text);
+    box-shadow: rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+  }
+  5% {
+    color: var(--color1);
+    box-shadow: inset rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+  }
+  6.5% {
+    color: var(--text);
+    box-shadow: rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+  }
+}
 
 .list {
   display: flex;
-  margin: 150px 0 0 0;
-  width: 160px;
-  height: calc(100vh - 180px);
+  margin: 240px 0 0 0;
+  width: 170px;
+  height: calc(100vh - 250px);
   flex-direction: column;
   list-style: none;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   align-items: stretch;
-  z-index: 5;
-  padding: 0 0 0 10px;
+  padding: 0;
 }
 
 .item {
   margin: 25px auto 0 0;
-  padding-right: 5px;
+  padding-left: 8px;
   width: 90%;
   cursor: pointer;
-  background-color: var(--color1);
-  border-radius: 50px;
 }
 
 .a_item {
+  background-color: var(--color1);
+  border-radius: 50px;
   display: flex;
   color: var(--text);
   height: 100%;
   align-items: center;
-  padding: 0 3px 0 0;
   margin-right: auto;
 }
 
@@ -92,7 +216,6 @@
   display: none;
   border-radius: 50%;
   color: transparent;
-  z-index: 89;
   cursor: pointer;
   width: 60px;
   height: 60px;
@@ -142,20 +265,64 @@
   .a_item {
     font-size: 12px;
   }
+  .picture {
+    width: 90px;
+    height: 90px;
+  }
+
+  .header_git,
+  .header_in {
+    width: 45px;
+    height: 45px;
+  }
 }
 @media screen and (min-width: 401px) and (max-width: 599px) {
   .a_item {
     font-size: 14px;
   }
 }
+@media screen and (orientation: landscape) and (max-width: 900px) {
+  .picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .header_git,
+  .header_in {
+    width: 50px;
+    height: 50px;
+  }
+}
 @media screen and (min-width: 600px) {
   .list {
     border-radius: 0;
+  }
+  .picture {
+    width: 140px;
+    height: 140px;
+  }
+
+  .header_git,
+  .header_in {
+    width: 70px;
+    height: 70px;
   }
   .nav {
     position: fixed;
   }
   .hamburguer {
     display: none;
+  }
+}
+
+@media screen and (min-width: 901px) {
+  .picture,
+  .icon_curtain {
+    width: 150px;
+    height: 150px;
+  }
+  .header_git,
+  .header_in {
+    width: 70px;
   }
 }

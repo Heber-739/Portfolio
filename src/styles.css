@@ -56,8 +56,7 @@
 }
 .container {
   height: fit-content;
-  width: clamp(300px, 95vw, 600px);
-  background: var(--color4);
+  width: clamp(300px, 95%, 600px);
   display: flex;
   flex-direction: column;
   align-items: center;
