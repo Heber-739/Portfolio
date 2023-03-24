@@ -75,13 +75,15 @@ export class EducationService {
         this.popup.showMessage(`${err.error.message}\nError N°${err.status}`),
     });
   }
-  public createEducation(ed: Education) {
-    let userId = this.token.getUsername();
-    this.http.post<Message>(this.URL + `/create/${userId}`, ed).subscribe({
-      next: (res) => console.log(res),
+  public createEducation(ed: Education): Education | null {
+    let userId: string = this.token.getUsername();
+    let response: Education | null = null;
+    this.http.post<Education>(this.URL + `/create/${userId}`, ed).subscribe({
+      next: (res) => (response = res),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\n Error N° ${err.status}`),
     });
+    return response;
   }
   public deleteEducation(id: number) {
     let userId = this.token.getUsername();
@@ -108,7 +110,6 @@ export class EducationService {
           this.popup.showMessage(
             `${err.error.message}\nError N° ${err.status}`
           ),
-        complete: () => this.getEducation(),
       });
   }
 }
