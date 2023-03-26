@@ -6,9 +6,10 @@ import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
+import { CRUDLocalService } from './CRUD-Local.service';
 
-const ALL_DB_HS = 'AllHardSkillDB';
-const LOCAL_HS = 'userHardSkill';
+const GET_ALL = 'AllHardSkillDB';
+const KEY = 'userHardSkill';
 
 @Injectable({
   providedIn: 'root',
@@ -20,45 +21,26 @@ export class HardSkillService {
   constructor(
     private popup: ModalService,
     private http: HttpClient,
-    private token: TokenService
+    private token: TokenService,
+    private local: CRUDLocalService
   ) {}
 
   public subscribeHSs() {
     return this.hSkills$.asObservable();
   }
-  public changeObservable(hssGet: HardSkill[]) {
-    let hss = hssGet ? hssGet : this.getLocalHardSkill();
+  public changeObservable(hssGet?: HardSkill[]) {
+    let hss = hssGet ? hssGet : this.local.get<HardSkill>(KEY);
     this.hSkills$.next(hss);
   }
 
-  /* -------------LocalStorage´s Methods------------- */
-  public getAllDBHardSkill(): HardSkill[] {
-    return JSON.parse(window.sessionStorage.getItem(ALL_DB_HS) || '[]');
-  }
-  public setAllDBHardSkill(hSs: HardSkill[]) {
-    window.sessionStorage.setItem(ALL_DB_HS, JSON.stringify(hSs));
-  }
-  public getLocalHardSkill(): HardSkill[] {
-    return JSON.parse(window.sessionStorage.getItem(LOCAL_HS) || '[]');
-  }
-  public addLocalHardSkill(ed: HardSkill) {
-    let hss: HardSkill[] = this.getLocalHardSkill();
-    hss.push(ed);
-    this.setLocalHardSkill(hss);
-  }
-  public removeLocalHardSkill(id: number) {
-    let hss = this.getLocalHardSkill().filter((el) => el.id != id);
-    this.setLocalHardSkill(hss);
-  }
-
-  public setLocalHardSkill(hSs: HardSkill[]) {
-    window.sessionStorage.setItem(LOCAL_HS, JSON.stringify(hSs));
-  }
-
   /* -------------CRUD´s Methods------------- */
-  public getAllHardSkill() {
+  public getAllHardSkill(): HardSkill[] {
+    let ret: HardSkill[] = [];
     this.http.get<HardSkill[]>(this.URL + '/listAll').subscribe({
-      next: (res) => this.setAllDBHardSkill(res),
+      next: (res) => {
+        this.local.setAll<HardSkill>(res, KEY);
+        ret = res;
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () =>
@@ -66,13 +48,14 @@ export class HardSkillService {
           'Ya puede ver la lista completa de Skills existentes en la Base de Datos.'
         ),
     });
+    return ret;
   }
 
   public getHardSkill() {
     let userId = '/' + this.token.getUsername();
     this.http.get<HardSkill[]>(this.URL + `/list${userId}`).subscribe({
       next: (res) => {
-        this.setLocalHardSkill(res);
+        this.local.set<HardSkill>(res, KEY);
         this.changeObservable(res);
       },
       error: (err) =>
@@ -81,7 +64,7 @@ export class HardSkillService {
   }
   public addHSToUser(hsId: number, userId: string) {
     this.http.get<HardSkill>(this.URL + `/add/${hsId}/${userId}`).subscribe({
-      next: (res) => this.addLocalHardSkill(res),
+      next: (res) => this.local.add<HardSkill>(res, KEY),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N°${err.status}`),
       complete: () => {
@@ -90,11 +73,11 @@ export class HardSkillService {
       },
     });
   }
-  public removeHSToUser(hsId: number, userId: string) {
-    this.http.get<Message>(this.URL + `/remove/${hsId}/${userId}`).subscribe({
+  public removeHSToUser(hs: HardSkill, userId: string) {
+    this.http.get<Message>(this.URL + `/remove/${hs.id}/${userId}`).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);
-        this.removeLocalHardSkill(hsId);
+        this.local.remove<HardSkill>(hs, KEY);
       },
       error: (err) => console.log(err),
       complete: () => this.changeObservable(),
@@ -103,7 +86,7 @@ export class HardSkillService {
   public createHardSkill(hs: HardSkill) {
     let username = this.token.getUsername();
     this.http.post<HardSkill>(this.URL + `/create/${username}`, hs).subscribe({
-      next: (res) => this.addLocalHardSkill(res),
+      next: (res) => this.local.add<HardSkill>(res, KEY),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => {
@@ -112,21 +95,26 @@ export class HardSkillService {
       },
     });
   }
-  public deleteHardSkill(id: number) {
+  public deleteHardSkill(hs: HardSkill) {
     let userId = this.token.getUsername();
-    this.http.delete<Message>(this.URL + `/delete/${id}/${userId}`).subscribe({
-      next: (res) => {
-        this.popup.showMessage(res.message);
-        this.removeLocalHardSkill(id);
-      },
-      error: (err) =>
-        this.popup.showMessage(`${err.error.message}\nErro N° ${err.status}`),
-      complete: () => this.changeObservable(),
-    });
+    this.http
+      .delete<Message>(this.URL + `/delete/${hs.id}/${userId}`)
+      .subscribe({
+        next: (res) => {
+          this.popup.showMessage(res.message);
+          this.local.remove(hs, KEY);
+        },
+        error: (err) =>
+          this.popup.showMessage(`${err.error.message}\nErro N° ${err.status}`),
+        complete: () => this.changeObservable(),
+      });
   }
   public updateHardSkill(id: number, hs: HardSkill) {
     this.http.put<Message>(this.URL + `/update/${id}`, hs).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+      next: (res) => {
+        this.popup.showMessage(res.message);
+        this.local.update<HardSkill>(hs, KEY);
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => this.getHardSkill(),

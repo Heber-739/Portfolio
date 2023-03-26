@@ -34,9 +34,13 @@ export class EducationService {
   }
 
   /* -------------CRUD´s Methods------------- */
-  public getAllEducations() {
+  public getAllEducations(): Education[] {
+    let ret: Education[] = [];
     this.http.get<Education[]>(this.URL + '/listAll').subscribe({
-      next: (res) => this.local.setAll<Education>(res, GET_ALL),
+      next: (res) => {
+        this.local.setAll<Education>(res, GET_ALL);
+        ret = res;
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () =>
@@ -44,10 +48,9 @@ export class EducationService {
           'Ya puede ver las educaciones existentes en la Base de Datos.'
         ),
     });
+    return ret;
   }
-  public getOne(id: number): Observable<Education> {
-    return this.http.get<Education>(this.URL + `/getOne/${id}`);
-  }
+
   public getEducation() {
     let userId = '/' + this.token.getUsername();
     this.http.get<Education[]>(this.URL + `/list${userId}`).subscribe({
