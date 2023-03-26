@@ -26,8 +26,9 @@ export class HardSkillService {
   public subscribeHSs() {
     return this.hSkills$.asObservable();
   }
-  public changeObservable(hSs: HardSkill[]) {
-    this.hSkills$.next(hSs);
+  public changeObservable(hssGet: HardSkill[]) {
+    let hss = hssGet ? hssGet : this.getLocalHardSkill();
+    this.hSkills$.next(hss);
   }
 
   /* -------------LocalStorage´s Methods------------- */
@@ -40,6 +41,15 @@ export class HardSkillService {
   public getLocalHardSkill(): HardSkill[] {
     return JSON.parse(window.sessionStorage.getItem(LOCAL_HS) || '[]');
   }
+  public addLocalHardSkill(ed: HardSkill) {
+    let hss: HardSkill[] = this.getLocalHardSkill();
+    hss.push(ed);
+    this.setLocalHardSkill(hss);
+  }
+  public removeLocalHardSkill(id: number) {
+    let hss = this.getLocalHardSkill().filter((el) => el.id != id);
+    this.setLocalHardSkill(hss);
+  }
 
   public setLocalHardSkill(hSs: HardSkill[]) {
     window.sessionStorage.setItem(LOCAL_HS, JSON.stringify(hSs));
@@ -50,9 +60,7 @@ export class HardSkillService {
     this.http.get<HardSkill[]>(this.URL + '/listAll').subscribe({
       next: (res) => this.setAllDBHardSkill(res),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () =>
         this.popup.showMessage(
           'Ya puede ver la lista completa de Skills existentes en la Base de Datos.'
@@ -61,73 +69,66 @@ export class HardSkillService {
   }
 
   public getHardSkill() {
-    let username = this.token.getUsername();
-    this.http.get<HardSkill[]>(this.URL + `/list/${username}`).subscribe({
+    let userId = '/' + this.token.getUsername();
+    this.http.get<HardSkill[]>(this.URL + `/list${userId}`).subscribe({
       next: (res) => {
         this.setLocalHardSkill(res);
         this.changeObservable(res);
       },
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
   public addHSToUser(hsId: number, userId: string) {
-    this.http.get<Message>(this.URL + `/add/${hsId}/${userId}`).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+    this.http.get<HardSkill>(this.URL + `/add/${hsId}/${userId}`).subscribe({
+      next: (res) => this.addLocalHardSkill(res),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => this.getHardSkill(),
+        this.popup.showMessage(`${err.error.message}\nError N°${err.status}`),
+      complete: () => {
+        this.popup.showMessage('Hard Skill agregado.');
+        this.changeObservable();
+      },
     });
   }
   public removeHSToUser(hsId: number, userId: string) {
     this.http.get<Message>(this.URL + `/remove/${hsId}/${userId}`).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+      next: (res) => {
+        this.popup.showMessage(res.message);
+        this.removeLocalHardSkill(hsId);
+      },
       error: (err) => console.log(err),
-
-      complete: () => this.getHardSkill(),
+      complete: () => this.changeObservable(),
     });
   }
   public createHardSkill(hs: HardSkill) {
     let username = this.token.getUsername();
-    this.http.post<Message>(this.URL + `/create/${username}`, hs).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+    this.http.post<HardSkill>(this.URL + `/create/${username}`, hs).subscribe({
+      next: (res) => this.addLocalHardSkill(res),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => this.getHardSkill(),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => {
+        this.changeObservable();
+        this.popup.showMessage('Hard Skill creado');
+      },
     });
   }
   public deleteHardSkill(id: number) {
-    let username = this.token.getUsername();
-    this.http
-      .delete<Message>(this.URL + `/delete/${id}/${username}`)
-      .subscribe({
-        next: (res) => this.popup.showMessage(res.message),
-        error: (err) =>
-          this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-          ),
-        complete: () => {
-          this.getHardSkill();
-          if (this.getLocalHardSkill().length === 1) {
-            window.sessionStorage.removeItem(LOCAL_HS);
-            this.changeObservable([]);
-          }
-        },
-      });
+    let userId = this.token.getUsername();
+    this.http.delete<Message>(this.URL + `/delete/${id}/${userId}`).subscribe({
+      next: (res) => {
+        this.popup.showMessage(res.message);
+        this.removeLocalHardSkill(id);
+      },
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nErro N° ${err.status}`),
+      complete: () => this.changeObservable(),
+    });
   }
   public updateHardSkill(id: number, hs: HardSkill) {
     this.http.put<Message>(this.URL + `/update/${id}`, hs).subscribe({
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => this.getHardSkill(),
     });
   }

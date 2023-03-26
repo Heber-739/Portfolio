@@ -11,7 +11,7 @@ import { Education } from 'src/app/interface/education';
 })
 export class FormEducationComponent implements OnInit {
   @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() edithEd: Education = {} as Education;
+  @Input() edithEd!: Education;
   edFinish: boolean = false;
   myimage: any;
   type_img: any;
@@ -21,7 +21,7 @@ export class FormEducationComponent implements OnInit {
     link: new FormControl('', [Validators.required]),
   });
 
-  constructor(private tagS: TagService,private edService: EducationService) {}
+  constructor(private tagS: TagService, private edService: EducationService) {}
 
   ngOnInit(): void {
     if (this.edithEd.id !== 0) {
@@ -32,7 +32,7 @@ export class FormEducationComponent implements OnInit {
       this.myimage = this.edithEd.img;
       this.type_img = this.edithEd.type_img;
       this.edFinish = this.edithEd.finish;
-      this.tagS.setEducationId(this.edithEd.id!)
+      this.tagS.setEducationId(this.edithEd.id!);
     }
   }
 
@@ -60,7 +60,8 @@ export class FormEducationComponent implements OnInit {
     this.formEd.reset();
     this.edSent = true;
     if (this.edithEd.id === 0) {
-      this.edService.createEducation(ed);
+      let newEd = this.edService.createEducation(ed);
+      this.edService.addLocalEducation(newEd);
     } else if (this.edithEd.id !== 0) {
       ed.id = this.edithEd.id;
       this.edService.updateEducation(ed);

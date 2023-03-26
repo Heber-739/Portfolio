@@ -1,13 +1,13 @@
 <section>
   <div class="ill_container">
     <h2 class="title">Experiencias educativas</h2>
-  <img class="illustration" src="assets/img/illustrations/ill-12.png">
-</div>
+    <img class="illustration" src="assets/img/illustrations/ill-12.png" />
+  </div>
   <ng-container *ngIf="edithMode">
     <div class="btn add_btn" (click)="addEducation()">
       {{ toEdith ? "Cancelar" : "Agregar Educación" }}
-    </div> 
-  </ng-container> 
+    </div>
+  </ng-container>
 
   <ng-container *ngIf="this.toEdith">
     <app-form-education
@@ -19,27 +19,25 @@
   <div class="education_container">
     <div class="cards_container" *ngFor="let i of eds">
       <div class="card box">
-<div class="card_img_container">
-  <img src="{{ i.img }}" alt="{{ i.name }}" class="card_img" />
-
-</div>
+        <div class="card_img_container">
+          <img src="{{ i.img }}" alt="{{ i.name }}" class="card_img" />
+        </div>
         <a class="card_title link" target="_blank" href="{{ i.link }}">{{
-          i.name 
+          i.name
         }}</a>
         <ul class="list">
           <ng-container *ngFor="let t of i.tags">
-            <li>{{ movil? t.abbreviation : t.name }}</li></ng-container
+            <li>{{ t.name }}</li></ng-container
           >
         </ul>
         <p class="status">{{ i.finish ? "Finalizado" : "En progreso" }}</p>
       </div>
       <div *ngIf="edithMode" class="cont_edith_btn">
-        <button class="edith_btn" (click)="delete(i)">Eliminar</button>
+        <button class="edith_btn" (click)="del(i)">Eliminar</button>
         <button class="edith_btn" (click)="edith(i)">Editar</button>
       </div>
     </div>
   </div>
- 
 </section>
 <!-- 
 <div class="cards_container">
