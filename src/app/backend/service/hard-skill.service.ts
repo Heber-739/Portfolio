@@ -38,7 +38,7 @@ export class HardSkillService {
     let ret: HardSkill[] = [];
     this.http.get<HardSkill[]>(this.URL + '/listAll').subscribe({
       next: (res) => {
-        this.local.setAll<HardSkill>(res, KEY);
+        this.local.setAll<HardSkill>(res, GET_ALL);
         ret = res;
       },
       error: (err) =>
@@ -52,8 +52,8 @@ export class HardSkillService {
   }
 
   public getHardSkill() {
-    let userId = '/' + this.token.getUsername();
-    this.http.get<HardSkill[]>(this.URL + `/list${userId}`).subscribe({
+    let userId = this.token.getUsername();
+    this.http.get<HardSkill[]>(this.URL + `/list/${userId}`).subscribe({
       next: (res) => {
         this.local.set<HardSkill>(res, KEY);
         this.changeObservable(res);
@@ -117,7 +117,7 @@ export class HardSkillService {
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
-      complete: () => this.getHardSkill(),
+      complete: () => this.changeObservable(),
     });
   }
 }

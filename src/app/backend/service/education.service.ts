@@ -52,8 +52,8 @@ export class EducationService {
   }
 
   public getEducation() {
-    let userId = '/' + this.token.getUsername();
-    this.http.get<Education[]>(this.URL + `/list${userId}`).subscribe({
+    let userId = this.token.getUsername();
+    this.http.get<Education[]>(this.URL + `/list/${userId}`).subscribe({
       next: (res) => {
         this.local.set<Education>(res, KEY);
         this.changeObservable(res);
