@@ -5,66 +5,50 @@ import { Message } from 'src/app/interface/Message';
 import { Tag } from 'src/app/interface/tag';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { EducationService } from './education.service';
 import { TokenService } from './token.service';
+import { CRUDLocalService } from './CRUD-Local.service';
 
-const ALL_DB_TAG = 'getAllTagsFromDB';
-const ALL_LOCAL_TAG = 'getAllLocalTags';
+const GET_ALL = 'getAllTagsFromDB';
+const KEY = 'getAllLocalTags';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagService {
   URL: string = `${environment.URL}/tags`;
-  private education_id: number =0;
   private edTags$: Subject<Tag[]> = new Subject();
 
   constructor(
     private token: TokenService,
     private popup: ModalService,
     private http: HttpClient,
-  ) { }
+    private local: CRUDLocalService
+  ) {}
 
   public subscribeTags() {
     return this.edTags$.asObservable();
   }
-  public changeObservableTags(tags: Tag[]) {
+  public changeObservableTags(tagsGet?: Tag[]) {
+    let tags: Tag[] = tagsGet ? tagsGet : this.local.get<Tag>(KEY);
     this.edTags$.next(tags);
   }
-  public setEducationId(id: number){
-    this.education_id=id;
-    this.getTags();
-  }
-
-  /* -------------LocalStorage´s Methods------------- */
-  public getAllLocalTags(): Tag[] {
-    this.getTags();
-    return JSON.parse(window.sessionStorage.getItem(ALL_DB_TAG) || '[]');
-  }
-  public setAllLocalTags(tags: Tag[]) {
-    window.sessionStorage.setItem(ALL_DB_TAG, JSON.stringify(tags));
-  }
-  public getLocalTags(): Tag[] {
-    return JSON.parse(window.sessionStorage.getItem(ALL_LOCAL_TAG) || '[]');
-  }
-  public setLocalTags(tags: Tag[]) {
-    window.sessionStorage.setItem(ALL_LOCAL_TAG, JSON.stringify(tags));
-  }
-
 
   /* -------------CRUD´s Methods------------- */
 
-  public getAllTags() {
+  public getAllTags(): Tag[] {
+    let ret: Tag[] = [];
     this.http.get<Tag[]>(this.URL + '/listAll').subscribe({
-      next: (res) => this.setAllLocalTags(res),
+      next: (res) => {
+        this.local.setAll<Tag>(res, GET_ALL);
+        ret = res;
+      },
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
+    return ret;
   }
-  public getTags() {
-    this.http.get<Tag[]>(this.URL + `/list/${this.education_id}`).subscribe({
+  public getTags(id: number) {
+    this.http.get<Tag[]>(this.URL + `/list/${id}`).subscribe({
       next: (res) => {
         this.setLocalTags(res);
         this.changeObservableTags(res);
@@ -83,7 +67,7 @@ export class TagService {
       .get<Message>(this.URL + `/add/${tagId}/${this.education_id}`)
       .subscribe({
         next: (res) => this.popup.showMessage(res.message),
-        error: (err) =>          this.popup.showMessage(err.error.message),
+        error: (err) => this.popup.showMessage(err.error.message),
         complete: () => {
           this.getTags();
           this.popup.showMessage('Agregado correctamente');
@@ -102,9 +86,9 @@ export class TagService {
         complete: () => this.getTags(),
       });
   }
-  public createTag(tag: Tag) {  
+  public createTag(tag: Tag) {
     tag.educationId = this.education_id;
-    console.log(this.education_id)
+    console.log(this.education_id);
     this.http.post<Message>(this.URL + '/create', tag).subscribe({
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
@@ -121,7 +105,7 @@ export class TagService {
         this.popup.showMessage(
           `${err.error.message}\n${this.token.errorsMessage(err.error)}`
         ),
-        complete: () => this.getTags(),
+      complete: () => this.getTags(),
     });
   }
 
@@ -132,7 +116,7 @@ export class TagService {
         this.popup.showMessage(
           `${err.error.message}\n${this.token.errorsMessage(err.error)}`
         ),
-        complete: () => this.getTags(),
+      complete: () => this.getTags(),
     });
   }
 }
