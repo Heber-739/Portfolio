@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
 
 const ALL_DB_WORKS = 'AllWorksExpDB';
-const LOCAL_WORKS = 'userWorkExp';
+const KEY = 'userWorkExp';
 
 @Injectable({
   providedIn: 'root',
