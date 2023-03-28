@@ -32,9 +32,8 @@ export class UserService {
   }
 
   public getUser(): void {
-    let userId = '/' + this.token.getUsername();
-    console.log(userId);
-    this.http.get<DataUser>(this.URL + `/get${userId}`).subscribe({
+    let userId = this.token.getUsername();
+    this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
       next: (res) => this.changeObservable(res),
       error: (error) =>
         this.popup.showMessage(
@@ -47,17 +46,17 @@ export class UserService {
   public sendUser(user: DataUser) {
     this.http.post<Message>(this.URL + `/create`, user).subscribe({
       next: (res) => {
+        this.token.setUsername(user.username);
         this.popup.showMessage(
-          `${res.message}! Ahora puede completar otros datos como educación y skills más abajo.`
+          `${res.message}!\nAhora puede completar otros datos como educación y skills más abajo.`
         );
       },
       error: (err) => {
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
       },
       complete: () => {
-        this.getUser();
+        this.changeObservable(user);
         this.router.navigate(['']);
-        this.token.setExistUser(true);
         window.location.reload();
       },
     });
@@ -74,9 +73,8 @@ export class UserService {
             `${err.error.message}\nError N° ${err.status}`
           ),
         complete: () => {
-          this.getUser();
+          this.changeObservable(user);
           this.router.navigate(['']);
-          this.token.setExistUser(true);
         },
       });
   }

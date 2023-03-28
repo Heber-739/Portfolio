@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { DataUser } from 'src/app/interface/dataUser';
@@ -7,7 +6,6 @@ const tokenKey = 'authToken';
 const usernameKey = 'authUsername';
 const authoritiesKey = 'authAuthorities';
 const user = 'userFromDataBase';
-const isExist = 'existUserInDatabase';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +16,7 @@ export class TokenService {
   private edithMode$: Subject<boolean> = new Subject();
 
   constructor() {}
+
   public loggedObservable(): Observable<boolean> {
     return this.isLogged$.asObservable();
   }
@@ -31,15 +30,8 @@ export class TokenService {
     this.edithMode$.next(status);
   }
 
-  public isExistInDatabase(): boolean {
-    return JSON.parse(window.sessionStorage.getItem(isExist)!);
-  }
-  public setExistUser(data: boolean): void {
-    window.sessionStorage.setItem(isExist, JSON.stringify(data));
-  }
-
   public getUser(): DataUser {
-    return JSON.parse(sessionStorage.getItem(user) || 'false');
+    return JSON.parse(sessionStorage.getItem(user) || '');
   }
   public setUser(userDB: DataUser): void {
     window.sessionStorage.removeItem(user);
@@ -61,27 +53,12 @@ export class TokenService {
   public getUsername(): string {
     return sessionStorage.getItem(usernameKey) || '';
   }
-  public setAuthorities(authorities: string[]): void {
+  public setAuthorities(authorities: string): void {
     window.sessionStorage.removeItem(authoritiesKey);
     window.sessionStorage.setItem(authoritiesKey, JSON.stringify(authorities));
   }
-  public getAuthorities(): string[] {
-    this.rols = [];
-    if (sessionStorage.getItem(authoritiesKey)) {
-      JSON.parse(sessionStorage.getItem(authoritiesKey)!).forEach(
-        (authority: any) => {
-          if (authority.authority == 'ROLE_ADMIN') {
-            localStorage.setItem('isAdmin', '1');
-          }
-          this.rols.push(authority.authority);
-        }
-      );
-    }
-    return this.rols;
-  }
-
-  public isAdmin(): string {
-    return window.sessionStorage.getItem('isAdmin')!;
+  public getAuthorities(): string {
+    return JSON.parse(window.sessionStorage.getItem(authoritiesKey) || '');
   }
 
   public logOut(): void {
