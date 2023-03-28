@@ -92,6 +92,7 @@ export class SoftSkillService {
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => {
         {
+          this.changeObservableSs();
           this.popup.showMessage('Soft Skill creado');
         }
       },
@@ -104,7 +105,7 @@ export class SoftSkillService {
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.local.remove(ss, KEY);
+          this.local.remove<SoftSkill>(ss, KEY);
         },
         error: (err) =>
           this.popup.showMessage(
@@ -115,7 +116,10 @@ export class SoftSkillService {
   }
   public updateSoftSkill(ss: SoftSkill) {
     this.http.put<Message>(this.URL + `/update/${ss.id}`, ss).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+      next: (res) => {
+        this.popup.showMessage(res.message);
+        this.local.update<SoftSkill>(ss, KEY);
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => this.changeObservableSs(),

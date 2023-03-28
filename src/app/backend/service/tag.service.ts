@@ -19,7 +19,6 @@ export class TagService {
   private edTags$: Subject<Tag[]> = new Subject();
 
   constructor(
-    private token: TokenService,
     private popup: ModalService,
     private http: HttpClient,
     private local: CRUDLocalService

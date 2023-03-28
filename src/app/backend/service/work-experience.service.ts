@@ -6,8 +6,9 @@ import { WorkExp } from 'src/app/interface/workExp';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
+import { CRUDLocalService } from './CRUD-Local.service';
 
-const ALL_DB_WORKS = 'AllWorksExpDB';
+const GET_ALL = 'AllWorksExpDB';
 const KEY = 'userWorkExp';
 
 @Injectable({
@@ -20,88 +21,73 @@ export class WorkExperienceService {
   constructor(
     private popup: ModalService,
     private http: HttpClient,
-    private token: TokenService
+    private token: TokenService,
+    private local: CRUDLocalService
   ) {}
 
   public subscribeWExp() {
     return this.WeXP$.asObservable();
   }
-  public changeObservable(wExp: WorkExp[]) {
-    this.WeXP$.next(wExp);
-  }
-
-  /* -------------LocalStorage´s Methods------------- */
-  public getAllDBWorkExp(): WorkExp[] {
-    return JSON.parse(window.sessionStorage.getItem(ALL_DB_WORKS) || '[]');
-  }
-  public setAllDBWorkExp(wExp: WorkExp[]) {
-    window.sessionStorage.setItem(ALL_DB_WORKS, JSON.stringify(wExp));
-  }
-  public getLocalWorkExp(): WorkExp[] {
-    return JSON.parse(window.sessionStorage.getItem(LOCAL_WORKS) || '[]');
-  }
-
-  public setLocalWorkExp(wExp: WorkExp[]) {
-    window.sessionStorage.setItem(LOCAL_WORKS, JSON.stringify(wExp));
+  public changeObservable(wExp?: WorkExp[]) {
+    let res: WorkExp[] = wExp ? wExp : this.local.get<WorkExp>(KEY);
+    this.WeXP$.next(res);
   }
 
   /* -------------CRUD´s Methods------------- */
   public getAllWorkExp() {
+    let ret: WorkExp[] = [];
     this.http.get<WorkExp[]>(this.URL + '/listAll').subscribe({
-      next: (res) => this.setAllDBWorkExp(res),
+      next: (res) => {
+        this.local.setAll(res, GET_ALL);
+        ret = res;
+      },
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () =>
         this.popup.showMessage(
           'Ya puede ver la lista completa de Skills existentes en la Base de Datos.'
         ),
     });
+    return ret;
   }
 
   public getWorkExp() {
     let username = this.token.getUsername();
     this.http.get<WorkExp[]>(this.URL + `/list/${username}`).subscribe({
       next: (res) => {
-        this.setLocalWorkExp(res);
+        this.local.set(res, KEY);
         this.changeObservable(res);
       },
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
   public createWorkExp(wExp: WorkExp) {
     let username = this.token.getUsername();
-    this.http.post<Message>(this.URL + `/create/${username}`, wExp).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+    this.http.post<WorkExp>(this.URL + `/create/${username}`, wExp).subscribe({
+      next: (res) => this.local.add<WorkExp>(res, KEY),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => this.getWorkExp(),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => {
+        this.changeObservable();
+        this.popup.showMessage('Experiencia agregada');
+      },
     });
   }
-  public deleteWorkExp(id: number) {
+  public deleteWorkExp(wExp: WorkExp) {
     let username = this.token.getUsername();
     this.http
-      .delete<Message>(this.URL + `/delete/${id}/${username}`)
+      .delete<Message>(this.URL + `/delete/${wExp.id}/${username}`)
       .subscribe({
-        next: (res) => this.popup.showMessage(res.message),
+        next: (res) => {
+          this.popup.showMessage(res.message);
+          this.local.remove<WorkExp>(wExp, KEY);
+        },
         error: (err) =>
           this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
+            `${err.error.message}\nError N° ${err.status}`
           ),
-        complete: () => {
-          if (this.getLocalWorkExp().length === 1) {
-            this.changeObservable([]);
-            window.sessionStorage.removeItem(LOCAL_WORKS);
-          }
-
-          this.getWorkExp();
-        },
+        complete: () => this.changeObservable(),
       });
   }
   public updateWorkExp(wExp: WorkExp) {
@@ -109,12 +95,15 @@ export class WorkExperienceService {
     this.http
       .put<Message>(this.URL + `/update/${wExp.id}/${username}`, wExp)
       .subscribe({
-        next: (res) => this.popup.showMessage(res.message),
+        next: (res) => {
+          this.popup.showMessage(res.message);
+          this.local.update<WorkExp>(wExp, KEY);
+        },
         error: (err) =>
           this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
+            `${err.error.message}\nError N° ${err.status}`
           ),
-        complete: () => this.getWorkExp(),
+        complete: () => this.changeObservable(),
       });
   }
 }
