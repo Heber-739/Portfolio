@@ -9,7 +9,6 @@ import { Mail } from '../interface/mail';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent implements OnInit {
-  ventana: Window = window;
   emailForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),

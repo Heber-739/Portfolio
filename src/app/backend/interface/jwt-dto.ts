@@ -3,5 +3,4 @@ export interface JwtDto {
   type: string;
   username: string;
   authorities: string[];
-  exist: boolean;
 }

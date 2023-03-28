@@ -23,18 +23,13 @@ export class EducationComponent implements OnInit {
     this.token.edithObservable().subscribe({
       next: (res) => (this.edithMode = res),
     });
-    if (this.ed.getLocalEducations().length > 0) {
-      this.eds = this.ed.getLocalEducations();
-    } else {
-      this.ed.getEducation();
-    }
   }
 
   addEducation() {
     this.toEdith = !this.toEdith;
   }
   del(e: Education) {
-    this.ed.deleteEducation(e.id!);
+    this.ed.deleteEducation(e);
   }
   edith(e: Education) {
     this.edithEd = e;

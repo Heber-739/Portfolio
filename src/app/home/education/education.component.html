@@ -9,12 +9,11 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="this.toEdith">
-    <app-form-education
-      [edithEd]="edithEd"
-      (finish)="finish($event)"
-    ></app-form-education>
-  </ng-container>
+  <app-form-education
+    *ngIf="this.toEdith"
+    [edithEd]="edithEd"
+    (finish)="finish($event)"
+  ></app-form-education>
 
   <div class="education_container">
     <div class="cards_container" *ngFor="let i of eds">
