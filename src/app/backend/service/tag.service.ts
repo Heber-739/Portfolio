@@ -28,9 +28,8 @@ export class TagService {
   public subscribeTags() {
     return this.edTags$.asObservable();
   }
-  public changeObservableTags(tagsGet?: Tag[]) {
-    let tags: Tag[] = tagsGet ? tagsGet : this.local.get<Tag>(KEY);
-    this.edTags$.next(tags);
+  public changeObservableTags(tagsGet: Tag[]) {
+    this.edTags$.next(tagsGet);
   }
 
   /* -------------CRUD´s Methods------------- */
@@ -49,63 +48,48 @@ export class TagService {
   }
   public getTags(id: number) {
     this.http.get<Tag[]>(this.URL + `/list/${id}`).subscribe({
-      next: (res) => {
-        this.setLocalTags(res);
-        this.changeObservableTags(res);
-      },
+      next: (res) => this.changeObservableTags(res),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
   public getOne(name: string): Observable<Tag> {
     return this.http.get<Tag>(this.URL + `/getOne/${name}`);
   }
-  public addTagToEducation(tagId: number) {
-    this.http
-      .get<Message>(this.URL + `/add/${tagId}/${this.education_id}`)
-      .subscribe({
-        next: (res) => this.popup.showMessage(res.message),
-        error: (err) => this.popup.showMessage(err.error.message),
-        complete: () => {
-          this.getTags();
-          this.popup.showMessage('Agregado correctamente');
-        },
-      });
+
+  public addTagToEducation(tagId: number, edId: number): Tag {
+    let ret: Tag = {} as Tag;
+    this.http.get<Tag>(this.URL + `/add/${tagId}/${edId}`).subscribe({
+      next: (res) => (ret = res),
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => {
+        this.popup.showMessage('Agregado correctamente');
+      },
+    });
+    return ret;
   }
-  public removeTagToEducation(tagId: number) {
-    this.http
-      .get<Message>(this.URL + `/remove/${tagId}/${this.education_id}`)
-      .subscribe({
-        next: (res) => this.popup.showMessage(res.message),
-        error: (err) =>
-          this.popup.showMessage(
-            `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-          ),
-        complete: () => this.getTags(),
-      });
+  public removeTagToEducation(tagId: number, edId: number) {
+    this.http.get<Message>(this.URL + `/remove/${tagId}/${edId}`).subscribe({
+      next: (res) => this.popup.showMessage(res.message),
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+    });
   }
+
   public createTag(tag: Tag) {
-    tag.educationId = this.education_id;
-    console.log(this.education_id);
     this.http.post<Message>(this.URL + '/create', tag).subscribe({
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => this.getTags(),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
+
   public deleteTag(id: number) {
     this.http.delete<Message>(this.URL + `/delete/${id}`).subscribe({
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => this.getTags(),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
 
@@ -113,10 +97,7 @@ export class TagService {
     this.http.put<Message>(this.URL + `/update/${tag.id}`, tag).subscribe({
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
-        this.popup.showMessage(
-          `${err.error.message}\n${this.token.errorsMessage(err.error)}`
-        ),
-      complete: () => this.getTags(),
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
 }
