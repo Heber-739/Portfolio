@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { Education } from 'src/app/interface/education';
@@ -8,11 +9,12 @@ import { Education } from 'src/app/interface/education';
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.css'],
 })
-export class EducationComponent implements OnInit {
+export class EducationComponent implements OnInit, OnDestroy {
   edithMode: boolean = false;
   toEdith: boolean = false;
   eds: Education[] = [];
   edithEd: Education = {} as Education;
+  unsuscribe: Subject<boolean> = new Subject();
 
   constructor(private token: TokenService, private ed: EducationService) {}
 
@@ -20,9 +22,15 @@ export class EducationComponent implements OnInit {
     this.ed.subscribeEds().subscribe({
       next: (res) => (this.eds = res),
     });
-    this.token.edithObservable().subscribe({
-      next: (res) => (this.edithMode = res),
-    });
+    this.token
+      .edithObservable()
+      .pipe(takeUntil(this.unsuscribe))
+      .subscribe({
+        next: (res) => (this.edithMode = res),
+      });
+  }
+  ngOnDestroy(): void {
+    this.unsuscribe.next(true);
   }
 
   addEducation() {
