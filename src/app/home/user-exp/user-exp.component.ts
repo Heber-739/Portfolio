@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { WorkExperienceService } from 'src/app/backend/service/work-experience.service';
 import { WorkExp } from 'src/app/interface/workExp';
@@ -8,47 +9,43 @@ import { WorkExp } from 'src/app/interface/workExp';
   templateUrl: './user-exp.component.html',
   styleUrls: ['./user-exp.component.css'],
 })
-export class UserExpComponent implements OnInit {
+export class UserExpComponent implements OnInit, OnDestroy {
   edithMode: boolean = false;
   toEdith: boolean = false;
   works: WorkExp[] = [];
-  edithWorks: WorkExp = {
-    id: 0,
-    name: '',
-    description: '',
-  };
-
+  edithWorks: WorkExp = {} as WorkExp;
+  unsuscribe: Subject<boolean> = new Subject();
   constructor(
     private token: TokenService,
     private workService: WorkExperienceService
   ) {}
 
   ngOnInit(): void {
-    this.workService.subscribeWExp().subscribe({
-      next: (res) => (this.works = res),
-    });
-    this.token.edithObservable().subscribe({
-      next: (res) => (this.edithMode = res),
-    });
-
-    if (this.workService.getLocalWorkExp().length > 0) {
-      this.works = this.workService.getLocalWorkExp();
-    } else {
-      this.workService.getWorkExp();
-    }
+    this.workService
+      .subscribeWExp()
+      .pipe(takeUntil(this.unsuscribe))
+      .subscribe({
+        next: (res) => (this.works = res),
+      });
+    this.token
+      .edithObservable()
+      .pipe(takeUntil(this.unsuscribe))
+      .subscribe({
+        next: (res) => (this.edithMode = res),
+      });
+  }
+  ngOnDestroy(): void {
+    this.unsuscribe.next(true);
   }
 
   addWorkExp() {
     this.toEdith = !this.toEdith;
   }
   delete(e: WorkExp) {
-    this.workService.deleteWorkExp(e.id!);
+    this.workService.deleteWorkExp(e);
   }
   edith(e: WorkExp) {
     this.edithWorks = e;
-    this.addWorkExp();
-  }
-  finish(ev: boolean) {
     this.addWorkExp();
   }
 }
