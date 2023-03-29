@@ -1,35 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Message } from 'src/app/interface/Message';
 import { Tag } from 'src/app/interface/tag';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { TokenService } from './token.service';
 import { CRUDLocalService } from './CRUD-Local.service';
 
 const GET_ALL = 'getAllTagsFromDB';
-const KEY = 'getAllLocalTags';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TagService {
   URL: string = `${environment.URL}/tags`;
-  private edTags$: Subject<Tag[]> = new Subject();
 
   constructor(
     private popup: ModalService,
     private http: HttpClient,
     private local: CRUDLocalService
   ) {}
-
-  public subscribeTags() {
-    return this.edTags$.asObservable();
-  }
-  public changeObservableTags(tagsGet: Tag[]) {
-    this.edTags$.next(tagsGet);
-  }
 
   /* -------------CRUD´s Methods------------- */
 
@@ -45,12 +35,14 @@ export class TagService {
     });
     return ret;
   }
-  public getTags(id: number) {
+  public getTags(id: number): Tag[] {
+    let ret: Tag[] = [];
     this.http.get<Tag[]>(this.URL + `/list/${id}`).subscribe({
-      next: (res) => this.changeObservableTags(res),
+      next: (res) => (ret = res),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
+    return ret;
   }
   public getOne(name: string): Observable<Tag> {
     return this.http.get<Tag>(this.URL + `/getOne/${name}`);

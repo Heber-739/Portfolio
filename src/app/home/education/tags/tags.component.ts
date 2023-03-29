@@ -1,5 +1,5 @@
-import { , Component, EventEmitter, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { TagService } from 'src/app/backend/service/tag.service';
 import { Tag } from 'src/app/interface/tag';
@@ -10,56 +10,44 @@ import { Tag } from 'src/app/interface/tag';
   styleUrls: ['./tags.component.css'],
 })
 export class TagsComponent implements OnInit {
-  @Input() edId!:number;
+  @Input() edId!: number;
   tags: Tag[] = [];
   allTags: Tag[] = [];
   matchTags: Tag[] = [];
   showAllTags: boolean = false;
-  tagForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    abbreviation: new FormControl('', [Validators.required]),
-  });
+  name = new FormControl('', [Validators.required]);
 
-  constructor(private edService: EducationService, private tagS: TagService) {
+  constructor(private edService: EducationService, private tagS: TagService) {}
 
-  }
-  
   ngOnInit(): void {
-    this.tagS.subscribeTags().subscribe({
-      next: (res) => (this.tags = res),
-    });
-    this.tagS.getAllTags();
-    this.allTags = this.tagS.getAllLocalTags();
-    this.tagForm.get('name')?.valueChanges.subscribe((e) => {
+    this.tags = this.tagS.getTags(this.edId);
+    this.allTags = this.tagS.getAllTags();
+    this.name.valueChanges.subscribe((e) => {
       if (e.length >= 2) {
-        this.tagsShow(e);
         this.showAllTags = true;
+        this.tagsShow(e);
       } else if (e.length < 2) this.showAllTags = false;
     });
   }
 
-
   add() {
     let tag: Tag = {
-      name: this.tagForm.get('name')?.value,
-      abbreviation: this.tagForm.get('abbreviation')?.value,
+      name: this.name.value,
     };
     this.tagS.createTag(tag);
-    this.tagForm.reset();
+    this.name.reset();
   }
   tagsShow(name: string) {
-    this.matchTags = this.allTags.filter((i) => i.name.includes(name));
+    this.matchTags = this.allTags.filter((i) =>
+      i.name.toLowerCase().includes(name.toLowerCase())
+    );
   }
   tagSelect(tag: Tag) {
-    this.tags.push(tag);
-    this.tagS.addTagToEducation(tag.id!);
+    let t: Tag = this.tagS.addTagToEducation(tag.id!, this.edId);
+    this.tags.push(t);
   }
   deleteTag(tag: Tag) {
-    if (this.tags.length == 1) this.tags = [];
-    this.tagS.removeTagToEducation(tag.id!);
-  }
-  finished() {
-    this.end.emit(false);
-    this.edService.getEducation();
+    this.tagS.removeTagToEducation(tag.id!, this.edId);
+    this.tags = this.tags.filter((x) => x.id != tag.id);
   }
 }

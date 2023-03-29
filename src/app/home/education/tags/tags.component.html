@@ -1,15 +1,11 @@
 <section class="section">
-  <p>
-    Ingrese los contenidos que desarrolló en la educación y una abreviación de
-    la misma.
-  </p>
-  <small>Ej: Gestión de las organizaciones: Gest. de las organizac.</small>
+  <p>Ingrese los contenidos que desarrolló en la educación.</p>
   <div *ngIf="tags" class="tags">
     <ng-container *ngFor="let i of tags">
       <p class="add_tag" (click)="deleteTag(i)">{{ i.name }} <span>x</span></p>
     </ng-container>
   </div>
-  <form class="form" formGroup="tagForm">
+  <form class="form">
     <div class="input_container">
       <input
         class="input_text"
@@ -32,20 +28,6 @@
         </ng-container>
       </div>
     </div>
-    <div class="input_container">
-      <input
-        class="input_text"
-        type="text"
-        (focus)="abbreviation.classList.add('active')"
-        id="abbreviation"
-        formControlName="abbreviation"
-        placeholder="Abreviación"
-        autocomplete="off"
-      />
-      <label for="abbreviation" class="label" #abbreviation>Abreviación</label>
-    </div>
     <button class="btn add" (click)="add()">Agregar</button>
-
-    <button class="btn" (click)="finished()">Terminar</button>
   </form>
 </section>
