@@ -60,6 +60,7 @@ export class FormEducationComponent implements OnInit {
     if (this.edId == 0) {
       this.edId = this.edService.createEducation(ed);
     } else {
+      ed.id = this.edId;
       this.edService.updateEducation(ed);
     }
   }

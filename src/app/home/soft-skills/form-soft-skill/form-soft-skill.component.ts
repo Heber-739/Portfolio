@@ -9,9 +9,7 @@ import { SoftSkill } from 'src/app/interface/softSkill';
   styleUrls: ['./form-soft-skill.component.css'],
 })
 export class FormSoftSkillComponent implements OnInit {
-  @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Input() edithSS: SoftSkill = { id: 0, name: '', description: '' };
+  @Input() edithSS!: SoftSkill;
   ssId: number = 0;
   formSS = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -20,12 +18,12 @@ export class FormSoftSkillComponent implements OnInit {
   constructor(private ssService: SoftSkillService) {}
 
   ngOnInit(): void {
-    if (this.edithSS.id != 0) {
+    if (this.edithSS.id) {
       this.formSS.patchValue({
         name: this.edithSS.name,
         description: this.edithSS.description,
       });
-      this.ssId = this.edithSS.id!;
+      this.ssId = this.edithSS.id;
     }
   }
 
@@ -34,14 +32,13 @@ export class FormSoftSkillComponent implements OnInit {
       name: this.formSS.get('name')?.value,
       description: this.formSS.get('description')?.value,
     };
-    if (this.edithSS.id != 0) {
+    if (this.edithSS.id == 0) {
+      this.ssService.createSoftSkill(ss);
+    } else {
       ss.id = this.edithSS.id;
       this.ssService.updateSoftSkill(ss);
-    } else if (this.edithSS.id == 0) {
-      this.ssService.createSoftSkill(ss);
     }
     this.formSS.reset();
-    this.finish.emit(true);
-    this.edithSS = { id: 0, name: '', description: '' };
+    this.edithSS = {} as SoftSkill;
   }
 }
