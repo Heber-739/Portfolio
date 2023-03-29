@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DataUser } from 'src/app/interface/dataUser';
 
 const tokenKey = 'authToken';
@@ -24,7 +24,7 @@ export class TokenService {
     this.isLogged$.next(status);
   }
   public edithObservable(): Observable<boolean> {
-    return this.edithMode$.asObservable().pipe(takeUntil());
+    return this.edithMode$.asObservable();
   }
   public changeEdithObservable(status: boolean): void {
     this.edithMode$.next(status);

@@ -1,18 +1,15 @@
 <section class="section">
   <div class="ill_container">
-    <img class="illustration" src="assets/img/illustrations/ill-07.png">
+    <img class="illustration" src="assets/img/illustrations/ill-07.png" />
     <h2 class="title">Habilidades blandas</h2>
-</div>
+  </div>
   <ng-container *ngIf="edithMode">
     <div class="btn add_btn" (click)="addSoftSkill()">
       {{ this.toEdith ? "Cancelar" : "Agregar Soft Skill" }}
     </div>
   </ng-container>
   <ng-container *ngIf="toEdith">
-    <app-form-soft-skill
-      [edithSS]="edithSS"
-      (finish)="finish($event)"
-    ></app-form-soft-skill>
+    <app-form-soft-skill [edithSS]="edithSS"></app-form-soft-skill>
   </ng-container>
 
   <div class="cont" *ngFor="let item of sSs">
@@ -24,5 +21,4 @@
       <button class="edith_btn" (click)="edith(item)">Editar</button>
     </div>
   </div>
-  
 </section>

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { Education } from 'src/app/interface/education';
@@ -19,9 +19,12 @@ export class EducationComponent implements OnInit, OnDestroy {
   constructor(private token: TokenService, private ed: EducationService) {}
 
   ngOnInit(): void {
-    this.ed.subscribeEds().subscribe({
-      next: (res) => (this.eds = res),
-    });
+    this.ed
+      .subscribeEds()
+      .pipe(takeUntil(this.unsuscribe))
+      .subscribe({
+        next: (res) => (this.eds = res),
+      });
     this.token
       .edithObservable()
       .pipe(takeUntil(this.unsuscribe))

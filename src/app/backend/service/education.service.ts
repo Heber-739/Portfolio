@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Education } from 'src/app/interface/education';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
