@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EducationService } from 'src/app/backend/service/education.service';
-import { TagService } from 'src/app/backend/service/tag.service';
 import { Education } from 'src/app/interface/education';
 
 @Component({
@@ -12,19 +11,20 @@ import { Education } from 'src/app/interface/education';
 export class FormEducationComponent implements OnInit {
   @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() edithEd!: Education;
+  edId: number = 0;
   edFinish: boolean = false;
   myimage: any;
   type_img: any;
-  edSent: boolean = false;
   formEd = new FormGroup({
     name: new FormControl('', [Validators.required]),
     link: new FormControl('', [Validators.required]),
   });
 
-  constructor(private tagS: TagService, private edService: EducationService) {}
+  constructor(private edService: EducationService) {}
 
   ngOnInit(): void {
-    if (this.edithEd.id !== 0) {
+    if (this.edithEd.id) {
+      this.edId = this.edithEd.id;
       this.formEd.patchValue({
         name: this.edithEd.name,
         link: this.edithEd.link,
@@ -32,7 +32,6 @@ export class FormEducationComponent implements OnInit {
       this.myimage = this.edithEd.img;
       this.type_img = this.edithEd.type_img;
       this.edFinish = this.edithEd.finish;
-      this.tagS.setEducationId(this.edithEd.id!);
     }
   }
 
@@ -58,21 +57,11 @@ export class FormEducationComponent implements OnInit {
       type_img: this.type_img,
     };
     this.formEd.reset();
-    this.edSent = true;
-    if (this.edithEd.id === 0) {
-      let newEd = this.edService.createEducation(ed);
-      this.edService.addLocalEducation(newEd);
-    } else if (this.edithEd.id !== 0) {
-      ed.id = this.edithEd.id;
+    if (this.edId == 0) {
+      this.edId = this.edService.createEducation(ed);
+    } else {
       this.edService.updateEducation(ed);
     }
   }
-  toTags() {
-    this.formEd.reset();
-    this.edSent = true;
-  }
-  finished(e: boolean) {
-    this.edSent = e;
-    this.finish.emit(e);
-  }
+  finished() {}
 }

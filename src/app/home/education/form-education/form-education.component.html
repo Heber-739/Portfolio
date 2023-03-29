@@ -1,4 +1,4 @@
-<form class="form" formGroup="formEd" *ngIf="!edSent">
+<form class="form" formGroup="formEd">
   <div class="input_container">
     <input
       class="input_text"
@@ -11,7 +11,7 @@
     />
     <label
       for="money"
-      [ngClass]="edithEd.id == 0 ? '' : 'active'"
+      [ngClass]="edithEd.id ? 'active' : ''"
       class="label"
       #name
       >Nombre</label
@@ -28,11 +28,7 @@
       autocomplete="off"
       placeholder="Link a la descripción o homepage"
     />
-    <label
-      for="link"
-      class="label"
-      [ngClass]="edithEd.id == 0 ? '' : 'active'"
-      #link
+    <label for="link" class="label" [ngClass]="edithEd.id ? 'active' : ''" #link
       >Link</label
     >
   </div>
@@ -53,10 +49,8 @@
     <img *ngIf="myimage" class="outputImg" [src]="myimage" />
   </div>
   <button class="btn" (click)="saveEducation()">Guardar</button>
-  <button class="btn" (click)="toTags()">Agregar sus contenidos</button>
 </form>
-<ng-container *ngIf="edSent">
-  <app-tags (end)="finished($event)"></app-tags>
-</ng-container>
+<app-tags *ngIf="this.edId != 0" [edId]="edId"></app-tags>
+<button class="btn" (click)="finished()">Finalizar</button>
 
 <!-- HAY QUE  JUNTAR EL FORM TAGS CON EL FORM EDUCATION -->

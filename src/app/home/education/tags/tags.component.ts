@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { , Component, EventEmitter, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { TagService } from 'src/app/backend/service/tag.service';
@@ -10,7 +10,7 @@ import { Tag } from 'src/app/interface/tag';
   styleUrls: ['./tags.component.css'],
 })
 export class TagsComponent implements OnInit {
-  @Output() end = new EventEmitter<boolean>();
+  @Input() edId!:number;
   tags: Tag[] = [];
   allTags: Tag[] = [];
   matchTags: Tag[] = [];
