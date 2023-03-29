@@ -73,7 +73,8 @@ export class HardSkillService {
       },
     });
   }
-  public removeHSToUser(hs: HardSkill, userId: string) {
+  public removeHSToUser(hs: HardSkill) {
+    let userId: string = this.token.getUsername();
     this.http.get<Message>(this.URL + `/remove/${hs.id}/${userId}`).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);

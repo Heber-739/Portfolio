@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { EducationService } from 'src/app/backend/service/education.service';
 import { TagService } from 'src/app/backend/service/tag.service';
 import { Tag } from 'src/app/interface/tag';
 
@@ -17,7 +16,7 @@ export class TagsComponent implements OnInit {
   showAllTags: boolean = false;
   name = new FormControl('', [Validators.required]);
 
-  constructor(private edService: EducationService, private tagS: TagService) {}
+  constructor(private tagS: TagService) {}
 
   ngOnInit(): void {
     this.tags = this.tagS.getTags(this.edId);
@@ -31,12 +30,12 @@ export class TagsComponent implements OnInit {
   }
 
   add() {
-    let tag: Tag = {
-      name: this.name.value,
-    };
-    this.tagS.createTag(tag);
+    let tag: Tag = new Tag(this.name.value);
+    let res = this.tagS.createTag(tag);
+    this.tags.push(res);
     this.name.reset();
   }
+
   tagsShow(name: string) {
     this.matchTags = this.allTags.filter((i) =>
       i.name.toLowerCase().includes(name.toLowerCase())

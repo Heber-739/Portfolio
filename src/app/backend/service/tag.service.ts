@@ -68,12 +68,17 @@ export class TagService {
     });
   }
 
-  public createTag(tag: Tag) {
-    this.http.post<Message>(this.URL + '/create', tag).subscribe({
-      next: (res) => this.popup.showMessage(res.message),
+  public createTag(tag: Tag): Tag {
+    let ret: Tag = {} as Tag;
+    this.http.post<Tag>(this.URL + '/create', tag).subscribe({
+      next: (res) => {
+        this.popup.showMessage('Contenido agregado.');
+        ret = res;
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
+    return ret;
   }
 
   public deleteTag(id: number) {

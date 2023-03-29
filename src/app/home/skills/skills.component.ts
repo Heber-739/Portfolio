@@ -10,13 +10,7 @@ import { HardSkill } from 'src/app/interface/hardSkill';
 })
 export class SkillsComponent implements OnInit {
   edithMode: boolean = false;
-  edithHS: HardSkill = {
-    id: 0,
-    name: '',
-    percentage: 0,
-    img: '',
-    type_img: '',
-  };
+  edithHS: HardSkill = {} as HardSkill;
   toEdith: boolean = false;
   skills: HardSkill[] = [];
   constructor(
@@ -28,11 +22,6 @@ export class SkillsComponent implements OnInit {
     this.hsService.subscribeHSs().subscribe({
       next: (res) => (this.skills = res),
     });
-    if (this.hsService.getLocalHardSkill().length > 0) {
-      this.skills = this.hsService.getLocalHardSkill();
-    } else {
-      this.hsService.getHardSkill();
-    }
     this.token.edithObservable().subscribe({
       next: (res) => (this.edithMode = res),
     });
@@ -40,22 +29,15 @@ export class SkillsComponent implements OnInit {
 
   addSkill() {
     this.toEdith = !this.toEdith;
-    this.edithHS = {
-      id: 0,
-      name: '',
-      percentage: 0,
-      img: '',
-      type_img: '',
-    };
   }
   delete(i: HardSkill) {
-    this.hsService.removeHSToUser(i.id!, this.token.getUsername());
+    this.hsService.removeHSToUser(i);
   }
   edith(i: HardSkill) {
     this.edithHS = i;
     this.toEdith = true;
   }
-  finish(ev: boolean) {
-    this.toEdith = !ev;
+  finish() {
+    this.toEdith = false;
   }
 }
