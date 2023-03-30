@@ -13,9 +13,7 @@ import { TokenService } from './token.service';
 })
 export class UserService {
   private user$: Subject<DataUser> = new Subject();
-
   URL: string = `${environment.URL}/users`;
-
   constructor(
     private router: Router,
     private popup: ModalService,
@@ -26,38 +24,43 @@ export class UserService {
   public subscribeUser() {
     return this.user$.asObservable();
   }
-  public changeObservable(user: DataUser) {
-    this.token.setUser(user);
+  public changeObservable() {
+    let user = this.token.getUser();
     this.user$.next(user);
   }
 
-  public getUser(): void {
+  public getUser(): DataUser {
     let userId = this.token.getUsername();
+    let ret: DataUser = {} as DataUser;
     this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
-      next: (res) => this.changeObservable(res),
+      next: (res) => {
+        this.token.setUser(res);
+        ret = res;
+      },
       error: (error) =>
         this.popup.showMessage(
           `Ocurrió un error inesperado. Código ${error.status}`
         ),
-      complete: () => this.router.navigate(['']),
+      complete: () => this.changeObservable(),
     });
+    return ret;
   }
 
   public sendUser(user: DataUser) {
-    this.http.post<Message>(this.URL + `/create`, user).subscribe({
+    this.http.post<DataUser>(this.URL + `/create`, user).subscribe({
       next: (res) => {
         this.token.setUsername(user.username);
+        this.token.setUser(res);
         this.popup.showMessage(
-          `${res.message}!\nAhora puede completar otros datos como educación y skills más abajo.`
+          `Usuario crceado!\nAhora puede completar otros datos como educación y skills más abajo.`
         );
       },
       error: (err) => {
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
       },
       complete: () => {
-        this.changeObservable(user);
+        this.changeObservable();
         this.router.navigate(['']);
-        window.location.reload();
       },
     });
   }
@@ -67,13 +70,14 @@ export class UserService {
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
+          this.token.setUser(user);
         },
         error: (err) =>
           this.popup.showMessage(
             `${err.error.message}\nError N° ${err.status}`
           ),
         complete: () => {
-          this.changeObservable(user);
+          this.changeObservable();
           this.router.navigate(['']);
         },
       });

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { WorkExperienceService } from 'src/app/backend/service/work-experience.service';
@@ -9,7 +9,7 @@ import { WorkExp } from 'src/app/interface/workExp';
   templateUrl: './user-exp.component.html',
   styleUrls: ['./user-exp.component.css'],
 })
-export class UserExpComponent implements OnInit, OnDestroy {
+export class UserExpComponent implements OnInit, AfterContentInit, OnDestroy {
   edithMode: boolean = false;
   toEdith: boolean = false;
   works: WorkExp[] = [];
@@ -33,6 +33,9 @@ export class UserExpComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => (this.edithMode = res),
       });
+  }
+  ngAfterContentInit(): void {
+    this.workService.getWorkExp();
   }
   ngOnDestroy(): void {
     this.unsuscribe.next(true);

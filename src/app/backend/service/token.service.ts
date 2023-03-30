@@ -6,6 +6,7 @@ const tokenKey = 'authToken';
 const usernameKey = 'authUsername';
 const authoritiesKey = 'authAuthorities';
 const user = 'userFromDataBase';
+const exist = 'UserExistDB';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,12 @@ export class TokenService {
   public setUser(userDB: DataUser): void {
     window.sessionStorage.removeItem(user);
     window.sessionStorage.setItem(user, JSON.stringify(userDB));
+  }
+  public getExistUser(): boolean {
+    return JSON.parse(window.sessionStorage.getItem(exist) || '');
+  }
+  public setExistUser(b: boolean) {
+    window.sessionStorage.setItem(exist, JSON.stringify(b));
   }
 
   public setToken(token: string): void {

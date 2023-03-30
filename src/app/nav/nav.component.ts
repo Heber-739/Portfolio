@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { TokenService } from '../backend/service/token.service';
 import { UserService } from '../backend/service/user.service';
-import { ModalService } from '../service/modal.service';
 import { DataUser } from '../interface/dataUser';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -15,38 +12,14 @@ export class NavComponent implements OnInit {
   selColor: boolean = false;
   isLogged: boolean = false;
   user!: DataUser;
-  constructor(
-    private popup: ModalService,
-    private tokenService: TokenService,
-    private userS: UserService
-  ) {
-    this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
-  }
+  constructor(private tokenService: TokenService, private userS: UserService) {}
   ngOnInit(): void {
+    this.user = this.userS.getUser();
+    this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService
       .loggedObservable()
       .subscribe({ next: (res) => (this.isLogged = res) });
     this.changeTheme(JSON.parse(localStorage.getItem('theme')!));
-  }
-
-  ngAfterViewInit(): void {
-    if (this.tokenService.getToken()) {
-      if (this.tokenService.isExistInDatabase()) {
-        this.userS.getUser();
-      } else {
-        this.popup.showMessage(
-          'Ya se encuentra logueado en la página, ahora puede ingresar sus datos.'
-        );
-        /*         this.router.navigate(['newUser']);
-         */
-      }
-    }
-    if (this.tokenService.isAdmin()) {
-      this.popup.showMessage(
-        `Bienvenido administrador! Puede ver información privilegiada con el boton al final de esta página.`
-      );
-      localStorage.removeItem('isAdmin');
-    }
   }
 
   changeTheme(v: string) {

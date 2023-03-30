@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { TokenService } from 'src/app/backend/service/token.service';
@@ -9,7 +9,7 @@ import { Education } from 'src/app/interface/education';
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.css'],
 })
-export class EducationComponent implements OnInit, OnDestroy {
+export class EducationComponent implements OnInit, AfterContentInit, OnDestroy {
   edithMode: boolean = false;
   toEdith: boolean = false;
   eds: Education[] = [];
@@ -31,6 +31,9 @@ export class EducationComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => (this.edithMode = res),
       });
+  }
+  ngAfterContentInit(): void {
+    this.ed.getEducation();
   }
   ngOnDestroy(): void {
     this.unsuscribe.next(true);

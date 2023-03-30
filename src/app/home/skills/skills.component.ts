@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
 import { TokenService } from 'src/app/backend/service/token.service';
@@ -9,7 +9,7 @@ import { HardSkill } from 'src/app/interface/hardSkill';
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css'],
 })
-export class SkillsComponent implements OnInit, OnDestroy {
+export class SkillsComponent implements OnInit, AfterContentInit, OnDestroy {
   edithMode: boolean = false;
   edithHS: HardSkill = {} as HardSkill;
   toEdith: boolean = false;
@@ -33,6 +33,9 @@ export class SkillsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => (this.edithMode = res),
       });
+  }
+  ngAfterContentInit(): void {
+    this.hsService.getHardSkill();
   }
   ngOnDestroy(): void {
     this.unsuscribe.next(true);

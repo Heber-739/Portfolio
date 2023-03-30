@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
 import { TokenService } from 'src/app/backend/service/token.service';
@@ -9,7 +9,9 @@ import { SoftSkill } from 'src/app/interface/softSkill';
   templateUrl: './soft-skills.component.html',
   styleUrls: ['./soft-skills.component.css'],
 })
-export class SoftSkillsComponent implements OnInit, OnDestroy {
+export class SoftSkillsComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
   edithMode: boolean = false;
   toEdith: boolean = false;
   sSs: SoftSkill[] = [];
@@ -34,6 +36,9 @@ export class SoftSkillsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => (this.edithMode = res),
       });
+  }
+  ngAfterContentInit(): void {
+    this.ssService.getSoftSkill();
   }
   ngOnDestroy(): void {
     this.unsuscribe.next(true);

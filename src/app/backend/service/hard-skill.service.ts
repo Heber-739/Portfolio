@@ -62,15 +62,15 @@ export class HardSkillService {
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
-  public addHSToUser(hsId: number, userId: string) {
-    this.http.get<HardSkill>(this.URL + `/add/${hsId}/${userId}`).subscribe({
-      next: (res) => this.local.add<HardSkill>(res, KEY),
+  public addHSToUser(hs: HardSkill, userId: string) {
+    this.http.get<Message>(this.URL + `/add/${hs.id}/${userId}`).subscribe({
+      next: (res) => {
+        this.local.add<HardSkill>(hs, KEY);
+        this.popup.showMessage(res.message);
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N°${err.status}`),
-      complete: () => {
-        this.popup.showMessage('Hard Skill agregado.');
-        this.changeObservable();
-      },
+      complete: () => this.changeObservable(),
     });
   }
   public removeHSToUser(hs: HardSkill) {

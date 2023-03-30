@@ -51,14 +51,14 @@
   border: 2px solid white;
   filter: drop-shadow(0 0 5px black);
   z-index: 4;
-  animation: toDown 5s ease-in-out forwards;
+  animation: toDown 5s ease-in-out forwards 1s;
 }
 
 .header_git,
 .header_in {
   z-index: 3;
   position: absolute;
-  top: 0;
+  top: 5%;
   left: 52%;
   width: 50px;
   height: 50px;
@@ -67,10 +67,10 @@
   border-radius: 50%;
 }
 .header_git {
-  animation: moveRight 6s ease-in-out forwards;
+  animation: moveRight 6s ease-in-out forwards 1s;
 }
 .header_in {
-  animation: moveLeft 6s ease-in-out forwards;
+  animation: moveLeft 6s ease-in-out forwards 1s;
 }
 
 @keyframes moveRight {
@@ -137,29 +137,18 @@
   position: relative;
   align-self: center;
   justify-self: flex-start;
-  animation: border 15s infinite 6s;
+  animation: border 10s infinite 6s;
 }
 
 @keyframes border {
   0% {
-    color: var(--text);
-    box-shadow: rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+    outline: 2px solid white;
+    outline-offset: 0px;
   }
-  2% {
-    color: var(--color1);
-    box-shadow: inset rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
-  }
-  3.5% {
-    color: var(--text);
-    box-shadow: rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
-  }
-  5% {
-    color: var(--color1);
-    box-shadow: inset rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
-  }
-  6.5% {
-    color: var(--text);
-    box-shadow: rgba(0, 0, 0, 0.55) 2.4px 2.4px 3.2px;
+  30%,
+  100% {
+    outline: 2px solid rgba(255, 255, 255, 0);
+    outline-offset: 10px;
   }
 }
 

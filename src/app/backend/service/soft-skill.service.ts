@@ -29,7 +29,7 @@ export class SoftSkillService {
     return this.sSkills$.asObservable();
   }
   public changeObservableSs(sSsGet?: SoftSkill[]) {
-    let sss = sSsGet ? sSsGet : this.local.get<SoftSkill>(KEY);
+    let sss: SoftSkill[] = sSsGet ? sSsGet : this.local.get<SoftSkill>(KEY);
     this.sSkills$.next(sss);
   }
 
@@ -54,21 +54,21 @@ export class SoftSkillService {
   public getSoftSkill() {
     let username = this.token.getUsername();
     this.http.get<SoftSkill[]>(this.URL + `/list/${username}`).subscribe({
+      next: (res) => this.local.set<SoftSkill>(res, KEY),
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => this.changeObservableSs(),
+    });
+  }
+  public addSSToUser(ss: SoftSkill, userId: string) {
+    this.http.get<Message>(this.URL + `/add/${ss.id}/${userId}`).subscribe({
       next: (res) => {
-        this.local.set<SoftSkill>(res, KEY);
-        this.changeObservableSs(res);
+        this.popup.showMessage(res.message);
+        this.local.add<SoftSkill>(ss, KEY);
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
-    });
-  }
-  public addSSToUser(ssId: number, userId: string) {
-    this.http.get<SoftSkill>(this.URL + `/add/${ssId}/${userId}`).subscribe({
-      next: (res) => this.local.add<SoftSkill>(res, KEY),
-      error: (err) =>
-        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => {
-        this.popup.showMessage('Soft Skill agregado.');
         this.changeObservableSs();
       },
     });

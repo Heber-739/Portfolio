@@ -20,6 +20,13 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private token: TokenService
   ) {
+    this.userService.subscribeUser().subscribe({
+      next: (res) => {
+        this.user = res;
+      },
+    });
+  }
+  ngOnInit(): void {
     this.spinnerService.subscribeLoading().subscribe({
       next: (res) => (this.isLoading = res),
     });
@@ -28,24 +35,11 @@ export class HomeComponent implements OnInit {
         this.isLogged = res;
       },
     });
-    this.userService.subscribeUser().subscribe({
-      next: (res) => {
-        this.user = res;
-      },
-    });
-  }
-  ngOnInit(): void {
     this.token.edithObservable().subscribe({
       next: (res) => (this.edithMode = res),
     });
-
-    if (!this.token.getUser()) {
-      this.userService.getUser();
-    } else {
-      this.user = this.token.getUser();
-      this.token.changeObservable(true);
-    }
   }
+
   edithModeEnter() {
     this.token.changeEdithObservable(true);
   }
