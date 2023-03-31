@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DataUrl, NgxImageCompressService, UploadResponse } from 'ngx-image-compress';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { DataUser } from 'src/app/interface/dataUser';
@@ -14,6 +15,7 @@ export class NewUserComponent implements OnInit {
   edithMode: boolean = false;
   myimage: any;
   type_img: any;
+  image!:File;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -29,7 +31,8 @@ export class NewUserComponent implements OnInit {
   });
   constructor(
     private tokenService: TokenService,
-    private userService: UserService
+    private userService: UserService,
+    private compress:NgxImageCompressService
   ) {}
   ngOnInit(): void {
     if (this.tokenService.getUser() && this.tokenService.getToken()) {
@@ -70,10 +73,24 @@ export class NewUserComponent implements OnInit {
   onchange(e: Event) {
     const target = e.currentTarget as HTMLInputElement;
     let image = target.files?.[0]!;
+    this.image = image;
     this.type_img = image.type;
     this.myimage = this.getBase64(image);
   }
 
+  
+  onFileSelected(e:Event) {
+    const target = e.currentTarget as HTMLInputElement;
+    let image = target.files?.[0]!;
+    this.compress.compressFile(image, -1, 50, 50).then(
+      result => {
+        const formData: FormData = new FormData();
+        formData.append('file', result.data, result.name);
+        return result
+      }
+    );
+  }
+ 
   getBase64(file: File) {
     let reader = new FileReader();
     reader.onload = () => {
@@ -81,4 +98,6 @@ export class NewUserComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
+       
+  
 }
