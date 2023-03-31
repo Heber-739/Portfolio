@@ -5,11 +5,12 @@ import { NavComponent } from './nav/nav.component';
 import { RoutingAppModule } from './routing-app.module';
 import { interceptorProvider } from './service/spinner-interceptor/headers.interceptor';
 import { FooterComponent } from './footer/footer.component';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, FooterComponent],
   imports: [BrowserModule, RoutingAppModule],
-  providers: [interceptorProvider],
+  providers: [interceptorProvider, NgxImageCompressService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

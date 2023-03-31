@@ -42,7 +42,6 @@ const routing: Routes = [
     RouterModule.forRoot(routing, {
       preloadingStrategy: PreloadService,
     }),
-
     HttpClientModule,
     ReactiveFormsModule,
   ],
