@@ -4,24 +4,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ImageCompressService {
-  constructor() {}
+  imgDespues: string = '';
+  constructor(private compress: NgxImageCompressService) {}
 
-  /* 
   onchange() {
     this.compress.uploadFile().then(({ image, orientation, fileName }) => {
-      this.imgAntes = image;
-      console.log(image);
-
+      /* this.imgAntes = image;
+      console.log(image); */
+      let compressedImg: string = '';
       this.compress
         .compressFile(image, orientation, 50, 50) // 50% ratio, 50% quality
         .then((compressedImage) => {
-          this.imgDespues = compressedImage;
+          compressedImg = compressedImage;
           let type = this.getType(image);
           fetch(compressedImage)
             .then((res) => res.blob())
             .then((blob) => {
-              const file = new File([blob], fileName, { type: type });
-              this.image = file;
+              /* const file = new File([blob], fileName, { type: type });
+              this.image = file; */
             });
         });
     });
@@ -44,5 +44,5 @@ export class ImageCompressService {
       console.log(reader.result);
     };
     reader.readAsDataURL(file);
-  } */
+  }
 }

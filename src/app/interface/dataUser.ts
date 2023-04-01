@@ -1,9 +1,10 @@
+import { Image } from './Image';
+
 export class DataUser {
   name: string;
   surname: string;
   age: number;
-  img: string;
-  type_img: string;
+  img: Image;
   username: string;
   github: string;
   linkedin: string;
@@ -12,8 +13,7 @@ export class DataUser {
     name: string,
     surname: string,
     age: number,
-    img: string,
-    type_img: string,
+    img: Image,
     username: string,
     github: string,
     linkedin: string,
@@ -23,7 +23,6 @@ export class DataUser {
     this.surname = surname;
     this.age = age;
     this.img = img;
-    this.type_img = type_img;
     this.username = username;
     this.github = github;
     this.linkedin = linkedin;
