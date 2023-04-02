@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  DataUrl,
-  NgxImageCompressService,
-  UploadResponse,
-} from 'ngx-image-compress';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { Image } from 'src/app/interface/Image';
@@ -50,8 +46,7 @@ export class NewUserComponent implements OnInit {
         linkedin: this.user.linkedin,
         description: this.user.description,
       });
-      this.myimage = this.user.img;
-      this.type_img = this.user.type_img;
+      this.image = this.user.img;
     }
   }
 
@@ -60,8 +55,7 @@ export class NewUserComponent implements OnInit {
       name: this.userForm.get('name')?.value,
       surname: this.userForm.get('surname')?.value,
       age: parseInt(this.userForm.get('age')?.value),
-      img: this.myimage,
-      type_img: this.type_img,
+      img: this.image,
       username: this.userForm.get('username')?.value,
       github: this.userForm.get('github')?.value,
       linkedin: this.userForm.get('linkedin')?.value,
@@ -73,29 +67,24 @@ export class NewUserComponent implements OnInit {
       this.userService.sendUser(newUser);
     }
   }
-  onchange(e: Event) {
-    const target = e.currentTarget as HTMLInputElement;
-    let image = target.files?.[0]!;
-    this.image = image;
-    this.type_img = image.type;
-    this.myimage = this.getBase64(image);
-  }
 
-  onFileSelected(e: Event) {
-    const target = e.currentTarget as HTMLInputElement;
-    let image = target.files?.[0]!;
-    this.compress.compressFile(image, -1, 50, 50).then((result) => {
-      const formData: FormData = new FormData();
-      formData.append('file', result.data, result.name);
-      return result;
+  onchange() {
+    this.compress.uploadFile().then(({ image, orientation, fileName }) => {
+      console.log(this.compress.byteCount(image));
+      this.compress
+        .compressFile(image, orientation, 50, 50)
+        .then((compressedImage) => {
+          const getType = (t: string) => t.slice(5, t.indexOf(';'));
+          fetch(compressedImage)
+            .then((res) => res.blob())
+            .then((blob) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = () => {
+                this.image = new Image(reader.result, fileName, getType(image));
+              };
+            });
+        });
     });
-  }
-
-  getBase64(file: File) {
-    let reader = new FileReader();
-    reader.onload = () => {
-      this.myimage = reader.result;
-    };
-    reader.readAsDataURL(file);
   }
 }

@@ -100,14 +100,12 @@
     </div>
     <div class="img_container">
       <small>Tamañoo máximo de imagen 1MB</small>
-      <img *ngIf="myimage" class="outputImg" [src]="myimage" />
-
+      <img *ngIf="image" class="outputImg" [src]="image.data" />
       <label for="file" class="btn"
         >Cargar foto de pérfil<input
           id="file"
-          type="file"
-          accept="image/*"
-          (change)="onchange($event)"
+          class="img_file"
+          (focus)="onchange()"
       /></label>
     </div>
     <button class="btn" (click)="sendUser()">Guardar</button>

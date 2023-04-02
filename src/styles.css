@@ -159,7 +159,7 @@ label.btn {
   width: fit-content;
   height: fit-content;
 }
-input[type="file"] {
+input.img_file {
   width: 0;
   height: 0;
   opacity: 0;
