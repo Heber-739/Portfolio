@@ -12,8 +12,10 @@ export class NavComponent implements OnInit {
   selColor: boolean = false;
   isLogged: boolean = false;
   user!: DataUser;
+  start!: boolean;
   constructor(private tokenService: TokenService, private userS: UserService) {}
   ngOnInit(): void {
+    this.start = this.tokenService.start();
     this.user = this.userS.getUser();
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService

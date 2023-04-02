@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
+import { Image } from 'src/app/interface/Image';
 import { HardSkill } from 'src/app/interface/hardSkill';
 
 @Component({
@@ -9,15 +11,16 @@ import { HardSkill } from 'src/app/interface/hardSkill';
   styleUrls: ['./form-skill.component.css'],
 })
 export class FormSkillComponent implements OnInit {
-  @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() edithHS: HardSkill = {} as HardSkill;
-  myimage: any;
-  type_img: any;
+  image!: Image;
   formHS = new FormGroup({
     name: new FormControl('', [Validators.required]),
     percentage: new FormControl('', [Validators.required, Validators.max(100)]),
   });
-  constructor(private hsService: HardSkillService) {}
+  constructor(
+    private compress: NgxImageCompressService,
+    private hsService: HardSkillService
+  ) {}
 
   ngOnInit(): void {
     if (this.edithHS.id != 0) {
@@ -26,44 +29,44 @@ export class FormSkillComponent implements OnInit {
         percentage: this.edithHS.percentage,
       });
     }
-    this.myimage = this.edithHS.img;
-    this.type_img = this.edithHS.type_img;
+    this.image = this.edithHS.img;
   }
 
-  onchange(e: Event) {
-    const target = e.currentTarget as HTMLInputElement;
-    let image = target.files?.[0]!;
-    this.type_img = image.type;
-    this.myimage = this.getBase64(image);
-  }
-  getBase64(file: File) {
-    let reader = new FileReader();
-    reader.onload = () => {
-      this.myimage = reader.result;
-    };
-    reader.readAsDataURL(file);
+  onchange() {
+    this.compress.uploadFile().then(({ image, orientation, fileName }) => {
+      this.compress
+        .compressFile(image, orientation, 50, 50)
+        .then((compressedImage) => {
+          const getType = (t: string) => t.slice(5, t.indexOf(';'));
+          fetch(compressedImage)
+            .then((res) => res.blob())
+            .then((blob) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = () => {
+                this.image = new Image(
+                  String(reader.result),
+                  fileName,
+                  getType(image)
+                );
+              };
+            });
+        });
+    });
   }
   saveHardSkill() {
     let hs: HardSkill = {
       name: this.formHS.get('name')?.value,
       percentage: this.formHS.get('percentage')?.value,
-      img: this.myimage,
-      type_img: this.type_img,
+      img: this.image,
     };
     if (this.edithHS.id == 0) {
       this.hsService.createHardSkill(hs);
     } else if (this.edithHS.id != 0) {
       this.hsService.updateHardSkill(this.edithHS.id!, hs);
     }
-    this.myimage = '';
+    this.image.data = '';
     this.formHS.reset();
-    this.finish.emit(true);
-    this.edithHS = {
-      id: 0,
-      name: '',
-      percentage: 0,
-      img: '',
-      type_img: '',
-    };
+    this.edithHS = {} as HardSkill;
   }
 }

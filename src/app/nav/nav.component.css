@@ -40,37 +40,62 @@
   height: fit-content;
 }
 
-.picture {
-  position: absolute;
+.photo {
+  position: fixed;
   background-color: var(--color4);
-  top: 0;
-  left: 52%;
   width: 120px;
   height: 120px;
   border-radius: 50%;
   border: 2px solid white;
   filter: drop-shadow(0 0 5px black);
   z-index: 4;
-  animation: toDown 5s ease-in-out forwards 1s;
+}
+.picture {
+  animation: toDown 5s ease-in-out forwards;
 }
 
-.header_git,
-.header_in {
+.social_lin,
+.social_git {
   z-index: 3;
-  position: absolute;
-  top: 5%;
-  left: 52%;
+  position: fixed;
   width: 50px;
   height: 50px;
   background-color: white;
   border: 2px solid white;
   border-radius: 50%;
 }
+.social_git {
+  top: 150px;
+  left: 80px;
+}
+.social_lin {
+  top: 150px;
+  left: 15px;
+}
 .header_git {
-  animation: moveRight 6s ease-in-out forwards 1s;
+  animation: moveRight 6s ease-in-out forwards;
 }
 .header_in {
-  animation: moveLeft 6s ease-in-out forwards 1s;
+  animation: moveLeft 6s ease-in-out forwards;
+}
+.curtain {
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: linear-gradient(45deg, var(--color4), var(--color1));
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  opacity: 1;
+  animation: show 2s forwards 7s;
+}
+@keyframes show {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes moveRight {
@@ -120,17 +145,26 @@
     left: 52%;
     top: 0%;
     transform: scale(1);
+    position: fixed;
   }
   30%,
   85% {
     transform: scale(1);
     left: 52%;
     top: 30%;
+    position: fixed;
+  }
+  99% {
+    transform: scale(0.8);
+    top: 5px;
+    left: 8px;
+    position: fixed;
   }
   100% {
     transform: scale(0.8);
     top: 5px;
     left: 8px;
+    position: static;
   }
 }
 .contact {

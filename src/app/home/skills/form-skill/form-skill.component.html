@@ -41,14 +41,10 @@
     <small>Tamaño máximo de imagen 1MB</small>
 
     <label for="file" class="btn"
-      >Logo<input
-        id="file"
-        type="file"
-        accept="image/*"
-        (change)="onchange($event)"
+      >Logo<input id="file" class="img_file" (focus)="onchange()"
     /></label>
 
-    <img *ngIf="myimage" class="outputImg" [src]="myimage" />
+    <img *ngIf="image" class="outputImg" [src]="image.data" />
   </div>
   <button class="btn" (click)="saveHardSkill()">Guardar</button>
 </form>

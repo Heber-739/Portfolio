@@ -11,7 +11,6 @@ import { Education } from 'src/app/interface/education';
   styleUrls: ['./form-education.component.css'],
 })
 export class FormEducationComponent implements OnInit {
-  @Output() finish: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() edithEd!: Education;
   edId: number = 0;
   edFinish: boolean = false;
@@ -40,7 +39,6 @@ export class FormEducationComponent implements OnInit {
 
   onchange() {
     this.compress.uploadFile().then(({ image, orientation, fileName }) => {
-      console.log(this.compress.byteCount(image));
       this.compress
         .compressFile(image, orientation, 50, 50)
         .then((compressedImage) => {
@@ -51,7 +49,11 @@ export class FormEducationComponent implements OnInit {
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = () => {
-                this.image = new Image(reader.result, fileName, getType(image));
+                this.image = new Image(
+                  String(reader.result),
+                  fileName,
+                  getType(image)
+                );
               };
             });
         });

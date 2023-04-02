@@ -1,10 +1,24 @@
-<!-- <div class="background"></div> -->
+<div [style.display]="start ? 'block' : 'none'" class="curtain"></div>
 <a href="{{ user.linkedin }}" target="_blank"
-  ><img src="assets/img/linkedin.svg" class="header_in box" alt="linkedin"
+  ><img
+    src="assets/img/linkedin.svg"
+    [ngClass]="{ header_in: start }"
+    class="social_lin box"
+    alt="linkedin"
 /></a>
-<img class="picture" src="{{ user.img }}" alt="Foto Perfil" />
+<img
+  class="photo"
+  [ngClass]="{ picture: start }"
+  src="{{ user.img }}"
+  alt="Foto Perfil"
+/>
 <a href="{{ user.github }}" target="_blank"
-  ><img src="assets/img/github.svg" class="header_git box" alt="github" />
+  ><img
+    src="assets/img/github.svg"
+    [ngClass]="{ header_git: start }"
+    class="social_git box"
+    alt="github"
+  />
 </a>
 
 <button type="button" class="hamburguer">

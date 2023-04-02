@@ -70,7 +70,6 @@ export class NewUserComponent implements OnInit {
 
   onchange() {
     this.compress.uploadFile().then(({ image, orientation, fileName }) => {
-      console.log(this.compress.byteCount(image));
       this.compress
         .compressFile(image, orientation, 50, 50)
         .then((compressedImage) => {
@@ -81,7 +80,11 @@ export class NewUserComponent implements OnInit {
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = () => {
-                this.image = new Image(reader.result, fileName, getType(image));
+                this.image = new Image(
+                  String(reader.result),
+                  fileName,
+                  getType(image)
+                );
               };
             });
         });

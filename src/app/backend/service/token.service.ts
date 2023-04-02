@@ -67,6 +67,14 @@ export class TokenService {
   public getAuthorities(): string {
     return JSON.parse(window.sessionStorage.getItem(authoritiesKey) || '');
   }
+  public start(): boolean {
+    if (window.sessionStorage.getItem('start')) {
+      return false;
+    } else {
+      window.sessionStorage.setItem('start', 'true');
+      return true;
+    }
+  }
 
   public logOut(): void {
     window.sessionStorage.clear();
