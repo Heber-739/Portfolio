@@ -39,14 +39,10 @@
     <small>Tamaño máximo de imagen 1MB</small>
 
     <label for="file" class="btn"
-      >Logo o foto ilustrativa<input
-        id="file"
-        type="file"
-        accept="image/*"
-        (change)="onchange($event)"
+      >Imagen o banner<input id="file" class="img_file" (focus)="onchange()"
     /></label>
 
-    <img *ngIf="myimage" class="outputImg" [src]="myimage" />
+    <img *ngIf="image" class="outputImg" [src]="image.data" />
   </div>
   <button class="btn" (click)="saveEducation()">Guardar</button>
 </form>

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { EducationService } from 'src/app/backend/service/education.service';
+import { Image } from 'src/app/interface/Image';
 import { Education } from 'src/app/interface/education';
 
 @Component({
@@ -13,14 +15,16 @@ export class FormEducationComponent implements OnInit {
   @Input() edithEd!: Education;
   edId: number = 0;
   edFinish: boolean = false;
-  myimage: any;
-  type_img: any;
+  image!: Image;
   formEd = new FormGroup({
     name: new FormControl('', [Validators.required]),
     link: new FormControl('', [Validators.required]),
   });
 
-  constructor(private edService: EducationService) {}
+  constructor(
+    private compress: NgxImageCompressService,
+    private edService: EducationService
+  ) {}
 
   ngOnInit(): void {
     if (this.edithEd.id) {
@@ -29,32 +33,36 @@ export class FormEducationComponent implements OnInit {
         name: this.edithEd.name,
         link: this.edithEd.link,
       });
-      this.myimage = this.edithEd.img;
-      this.type_img = this.edithEd.type_img;
+      this.image = this.edithEd.img;
       this.edFinish = this.edithEd.finish;
     }
   }
 
-  onchange(e: Event) {
-    const target = e.currentTarget as HTMLInputElement;
-    let image = target.files?.[0]!;
-    this.type_img = image.type;
-    this.myimage = this.getBase64(image);
-  }
-  getBase64(file: File) {
-    let reader = new FileReader();
-    reader.onload = () => {
-      this.myimage = reader.result;
-    };
-    reader.readAsDataURL(file);
+  onchange() {
+    this.compress.uploadFile().then(({ image, orientation, fileName }) => {
+      console.log(this.compress.byteCount(image));
+      this.compress
+        .compressFile(image, orientation, 50, 50)
+        .then((compressedImage) => {
+          const getType = (t: string) => t.slice(5, t.indexOf(';'));
+          fetch(compressedImage)
+            .then((res) => res.blob())
+            .then((blob) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = () => {
+                this.image = new Image(reader.result, fileName, getType(image));
+              };
+            });
+        });
+    });
   }
   saveEducation() {
     let ed: Education = {
       name: this.formEd.get('name')?.value,
       link: this.formEd.get('link')?.value,
       finish: this.edFinish,
-      img: this.myimage,
-      type_img: this.type_img,
+      img: this.image,
     };
     this.formEd.reset();
     if (this.edId == 0) {

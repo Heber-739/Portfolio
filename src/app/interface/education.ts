@@ -1,3 +1,4 @@
+import { Image } from './Image';
 import { Tag } from './tag';
 
 export class Education {
@@ -5,20 +6,12 @@ export class Education {
   name: string;
   link: string;
   finish: boolean;
-  img: string;
-  type_img: string;
+  img: Image;
   tags?: Tag[];
-  constructor(
-    name: string,
-    link: string,
-    finish: boolean,
-    img: string,
-    type_img: string
-  ) {
+  constructor(name: string, link: string, finish: boolean, img: Image) {
     this.name = name;
     this.link = link;
     this.finish = finish;
     this.img = img;
-    this.type_img = type_img;
   }
 }
