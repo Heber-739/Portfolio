@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../backend/service/token.service';
 import { UserService } from '../backend/service/user.service';
 import { DataUser } from '../interface/dataUser';
@@ -13,9 +13,11 @@ export class NavComponent implements OnInit {
   isLogged: boolean = false;
   user!: DataUser;
   start!: boolean;
+  menu: boolean = false;
   constructor(private tokenService: TokenService, private userS: UserService) {}
   ngOnInit(): void {
-    this.start = this.tokenService.start();
+    /* this.start = this.tokenService.start(); */
+    this.start = true;
     this.user = this.userS.getUser();
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService
@@ -38,6 +40,9 @@ export class NavComponent implements OnInit {
         );
       }
     }
+  }
+  open() {
+    this.menu = !this.menu;
   }
   logout(): void {
     this.tokenService.logOut();

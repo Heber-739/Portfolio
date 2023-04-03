@@ -11,6 +11,10 @@
   --visible: true;
   --text: white;
 }
+* {
+  padding: 0;
+  margin: 0;
+}
 .body {
   min-height: 100vh;
   scroll-behavior: smooth;

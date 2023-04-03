@@ -1,32 +1,47 @@
-<div [style.display]="start ? 'block' : 'none'" class="curtain"></div>
-<a href="{{ user.linkedin }}" target="_blank"
-  ><img
-    src="assets/img/linkedin.svg"
-    [ngClass]="{ header_in: start }"
-    class="social_lin box"
-    alt="linkedin"
-/></a>
-<img
-  class="photo"
-  [ngClass]="{ picture: start }"
-  src="{{ user.img }}"
-  alt="Foto Perfil"
-/>
-<a href="{{ user.github }}" target="_blank"
-  ><img
-    src="assets/img/github.svg"
-    [ngClass]="{ header_git: start }"
-    class="social_git box"
-    alt="github"
-  />
-</a>
-
-<button type="button" class="hamburguer">
-  <span class="line"></span>
-  <span class="line"></span>
-  <span class="line"></span>
-</button>
+<div
+  [ngClass]="{ animate: start, curtain_off: menu }"
+  (click)="open()"
+  class="curtain"
+></div>
+<i class="arrow" [ngClass]="{ rotate: menu }" (click)="open()">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon icon-tabler icon-tabler-chevron-right"
+    width="56"
+    height="56"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="#ffffff"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <polyline points="9 6 15 12 9 18" />
+  </svg>
+</i>
 <nav class="nav">
+  <div class="pictures">
+    <a routerLink=""
+      ><img class="photo" [ngClass]="{ picture: start }" src="{{ user.img }}"
+    /></a>
+    <a href="{{ user.linkedin }}" target="_blank"
+      ><img
+        src="assets/img/linkedin.svg"
+        [ngClass]="{ lin: start }"
+        class="social_lin box"
+        alt="linkedin"
+    /></a>
+
+    <a href="{{ user.github }}" target="_blank"
+      ><img
+        src="assets/img/github.svg"
+        [ngClass]="{ git: start }"
+        class="social_git box"
+        alt="github"
+      />
+    </a>
+  </div>
   <ul class="list">
     <a class="btn contact" routerLink="contacto">Contactar</a>
     <li class="item">
@@ -56,16 +71,10 @@
       <a class="a_item"><img class="img" src="assets/img/temas.svg" />Temas</a>
     </li>
   </ul>
-  <div class="blue_theme box" *ngIf="selColor" (click)="changeTheme('blue')">
-    Azul
-  </div>
-  <div class="red_theme box" *ngIf="selColor" (click)="changeTheme('red')">
-    Rojo
-  </div>
-  <div class="green_theme box" *ngIf="selColor" (click)="changeTheme('green')">
-    Verde
-  </div>
-  <div class="dark_theme box" *ngIf="selColor" (click)="changeTheme('dark')">
-    Negro
-  </div>
+  <ul class="list_color" *ngIf="selColor">
+    <li class="btn" (click)="changeTheme('blue')">Azul</li>
+    <li class="btn" (click)="changeTheme('red')">Rojo</li>
+    <li class="btn" (click)="changeTheme('green')">Verde</li>
+    <li class="btn" (click)="changeTheme('dark')">Oscuro</li>
+  </ul>
 </nav>
