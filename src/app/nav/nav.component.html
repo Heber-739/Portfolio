@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{ animate: start, curtain_off: menu }"
-  (click)="open()"
-  class="curtain"
-></div>
-<i class="arrow" [ngClass]="{ rotate: menu }" (click)="open()">
+<div class="arrow" [ngClass]="{ rotate: menu }" (click)="open()">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon icon-tabler icon-tabler-chevron-right"
@@ -19,8 +14,14 @@
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <polyline points="9 6 15 12 9 18" />
   </svg>
-</i>
-<nav class="nav">
+</div>
+<div
+  [ngClass]="{ animate: start, curtain_off: menu }"
+  (click)="open()"
+  class="curtain"
+></div>
+
+<nav class="nav" [class.navShow]="menu">
   <div class="pictures">
     <a routerLink=""
       ><img class="photo" [ngClass]="{ picture: start }" src="{{ user.img }}"

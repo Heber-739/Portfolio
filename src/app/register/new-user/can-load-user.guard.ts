@@ -9,10 +9,11 @@ export class CanLoadUserGuard implements CanActivate {
   constructor(private router: Router, private token: TokenService) {}
 
   canActivate(): UrlTree | boolean {
-    if (!this.token.getToken()) {
+    return true;
+    /* if (!this.token.getToken()) {
       return this.router.parseUrl('login');
     } else {
       return true;
-    }
+    } */
   }
 }

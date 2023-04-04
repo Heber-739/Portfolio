@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
   constructor(private tokenService: TokenService, private userS: UserService) {}
   ngOnInit(): void {
     /* this.start = this.tokenService.start(); */
-    this.start = true;
+    this.start = false;
     this.user = this.userS.getUser();
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService

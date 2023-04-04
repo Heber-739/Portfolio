@@ -1,8 +1,38 @@
 .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 170px;
   z-index: 3;
-  height: 100vh;
+  height: fit-content;
   background: var(--color4);
+  transition: transform 1s ease-in-out;
+}
+div.animate + nav.nav {
+  animation: init 0.5s ease-in-out forwards;
+}
+.navInit {
+  animation: init 0.5s ease-in-out 0.5s;
+}
+.navShow {
+  animation: close 0.5s ease-in-out forwards;
+}
+@keyframes close {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes init {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 .arrow {
   position: fixed;
@@ -12,7 +42,7 @@
 .arrow.rotate {
   transform: rotate(180deg);
   left: 180px;
-  transition: all 1s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .pictures {
   width: 100%;
@@ -83,6 +113,7 @@
 .curtain_off {
   width: 100vw;
   height: 100vh;
+  opacity: 0;
 }
 @keyframes show {
   0% {

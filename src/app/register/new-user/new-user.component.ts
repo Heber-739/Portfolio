@@ -15,6 +15,7 @@ export class NewUserComponent implements OnInit {
   user: DataUser = {} as DataUser;
   edithMode: boolean = false;
   image!: Image;
+  preview!: string;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -77,14 +78,12 @@ export class NewUserComponent implements OnInit {
           fetch(compressedImage)
             .then((res) => res.blob())
             .then((blob) => {
+              this.image = new Image(blob, fileName, getType(image));
+              console.log(this.image);
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = () => {
-                this.image = new Image(
-                  String(reader.result),
-                  fileName,
-                  getType(image)
-                );
+                this.preview = String(reader.result);
               };
             });
         });
