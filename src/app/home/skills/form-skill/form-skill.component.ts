@@ -13,7 +13,6 @@ import { HardSkill } from 'src/app/interface/hardSkill';
 export class FormSkillComponent implements OnInit {
   @Input() edithHS: HardSkill = {} as HardSkill;
   image!: Image;
-  preview!: string;
   formHS = new FormGroup({
     name: new FormControl('', [Validators.required]),
     percentage: new FormControl('', [Validators.required, Validators.max(100)]),
@@ -42,11 +41,14 @@ export class FormSkillComponent implements OnInit {
           fetch(compressedImage)
             .then((res) => res.blob())
             .then((blob) => {
-              this.image = new Image(blob, fileName, getType(image));
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = () => {
-                this.preview = String(reader.result);
+                this.image = new Image(
+                  String(reader.result),
+                  fileName,
+                  getType(image)
+                );
               };
             });
         });
@@ -63,7 +65,7 @@ export class FormSkillComponent implements OnInit {
     } else if (this.edithHS.id != 0) {
       this.hsService.updateHardSkill(this.edithHS.id!, hs);
     }
-    this.preview = '';
+    this.image = {} as Image;
     this.formHS.reset();
     this.edithHS = {} as HardSkill;
   }

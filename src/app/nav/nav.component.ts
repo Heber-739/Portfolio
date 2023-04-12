@@ -20,19 +20,12 @@ export class NavComponent implements OnInit {
     /* this.start = this.tokenService.start(); */
     this.start = false;
     this.user = this.userS.getUser();
-    this.showPhoto(this.user.img.data);
+    this.photo = this.user.img.data;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService
       .loggedObservable()
       .subscribe({ next: (res) => (this.isLogged = res) });
     this.changeTheme(JSON.parse(localStorage.getItem('theme')!));
-  }
-  showPhoto(data: Blob) {
-    const reader = new FileReader();
-    reader.readAsDataURL(data);
-    reader.onload = () => {
-      this.photo = String(reader.result);
-    };
   }
 
   changeTheme(v: string) {

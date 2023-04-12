@@ -42,7 +42,7 @@
       >Imagen o banner<input id="file" class="img_file" (focus)="onchange()"
     /></label>
 
-    <img *ngIf="image" class="outputImg" [src]="preview" />
+    <img *ngIf="image" class="outputImg" [src]="image.data" />
   </div>
   <button class="btn" (click)="saveEducation()">Guardar</button>
 </form>

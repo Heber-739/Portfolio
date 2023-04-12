@@ -100,7 +100,7 @@
     </div>
     <div class="img_container">
       <small>Tamañoo máximo de imagen 1MB</small>
-      <img *ngIf="image" class="outputImg" [src]="preview" />
+      <img *ngIf="image" class="outputImg" [src]="image.data" />
       <label for="file" class="btn"
         >Cargar foto de pérfil<input
           id="file"
