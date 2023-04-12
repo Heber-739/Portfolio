@@ -44,7 +44,7 @@
       >Logo<input id="file" class="img_file" (focus)="onchange()"
     /></label>
 
-    <img *ngIf="image" class="outputImg" [src]="image.data" />
+    <img *ngIf="image" class="outputImg" [src]="preview" />
   </div>
   <button class="btn" (click)="saveHardSkill()">Guardar</button>
 </form>

@@ -15,6 +15,7 @@ export class FormEducationComponent implements OnInit {
   edId: number = 0;
   edFinish: boolean = false;
   image!: Image;
+  preview!: string;
   formEd = new FormGroup({
     name: new FormControl('', [Validators.required]),
     link: new FormControl('', [Validators.required]),
@@ -46,14 +47,11 @@ export class FormEducationComponent implements OnInit {
           fetch(compressedImage)
             .then((res) => res.blob())
             .then((blob) => {
+              this.image = new Image(blob, fileName, getType(image));
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = () => {
-                this.image = new Image(
-                  String(reader.result),
-                  fileName,
-                  getType(image)
-                );
+                this.preview = String(reader.result);
               };
             });
         });

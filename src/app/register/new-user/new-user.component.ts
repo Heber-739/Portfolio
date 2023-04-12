@@ -68,6 +68,9 @@ export class NewUserComponent implements OnInit {
       this.userService.sendUser(newUser);
     }
   }
+  getuser() {
+    this.userService.sendImage(this.image);
+  }
 
   onchange() {
     this.compress.uploadFile().then(({ image, orientation, fileName }) => {
@@ -78,8 +81,11 @@ export class NewUserComponent implements OnInit {
           fetch(compressedImage)
             .then((res) => res.blob())
             .then((blob) => {
-              this.image = new Image(blob, fileName, getType(image));
-              console.log(this.image);
+              this.image = new Image(
+                new Blob([blob]),
+                fileName,
+                getType(image)
+              );
               const reader = new FileReader();
               reader.readAsDataURL(blob);
               reader.onload = () => {

@@ -7,13 +7,14 @@ import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
+import { Image } from 'src/app/interface/Image';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private user$: Subject<DataUser> = new Subject();
-  URL: string = `${environment.URL}/users`;
+  URL: string = `${environment.URL}/user`;
   constructor(
     private router: Router,
     private popup: ModalService,
@@ -36,6 +37,7 @@ export class UserService {
       next: (res) => {
         this.token.setUser(res);
         ret = res;
+        console.log(res);
       },
       error: (error) =>
         this.popup.showMessage(
@@ -87,6 +89,14 @@ export class UserService {
       next: (res) => this.popup.showMessage(res.message),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+    });
+  }
+
+  /* ---------------------- */
+  public sendImage(img: Image) {
+    this.http.post<Image>(`${environment.URL}/image/create`, img).subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.log(err),
     });
   }
 }

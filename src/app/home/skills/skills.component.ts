@@ -40,7 +40,21 @@ export class SkillsComponent implements OnInit, AfterContentInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsuscribe.next(true);
   }
+  showImage(data: Blob): string {
+    let image: string = '';
+    this.reader(data).catch((resolve) => (image = resolve));
+    return image;
+  }
 
+  reader(data: Blob) {
+    const reader = new FileReader();
+    reader.readAsDataURL(data);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        resolve(String(reader.result));
+      };
+    });
+  }
   addSkill() {
     this.toEdith = !this.toEdith;
   }
