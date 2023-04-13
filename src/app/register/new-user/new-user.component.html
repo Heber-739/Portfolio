@@ -111,4 +111,9 @@
     <button class="btn" (click)="sendUser()">Guardar</button>
     <button class="btn" (click)="getuser()">enviar</button>
   </form>
+  <div>
+    <input type="number" #inpt />
+    <button class="btn" (click)="getimg(inpt.value)">obtener imagen</button>
+    <img src="res.data" *ngIf="res" />
+  </div>
 </section>

@@ -99,4 +99,7 @@ export class UserService {
       error: (err) => console.log(err),
     });
   }
+  public getImage(id: number) {
+    return this.http.get<Image>(`${environment.URL}/image/get/${id}`);
+  }
 }

@@ -15,6 +15,7 @@ export class NewUserComponent implements OnInit {
   user: DataUser = {} as DataUser;
   edithMode: boolean = false;
   image!: Image;
+  res!: Image;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -69,6 +70,15 @@ export class NewUserComponent implements OnInit {
   }
   getuser() {
     this.userService.sendImage(this.image);
+  }
+  getimg(id: string) {
+    this.userService.getImage(parseInt(id)).subscribe({
+      next: (res) => {
+        this.res = res;
+        console.log(res);
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   onchange() {
