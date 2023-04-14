@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
     /* this.start = this.tokenService.start(); */
     this.start = false;
     this.user = this.userS.getUser();
-    this.photo = this.user.img.data;
+    this.photo = this.user.img.data_img;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService
       .loggedObservable()

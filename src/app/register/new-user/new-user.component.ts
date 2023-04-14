@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { buffer } from 'rxjs';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { Image } from 'src/app/interface/Image';
@@ -15,7 +16,8 @@ export class NewUserComponent implements OnInit {
   user: DataUser = {} as DataUser;
   edithMode: boolean = false;
   image!: Image;
-  res!: Image;
+  res!: string;
+  preview!: string;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -68,37 +70,21 @@ export class NewUserComponent implements OnInit {
       this.userService.sendUser(newUser);
     }
   }
-  getuser() {
-    this.userService.sendImage(this.image);
-  }
-  getimg(id: string) {
-    this.userService.getImage(parseInt(id)).subscribe({
-      next: (res) => {
-        this.res = res;
-        console.log(res);
-      },
-      error: (err) => console.log(err),
-    });
-  }
 
   onchange() {
     this.compress.uploadFile().then(({ image, orientation, fileName }) => {
       this.compress
-        .compressFile(image, orientation, 50, 50)
+        .compressFile(image, orientation, 100, 50)
         .then((compressedImage) => {
           const getType = (t: string) => t.slice(5, t.indexOf(';'));
           fetch(compressedImage)
             .then((res) => res.blob())
             .then((blob) => {
               const reader = new FileReader();
-              reader.readAsDataURL(blob);
               reader.onload = () => {
-                this.image = new Image(
-                  String(reader.result),
-                  fileName,
-                  getType(image)
-                );
+                this.image = new Image(reader.result, fileName, getType(image));
               };
+              reader.readAsDataURL(blob);
             });
         });
     });

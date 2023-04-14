@@ -1,10 +1,10 @@
 export class Image {
   id?: number;
-  data: string;
+  base64: string;
   name: string;
   type: string;
-  constructor(data: string, name: string, type: string) {
-    this.data = data;
+  constructor(base64: string, name: string, type: string) {
+    this.base64 = base64;
     this.name = name;
     this.type = type;
   }

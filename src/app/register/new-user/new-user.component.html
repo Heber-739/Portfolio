@@ -100,7 +100,7 @@
     </div>
     <div class="img_container">
       <small>Tamañoo máximo de imagen 1MB</small>
-      <img *ngIf="image" class="outputImg" [src]="image.data" />
+      <img *ngIf="image" class="outputImg" [src]="getBase64(image.data_img)" />
       <label for="file" class="btn"
         >Cargar foto de pérfil<input
           id="file"
@@ -109,11 +109,11 @@
       /></label>
     </div>
     <button class="btn" (click)="sendUser()">Guardar</button>
-    <button class="btn" (click)="getuser()">enviar</button>
+    <button class="btn" (click)="sendImage()">enviar</button>
   </form>
   <div>
     <input type="number" #inpt />
     <button class="btn" (click)="getimg(inpt.value)">obtener imagen</button>
-    <img src="res.data" *ngIf="res" />
+    <img *ngIf="res" class="outputImg" [src]="res" />
   </div>
 </section>
