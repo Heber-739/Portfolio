@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { buffer } from 'rxjs';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { Image } from 'src/app/interface/Image';
 import { DataUser } from 'src/app/interface/dataUser';
+import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
   selector: 'app-new-user',
@@ -16,8 +16,7 @@ export class NewUserComponent implements OnInit {
   user: DataUser = {} as DataUser;
   edithMode: boolean = false;
   image!: Image;
-  res!: string;
-  preview!: string;
+  res!: Image;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -34,7 +33,7 @@ export class NewUserComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
-    private compress: NgxImageCompressService
+    private compress: ImageCompressService
   ) {}
   ngOnInit(): void {
     if (this.tokenService.getUser() && this.tokenService.getToken()) {
@@ -70,23 +69,17 @@ export class NewUserComponent implements OnInit {
       this.userService.sendUser(newUser);
     }
   }
-
-  onchange() {
-    this.compress.uploadFile().then(({ image, orientation, fileName }) => {
-      this.compress
-        .compressFile(image, orientation, 100, 50)
-        .then((compressedImage) => {
-          const getType = (t: string) => t.slice(5, t.indexOf(';'));
-          fetch(compressedImage)
-            .then((res) => res.blob())
-            .then((blob) => {
-              const reader = new FileReader();
-              reader.onload = () => {
-                this.image = new Image(reader.result, fileName, getType(image));
-              };
-              reader.readAsDataURL(blob);
-            });
-        });
+  sendImage() {
+    this.userService.sendImage(this.image);
+  }
+  getImage(num: string) {
+    let id: number = parseInt(num);
+    this.userService.getImage(id).subscribe({
+      next: (res) => (this.res = res),
     });
+  }
+
+  loadImage() {
+    this.compress.compress();
   }
 }

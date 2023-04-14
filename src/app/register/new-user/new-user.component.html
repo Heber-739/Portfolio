@@ -100,20 +100,20 @@
     </div>
     <div class="img_container">
       <small>Tamañoo máximo de imagen 1MB</small>
-      <img *ngIf="image" class="outputImg" [src]="getBase64(image.data_img)" />
-      <label for="file" class="btn"
-        >Cargar foto de pérfil<input
-          id="file"
-          class="img_file"
-          (focus)="onchange()"
-      /></label>
+      <img
+        class="outputImg"
+        [src]="image ? image.base64 : '../../../assets/img/picture.png'"
+      />
+      <button (click)="loadImage()" class="btn">Cargar foto de pérfil</button>
     </div>
     <button class="btn" (click)="sendUser()">Guardar</button>
-    <button class="btn" (click)="sendImage()">enviar</button>
+    <button class="btn" style="margin: 30px auto" (click)="sendImage()">
+      send
+    </button>
+    <div style="margin: 30px auto">
+      <input type="number" #INP />
+      <button type="button" (click)="getImage(INP.value)">get</button>
+      <img [src]="res.base64" />
+    </div>
   </form>
-  <div>
-    <input type="number" #inpt />
-    <button class="btn" (click)="getimg(inpt.value)">obtener imagen</button>
-    <img *ngIf="res" class="outputImg" [src]="res" />
-  </div>
 </section>
