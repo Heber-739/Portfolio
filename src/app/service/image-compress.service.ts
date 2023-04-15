@@ -29,4 +29,5 @@ export class ImageCompressService {
       });
     });
   }
-}
+ 
+DesCompress():Image{ return new Image();}}
