@@ -12,77 +12,40 @@
     <img class="illustration" src="assets/img/illustrations/ill-08.png" />
   </div>
   <div class="contact_content">
-    <form class="form" formGroup="emailForm">
-      <div class="input_container">
-        <input
+    <form class="form" [formGroup]="emailForm">
+      <label for="name" class="lbl"
+        ><input
           id="name"
-          (focus)="LabelName.classList.add('active')"
-          class="input_text input name"
+          class="input"
           type="text"
           autocomplete="off"
           placeholder="Ingrese su nombre"
           formControlName="name"
-        />
-        <label for="name" class="label" #LabelName>Nombre</label>
-        <small
-          *ngIf="
-            emailForm.get('name')?.hasError('required') &&
-            emailForm.get('name')?.touched
-          "
-          >El campo es obligatorio</small
-        >
-      </div>
-      <div class="input_container">
+        /><span>Nombre</span></label
+      >
+
+      <label for="mail" class="lbl">
         <input
           id="mail"
-          (focus)="LabelEmail.classList.add('active')"
-          class="input_text input correo"
+          class="input"
           type="text"
           autocomplete="off"
           placeholder="Ingrese su correo"
           formControlName="email"
-        />
-        <label for="mail" class="label" #LabelEmail>Correo</label>
-        <small
-          *ngIf="
-            emailForm.get('email')?.hasError('required') &&
-            emailForm.get('email')?.touched
-          "
-          >El campo es obligatorio</small
-        >
-        <small
-          *ngIf="
-            emailForm.get('email')?.hasError('email') &&
-            emailForm.get('email')?.touched
-          "
-          >Ingrese un email válido</small
-        >
-      </div>
-      <div class="input_container">
+        /><span>Correo</span></label
+      >
+
+      <label for="message" class="lbl">
         <textarea
-          class="input_text input mensaje"
-          (focus)="LabelMessage.classList.add('active')"
+          class="input message"
           id="message"
           autocomplete="off"
           placeholder="Escribeme un mensaje positivo."
           formControlName="message"
-        ></textarea>
-        <label for="message" class="label" #LabelMessage>Mensaje</label>
-        <small
-          *ngIf="
-            emailForm.get('message')?.hasError('required') &&
-            emailForm.get('message')?.touched
-          "
-          >El campo es obligatorio</small
-        >
-        <small
-          *ngIf="
-            emailForm.get('message')?.hasError('minlength') &&
-            emailForm.get('message')?.dirty
-          "
-          >Ingrese un mínimo de 20 caracteres</small
-        >
-      </div>
+        ></textarea
+        ><span>Mensaje</span></label
+      >
+
       <button
         type="button"
         class="btn"

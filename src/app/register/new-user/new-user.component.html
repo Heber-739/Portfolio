@@ -10,7 +10,7 @@
         placeholder="Ingrese su nombre"
         autocomplete="off"
         formControlName="name"
-      /><label for="name" class="label" [class.active]="edithMode" #Name
+      /><label for="name" class="label" [class.active]="user" #Name
         >Nombre</label
       >
     </div>
@@ -23,7 +23,7 @@
         placeholder="Ingrese su apellido"
         autocomplete="off"
         formControlName="surname"
-      /><label for="username" class="label" [class.active]="edithMode" #Username
+      /><label for="username" class="label" [class.active]="user" #Username
         >Apellido</label
       >
     </div>
@@ -48,9 +48,7 @@
         placeholder="Ingrese su edad"
         autocomplete="off"
         formControlName="age"
-      /><label for="age" class="label" [class.active]="edithMode" #Age
-        >Edad</label
-      >
+      /><label for="age" class="label" [class.active]="user" #Age>Edad</label>
     </div>
     <div class="input_container">
       <input
@@ -61,7 +59,7 @@
         placeholder="Link github"
         autocomplete="off"
         formControlName="github"
-      /><label for="github" class="label" [class.active]="edithMode" #Github
+      /><label for="github" class="label" [class.active]="user" #Github
         >Github</label
       >
     </div>
@@ -74,7 +72,7 @@
         placeholder="Link Linkedin"
         autocomplete="off"
         formControlName="linkedin"
-      /><label for="linkedin" class="label" [class.active]="edithMode" #Linkedin
+      /><label for="linkedin" class="label" [class.active]="user" #Linkedin
         >Linkedin</label
       >
     </div>
@@ -90,11 +88,7 @@
         autocomplete="off"
         formControlName="description"
       ></textarea>
-      <label
-        for="description"
-        class="label"
-        [class.active]="edithMode"
-        #Description
+      <label for="description" class="label" [class.active]="user" #Description
         >Descripción</label
       >
     </div>
@@ -107,13 +101,5 @@
       <button (click)="loadImage()" class="btn">Cargar foto de pérfil</button>
     </div>
     <button class="btn" (click)="sendUser()">Guardar</button>
-    <button class="btn" style="margin: 30px auto" (click)="sendImage()">
-      send
-    </button>
-    <div style="margin: 30px auto">
-      <input type="number" #INP />
-      <button type="button" (click)="getImage(INP.value)">get</button>
-      <img [src]="res.base64" />
-    </div>
   </form>
 </section>

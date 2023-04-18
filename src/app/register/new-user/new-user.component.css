@@ -3,7 +3,7 @@
   margin: 55px auto 10px;
 }
 .input_container {
-  width: clamp(250px,80%,350px);
+  width: clamp(250px, 80%, 350px);
   margin: 45px 0 5px;
 }
 
@@ -30,15 +30,14 @@
 .textarea_container {
   width: 290px;
 }
-textarea.input_text{
+.input:visited textarea.input_text {
   height: fit-content;
   font-size: 0.8rem;
   padding: 5px;
 }
-.outputImg{
+.outputImg {
   height: 100px;
 }
-
 
 @media screen and (min-width: 768px) {
   .loggin {

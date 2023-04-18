@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgxImageCompressService } from 'ngx-image-compress';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { Image } from 'src/app/interface/Image';
@@ -13,16 +12,14 @@ import { ImageCompressService } from 'src/app/service/image-compress.service';
   styleUrls: ['./new-user.component.css'],
 })
 export class NewUserComponent implements OnInit {
-  user: DataUser = {} as DataUser;
-  edithMode: boolean = false;
+  user: DataUser = this.tokenService.getUser();
   image!: Image;
-  res!: Image;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     username: new FormControl({
-      value: this.tokenService.getUsername(),
+      value: this.user.username,
       disabled: true,
     }),
     age: new FormControl('', [Validators.required, Validators.min(10)]),
@@ -36,9 +33,7 @@ export class NewUserComponent implements OnInit {
     private compress: ImageCompressService
   ) {}
   ngOnInit(): void {
-    if (this.tokenService.getUser() && this.tokenService.getToken()) {
-      this.edithMode = true;
-      this.user = this.tokenService.getUser();
+    if (this.user) {
       this.userForm.setValue({
         name: this.user.name,
         surname: this.user.surname,
@@ -63,23 +58,14 @@ export class NewUserComponent implements OnInit {
       linkedin: this.userForm.get('linkedin')?.value,
       description: this.userForm.get('description')?.value,
     };
-    if (this.edithMode) {
+    if (this.user) {
       this.userService.updateUser(newUser);
-    } else if (!this.edithMode) {
+    } else if (!this.user) {
       this.userService.sendUser(newUser);
     }
   }
-  sendImage() {
-    this.userService.sendImage(this.image);
-  }
-  getImage(num: string) {
-    let id: number = parseInt(num);
-    this.userService.getImage(id).subscribe({
-      next: (res) => (this.res = res),
-    });
-  }
 
   loadImage() {
-    this.compress.compress();
+    this.compress.compress().then((res) => (this.image = res));
   }
 }

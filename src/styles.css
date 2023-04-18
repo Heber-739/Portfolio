@@ -111,11 +111,6 @@ p {
 .edith_form {
   margin: 15px auto;
 }
-.input_container {
-  width: 100%;
-  position: relative;
-  margin: 25px auto 0;
-}
 .img_container {
   display: flex;
   row-gap: 25px;
@@ -125,7 +120,34 @@ p {
   padding: 20px 0;
   margin: 15px auto;
 }
-.input_text {
+/* ------------------------------- */
+
+.lbl span {
+  position: absolute;
+  top: 3px;
+  left: 15px;
+  scale: 1;
+}
+.input:focus ~ span,
+.input.ng-touched ~ span {
+  transform: translate(-15px, -25px) scale(0.8);
+  transition: transform 0.3s ease-in-out;
+}
+.input.ng-invalid.ng-touched + span::after {
+  content: "Campo invalido";
+  margin-left: 30px;
+  color: rgb(255, 0, 0);
+  border-radius: 50px;
+  padding: 3px 8px;
+  background-color: #ffffff;
+  font-weight: bold;
+}
+.input.ng-invalid.ng-touched ~ span {
+  font-weight: bold;
+}
+
+/* ------------------------------- */
+.input {
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid var(--color5);
@@ -135,10 +157,10 @@ p {
   caret-color: var(--text);
   color: var(--text);
 }
-.input_text:focus {
+.input:focus {
   outline: 2px solid var(--color5);
 }
-.input_text::placeholder {
+.input::placeholder {
   width: 100%;
   padding: 5px 10px;
   text-align: center;
@@ -147,31 +169,22 @@ p {
   color: var(--text);
   opacity: 0;
 }
-.input_text.ng-touched::placeholder,
-.input_text:focus::placeholder {
+.input.ng-touched::placeholder,
+.input:focus::placeholder {
   opacity: 1;
 }
-.label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(10px, 50%);
-  transition: transform 0.2s;
+label.lbl {
+  position: relative;
+  width: 100%;
+  margin-top: 40px;
 }
-label.btn {
-  text-align: center;
-  width: fit-content;
-  height: fit-content;
-}
+
 input.img_file {
   width: 0;
   height: 0;
   opacity: 0;
 }
-.active {
-  transform: translate(0px, -23px) scale(0.8);
-  padding-inline: 10px;
-}
+
 .cont_edith_btn {
   margin: 10px auto;
   display: flex;
@@ -251,12 +264,12 @@ input.img_file {
 .input.ng-untouched {
   box-shadow: 0px 1px 4px 0px var(--text);
 }
-.input_text.ng-invalid.ng-dirty,
-.input_text.ng-invalid.ng-touched {
+.input.ng-invalid.ng-dirty,
+.input.ng-invalid.ng-touched {
   border: 1px solid red;
   outline: 1px solid red;
 }
-.input_text[disabled] {
+.input[disabled] {
   box-shadow: none;
   color: #828282;
 }
@@ -282,11 +295,11 @@ input.img_file {
 
 @media screen and (max-width: 400px) {
   p,
-  .input_text::placeholder,
-  .input_text {
+  .input::placeholder,
+  .input {
     font-size: 12px;
   }
-  .input_text {
+  .input {
     height: 30px;
   }
   .btn {
@@ -304,8 +317,8 @@ input.img_file {
 
 @media screen and (min-width: 401px) and (max-width: 600px) {
   p,
-  .input_text::placeholder,
-  .input_text {
+  .input::placeholder,
+  .input {
     font-size: 14px;
   }
 
@@ -329,8 +342,8 @@ input.img_file {
 }
 @media screen and (min-width: 601px) and (max-width: 767px) {
   p,
-  .input_text::placeholder,
-  .input_text {
+  .input::placeholder,
+  .input {
     font-size: 16px;
   }
   .btn {
@@ -352,8 +365,8 @@ input.img_file {
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   p,
-  .input_text::placeholder,
-  .input_text {
+  .input::placeholder,
+  .input {
     font-size: 20px;
   }
   .ill_container {
@@ -382,8 +395,8 @@ input.img_file {
 
 @media screen and (min-width: 1024px) {
   p,
-  .input_text::placeholder,
-  .input_text {
+  .input::placeholder,
+  .input {
     font-size: 16px;
   }
   .illustration {
