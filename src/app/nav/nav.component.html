@@ -1,22 +1,15 @@
-<div class="arrow" [ngClass]="{ rotate: menu }" (click)="open()">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="icon icon-tabler icon-tabler-chevron-right"
-    width="56"
-    height="56"
-    viewBox="0 0 24 24"
-    stroke-width="2"
-    stroke="#ffffff"
-    fill="none"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <polyline points="9 6 15 12 9 18" />
-  </svg>
-</div>
+<button
+  type="button"
+  class="hamburguer"
+  [ngClass]="{ active: menu }"
+  (click)="open()"
+>
+  <span class="line"></span>
+  <span class="line"></span>
+  <span class="line"></span>
+</button>
 <div
-  [ngClass]="{ animate: start, curtain_off: menu }"
+  [ngClass]="{ animate: start, curtain_on: menu }"
   (click)="open()"
   class="curtain"
 ></div>
@@ -24,7 +17,10 @@
 <nav class="nav" [class.navShow]="menu">
   <div class="pictures">
     <a routerLink=""
-      ><img class="photo" [ngClass]="{ picture: start }" src="{{ photo }}"
+      ><img
+        class="photo"
+        [ngClass]="{ picture: start }"
+        [src]="photo ? photo : '../../../../assets/img/Foto.webp'"
     /></a>
     <a href="{{ user.linkedin }}" target="_blank"
       ><img

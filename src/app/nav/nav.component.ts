@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TokenService } from '../backend/service/token.service';
 import { UserService } from '../backend/service/user.service';
 import { DataUser } from '../interface/dataUser';
@@ -8,7 +8,7 @@ import { DataUser } from '../interface/dataUser';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   selColor: boolean = false;
   isLogged: boolean = false;
   user!: DataUser;
@@ -16,9 +16,17 @@ export class NavComponent implements OnInit {
   menu: boolean = false;
   photo!: string;
   constructor(private tokenService: TokenService, private userS: UserService) {}
+
   ngOnInit(): void {
     /* this.start = this.tokenService.start(); */
-    this.start = false;
+    this.start = true;
+    if (this.start) {
+      this.menu = true;
+      setTimeout(() => {
+        this.menu = false;
+        this.start = false;
+      }, 7000);
+    }
     this.user = this.userS.getUser();
     this.photo = this.user.img.base64;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
@@ -26,6 +34,9 @@ export class NavComponent implements OnInit {
       .loggedObservable()
       .subscribe({ next: (res) => (this.isLogged = res) });
     this.changeTheme(JSON.parse(localStorage.getItem('theme')!));
+  }
+  ngOnDestroy(): void {
+    window.sessionStorage.setItem('start', 'true');
   }
 
   changeTheme(v: string) {

@@ -69,6 +69,7 @@
 p {
   color: var(--text);
   text-align: justify;
+  margin-top: 10px;
 }
 .moreInfo {
   text-align: center;
@@ -194,6 +195,7 @@ input.img_file {
 .btn,
 .edith_btn {
   background: var(--color5);
+  margin: 20px auto 40px;
   width: fit-content;
   color: var(--text);
   font-weight: bold;
