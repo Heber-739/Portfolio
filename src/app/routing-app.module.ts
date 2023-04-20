@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PreloadService } from './service/preload.service';
 import { CanLoadUserGuard } from './register/new-user/can-load-user.guard';
-import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared.module';
 
 const routing: Routes = [
   { path: '', component: HomeComponent },
@@ -28,7 +28,7 @@ const routing: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'newUser',
+    path: 'user',
     loadChildren: () =>
       import('./register/new-user/user.module').then((m) => m.UserModule),
     canActivate: [CanLoadUserGuard],
@@ -43,7 +43,7 @@ const routing: Routes = [
       preloadingStrategy: PreloadService,
     }),
     HttpClientModule,
-    ReactiveFormsModule,
+    SharedModule,
   ],
   exports: [RouterModule],
   providers: [],

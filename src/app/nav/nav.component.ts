@@ -19,7 +19,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     /* this.start = this.tokenService.start(); */
-    this.start = true;
+    this.start = false;
     if (this.start) {
       this.menu = true;
       setTimeout(() => {
