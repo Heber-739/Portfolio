@@ -16,7 +16,7 @@ export class NavComponent implements OnInit, OnDestroy {
   menu: boolean = false;
   photo!: string;
   constructor(private tokenService: TokenService, private userS: UserService) {}
-
+/* Hacer el responsive movilfirst */
   ngOnInit(): void {
     /* this.start = this.tokenService.start(); */
     this.start = false;
