@@ -18,7 +18,7 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(private tokenService: TokenService, private userS: UserService) {}
   ngOnInit(): void {
     /* this.start = this.tokenService.start(); */
-    this.start = false;
+    this.start = true;
     if (this.start) {
       this.menu = true;
       setTimeout(() => {
@@ -42,6 +42,7 @@ export class NavComponent implements OnInit, OnDestroy {
     if (v == 'open') {
       this.selColor = !this.selColor;
     } else {
+      this.open();
       this.selColor = false;
       localStorage.setItem('theme', JSON.stringify(v));
       let c: string[] = this.colors(v);
