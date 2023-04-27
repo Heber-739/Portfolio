@@ -18,6 +18,7 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(private tokenService: TokenService, private userS: UserService) {}
   ngOnInit(): void {
     /* this.start = this.tokenService.start(); */
+    console.log(screen.width, screen.height);
     this.start = true;
     if (this.start) {
       this.menu = true;

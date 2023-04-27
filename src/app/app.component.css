@@ -1,9 +1,0 @@
-app-nav {
-  position: fixed;
-}
-@media screen and (min-width: 901px) {
-  router-outlet {
-    width: calc(100vw - 170px);
-    margin-left: auto;
-  }
-}

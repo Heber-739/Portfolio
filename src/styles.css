@@ -194,6 +194,7 @@ input.img_file {
 }
 .btn,
 .edith_btn {
+  text-decoration: none;
   background: var(--color5);
   margin: 20px auto 40px;
   width: fit-content;

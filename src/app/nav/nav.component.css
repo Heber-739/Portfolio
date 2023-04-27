@@ -41,9 +41,14 @@
 }
 .nav {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   top: 0;
   left: 0;
   width: 190px;
+  padding: 0 0 10px 0;
+  border-radius: 0 0 15px 0;
   z-index: 3;
   height: fit-content;
   background: var(--color4);
@@ -53,6 +58,7 @@
 
 .pictures {
   width: 100%;
+  height: unset;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, fit-content);
@@ -161,13 +167,13 @@
   }
   99% {
     transform: scale(1);
-    top: 170px;
-    left: 100px;
+    top: 150px;
+    left: 110px;
     position: fixed;
   }
   100% {
-    top: 170px;
-    left: 100px;
+    top: 150px;
+    left: 110px;
     position: static;
   }
 }
@@ -190,13 +196,13 @@
   }
   99% {
     transform: scale(1);
-    top: 170px;
-    left: 15px;
+    top: 150px;
+    left: 20px;
     position: fixed;
   }
   100% {
-    top: 170px;
-    left: 15px;
+    top: 150px;
+    left: 20px;
     position: static;
   }
 }
@@ -216,19 +222,17 @@
   99% {
     transform: scale(1);
     top: 5px;
-    left: 8px;
+    left: 35px;
     position: fixed;
   }
   100% {
     top: 5px;
-    left: 8px;
+    left: 35px;
     position: static;
   }
 }
 .contact {
   position: relative;
-  align-self: center;
-  justify-self: flex-start;
   animation: border 10s infinite 6s;
 }
 
@@ -245,17 +249,16 @@
 }
 .list {
   display: flex;
-  margin: 0;
+  margin: auto 0;
   width: 170px;
   height: fit-content;
   flex-direction: column;
   list-style: none;
-  align-items: stretch;
 }
 
 .item {
   padding-left: 8px;
-  width: 90%;
+  width: 130px;
   cursor: pointer;
 }
 
@@ -267,12 +270,11 @@
   height: 100%;
   align-items: center;
   margin-right: auto;
+  text-decoration: none;
 }
 
 .img {
   display: inline-flex;
-  width: 30px;
-  height: 30px;
   border-radius: 50%;
   background-color: var(--color4);
   padding: 3px;
@@ -290,16 +292,18 @@
   height: fit-content;
   padding: 0;
   position: fixed;
-  top: 40%;
-  left: 170px;
+  top: 60px;
+  left: 200px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   list-style: none;
 }
-li.btn {
-  width: 50%;
+ul li.btn {
+  margin: 10px auto 0;
+  width: 55px;
+  text-align: center;
 }
+
 .list_color li:nth-child(1) {
   background-color: #003567;
 }
@@ -317,19 +321,19 @@ li.btn {
   .pictures {
     height: 200px;
   }
-  /* .a_item {
+  .contact {
+    margin: 20px auto 0;
+  }
+  .item {
+    margin-top: 13px;
+  }
+  .a_item {
     font-size: 12px;
   }
-  .picture {
-    width: 90px;
-    height: 90px;
+  .img {
+    width: 25px;
+    height: 25px;
   }
-
-  .header_git,
-  .header_in {
-    width: 45px;
-    height: 45px;
-  } */
 }
 @media screen and (min-width: 401px) and (max-width: 599px) {
   .pictures {
@@ -338,42 +342,91 @@ li.btn {
   .a_item {
     font-size: 14px;
   }
+  .item {
+    margin-top: 20px;
+  }
+  .img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .pictures {
+    height: 230px;
+  }
+  .contact {
+    margin: 25px auto 0;
+  }
+  .item {
+    margin-top: 25px;
+    width: 150px;
+  }
+  .a_item {
+    font-size: 16px;
+  }
+  .img {
+    width: 35px;
+    height: 35px;
+  }
 }
 @media screen and (orientation: landscape) and (max-width: 900px) {
-  /* .picture {
-    width: 100px;
-    height: 100px;
+  .pictures {
+    display: none;
   }
-
-  .header_git,
-  .header_in {
-    width: 50px;
-    height: 50px;
-  } */
+  .contact {
+    margin: 15px auto 0;
+  }
+  .item {
+    margin-top: 10px;
+  }
+  .a_item {
+    font-size: 12px;
+  }
+  .img {
+    width: 25px;
+    height: 25px;
+  }
 }
-@media screen and (min-width: 600px) {
-  /* .list {
-    border-radius: 0;
-  }
-  .picture {
-    width: 140px;
-    height: 140px;
-  }
-
-  .header_git,
-  .header_in {
-    width: 70px;
-    height: 70px;
-  } */
-}
-
 @media screen and (min-width: 901px) {
-  /* .picture {
-    width: 150px;
-    height: 150px;
+  .nav {
+    height: 100vh;
+    transform: none;
   }
-  .header_git,
-  .header_in {
-    width: 70px;
-  } */
+  .hamburguer {
+    display: none;
+  }
+  .contact {
+    margin: 20px auto 0;
+  }
+  .item {
+    margin-top: 15px;
+    width: 160px;
+  }
+  .a_item {
+    font-size: 18px;
+  }
+  .img {
+    width: 35px;
+    height: 35px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .nav {
+    width: 200px;
+  }
+  .contact {
+    margin: 30px auto 0;
+  }
+  .item {
+    margin-top: 25px;
+    width: 180px;
+  }
+  .a_item {
+    font-size: 20px;
+  }
+  .img {
+    width: 40px;
+    height: 40px;
+  }
 }
