@@ -26,7 +26,7 @@
 }
 
 .ill_container p {
-  width: 95vw;
+  width: 95%;
   line-height: 1.3;
   margin: 30px auto 20px;
 }
@@ -58,10 +58,6 @@
   }
 }
 @media screen and (min-width: 600px) {
-  .body {
-    width: calc(100vw - 170px);
-    margin-left: auto;
-  }
   .presentation {
     justify-content: space-between;
     width: 70vw;

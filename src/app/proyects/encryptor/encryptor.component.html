@@ -46,9 +46,9 @@
         placeholder="Ingrese el texto a encriptar aquí."
       ></textarea>
 
-      <ng-container [ngSwitch]="toggle">
+      <ng-container>
         <button
-          *ngSwitchCase="true"
+          *ngIf="toggle"
           type="button"
           class="btn"
           [disabled]="encryptTextControl.invalid || keyControl.invalid"
@@ -57,7 +57,7 @@
           Encriptar
         </button>
         <button
-          *ngSwitchCase="false"
+          *ngIf="!toggle"
           class="btn"
           type="button"
           [disabled]="decriptTextControl.invalid && keyControl.invalid"

@@ -17,7 +17,7 @@
 }
 .body {
   min-height: 100vh;
-  scroll-behavior: smooth;
+  width: 100vw;
 }
 
 .section {
@@ -44,6 +44,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  width: 100%;
 }
 .illustration {
   display: none;
@@ -393,6 +394,12 @@ input.img_file {
   }
   .sub_title {
     font-size: 30px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .body {
+    width: calc(100vw - 190px);
+    margin-left: auto;
   }
 }
 

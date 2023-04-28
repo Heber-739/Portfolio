@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProyectsComponent } from './proyects.component';
 import { CanPlayGuard } from './can-play.guard';
 import { CryptoFormComponent } from './crypto-form/crypto-form.component';
+import { SharedModule } from '../shared.module';
 
 const routing: Routes = [
   { path: '', component: ProyectsComponent },
@@ -34,7 +35,7 @@ const routing: Routes = [
 
 @NgModule({
   declarations: [ProyectsComponent, CryptoFormComponent],
-  imports: [CommonModule, RouterModule.forChild(routing)],
+  imports: [CommonModule, RouterModule.forChild(routing), SharedModule],
   exports: [RouterModule],
 })
 export class RoutingProyectsModule {}
