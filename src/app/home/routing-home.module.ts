@@ -21,7 +21,6 @@ const routing: Routes = [{ path: '', component: HomeComponent }];
   declarations: [
     HomeComponent,
     HeaderComponent,
-    SpinnerInterceptorComponent,
     SkillsComponent,
     TagsComponent,
     SoftSkillsComponent,

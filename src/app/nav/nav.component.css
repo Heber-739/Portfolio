@@ -250,10 +250,11 @@
 .list {
   display: flex;
   margin: auto 0;
-  width: 170px;
+  width: fit-content;
   height: fit-content;
   flex-direction: column;
   list-style: none;
+  align-self: flex-start;
 }
 
 .item {

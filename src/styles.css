@@ -41,7 +41,6 @@
 }
 .ill_container {
   display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
@@ -49,6 +48,7 @@
 .illustration {
   display: none;
   width: 200px;
+  width: clamp(170px, 25%, 300px);
   margin: 0 auto;
 }
 
@@ -207,10 +207,9 @@ input.img_file {
   cursor: pointer;
   text-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.753);
 }
-.add_btn {
-  text-align: center;
-  width: clamp(250px, 80%, 350px);
-  align-content: center;
+.btn_primary {
+  display: block;
+  width: fit-content;
   margin: 50px auto;
   background-color: var(--color4);
   border: 2px solid var(--color5);
@@ -220,10 +219,6 @@ input.img_file {
   height: 30px;
   font-size: 11px;
   padding: 3px 8px;
-}
-.button {
-  margin: 20px 10px;
-  border-radius: 10px;
 }
 .btn:disabled,
 .btn[disabled] {
@@ -401,9 +396,6 @@ input.img_file {
     width: calc(100vw - 190px);
     margin-left: auto;
   }
-}
-
-@media screen and (min-width: 1024px) {
   p,
   .input::placeholder,
   .input {
@@ -428,4 +420,7 @@ input.img_file {
   .sub_title {
     font-size: 36px;
   }
+}
+
+@media screen and (min-width: 1024px) {
 }

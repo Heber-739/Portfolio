@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../backend/service/token.service';
-import { UserService } from '../backend/service/user.service';
-import { DataUser } from '../interface/dataUser';
-import { SpinnerService } from '../service/spinner-interceptor/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -10,26 +7,11 @@ import { SpinnerService } from '../service/spinner-interceptor/spinner.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  isLoading: boolean = false;
   edithMode: boolean = false;
-  user: DataUser = {} as DataUser;
   isLogged: boolean = false;
 
-  constructor(
-    private spinnerService: SpinnerService,
-    private userService: UserService,
-    private token: TokenService
-  ) {
-    this.userService.subscribeUser().subscribe({
-      next: (res) => {
-        this.user = res;
-      },
-    });
-  }
+  constructor(private token: TokenService) {}
   ngOnInit(): void {
-    this.spinnerService.subscribeLoading().subscribe({
-      next: (res) => (this.isLoading = res),
-    });
     this.token.loggedObservable().subscribe({
       next: (res) => {
         this.isLogged = res;
