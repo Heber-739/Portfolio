@@ -1,21 +1,41 @@
 .presentation {
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  margin: 0 auto 0 0;
   align-items: center;
   justify-content: space-between;
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: auto 1fr auto auto;
 }
-svg {
-  width: 100%;
+.title {
+  grid-column: 1/3;
+  grid-row: 1/2;
 }
-svg path {
-  fill: white;
-  fill-opacity: 1;
+
+.photo {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  height: 150px;
+  padding: 20px 10px 0px;
+  background-color: black;
+}
+app-skills {
+  grid-column: 1/3;
+  grid-row: 3/4;
+}
+.text_presentation {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  padding: 0 5px;
 }
 
 .arrow {
+  grid-column: 1/3;
+  grid-row: 4/5;
   justify-self: baseline;
   height: 25px;
+  margin: 0 auto;
 }
 
 .ill_container p {
