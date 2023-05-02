@@ -55,6 +55,7 @@ export class SkillsComponent implements OnInit, AfterContentInit, OnDestroy {
       };
     });
   }
+
   addSkill() {
     this.toEdith = !this.toEdith;
   }
