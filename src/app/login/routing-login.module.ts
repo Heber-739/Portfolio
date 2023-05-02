@@ -5,7 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { NewRegistrationComponent } from './new-registration/new-registration.component';
 import { SharedModule } from '../shared.module';
 
-const routing: Routes = [{ path: '', component: LoginComponent }];
+const routing: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'new', component: NewRegistrationComponent },
+];
 
 @NgModule({
   declarations: [LoginComponent, NewRegistrationComponent],

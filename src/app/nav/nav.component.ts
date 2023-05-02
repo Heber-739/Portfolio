@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../backend/service/token.service';
 import { UserService } from '../backend/service/user.service';
 import { DataUser } from '../interface/dataUser';
@@ -8,53 +8,32 @@ import { DataUser } from '../interface/dataUser';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit, OnDestroy {
+export class NavComponent implements OnInit {
   selColor: boolean = false;
   isLogged: boolean = false;
   user!: DataUser;
-  start!: boolean;
-  menu: boolean = false;
+  start: boolean = false;
+  menu!: boolean;
   photo!: string;
-  constructor(private tokenService: TokenService, private userS: UserService) {}
+  constructor(private tokenService: TokenService, private userS: UserService) {
+    this.isLogged = !!this.tokenService.getToken();
+    this.changeTheme(localStorage.getItem('theme') || 'blue');
+  }
+
   ngOnInit(): void {
-    /* this.start = this.tokenService.start(); */
-    console.log(screen.width, screen.height);
-    this.start = false;
-    if (this.start) {
-      this.menu = true;
-      setTimeout(() => {
-        this.menu = false;
-        this.start = false;
-      }, 7000);
-    }
+    /* this.menu = true;
+    setTimeout(() => {
+      this.menu = false;
+      this.start = false;
+    }, 7000); */
     this.user = this.userS.getUser();
     this.photo = this.user.img.base64;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService
       .loggedObservable()
       .subscribe({ next: (res) => (this.isLogged = res) });
-    this.changeTheme(JSON.parse(localStorage.getItem('theme')!));
-  }
-  ngOnDestroy(): void {
-    window.sessionStorage.setItem('start', 'true');
   }
 
-  changeTheme(v: string) {
-    if (v == 'open') {
-      this.selColor = !this.selColor;
-    } else {
-      this.open();
-      this.selColor = false;
-      localStorage.setItem('theme', JSON.stringify(v));
-      let c: string[] = this.colors(v);
-      for (let i = 0; i < 5; i++) {
-        document.documentElement.style.setProperty(
-          `--color${i + 1}`,
-          `${c[i]}`
-        );
-      }
-    }
-  }
   open() {
     this.menu = !this.menu;
   }
@@ -64,6 +43,24 @@ export class NavComponent implements OnInit, OnDestroy {
     window.location.reload();
     this.selColor = false;
   }
+
+  changeTheme(v: string) {
+    if (v == 'open') {
+      this.selColor = !this.selColor;
+    } else {
+      this.open();
+      this.selColor = false;
+      localStorage.setItem('theme', v);
+      let c: string[] = this.colors(v);
+      for (let i = 0; i < 5; i++) {
+        document.documentElement.style.setProperty(
+          `--color${i + 1}`,
+          `${c[i]}`
+        );
+      }
+    }
+  }
+
   colors(v?: string): string[] {
     if (v == 'red') {
       return ['#a30a29', '#e21d38', '#fc5555', '#761622', '#db4900'];

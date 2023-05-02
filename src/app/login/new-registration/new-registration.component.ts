@@ -15,7 +15,7 @@ export class NewRegistrationComponent {
 
   logup = new FormGroup(
     {
-      name: new FormControl('', [Validators.required]),
+      names: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -38,7 +38,7 @@ export class NewRegistrationComponent {
   checkIn() {
     const mail: string = this.logup.get('email')?.value.toLowerCase();
     const newUser: NewUser = {
-      name: this.logup.get('name')?.value,
+      name: this.logup.get('names')?.value,
       username: this.logup.get('username')?.value,
       email: mail,
       password: this.logup.get('password')?.value,

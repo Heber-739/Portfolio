@@ -8,13 +8,17 @@ import { TokenService } from '../backend/service/token.service';
 })
 export class HomeComponent implements OnInit {
   edithMode: boolean = false;
-  isLogged: boolean = false;
+  isLogged!: boolean;
 
-  constructor(private token: TokenService) {}
+  constructor(private token: TokenService) {
+    this.isLogged = !!this.token.getToken();
+  }
+
   ngOnInit(): void {
     this.token.loggedObservable().subscribe({
       next: (res) => {
         this.isLogged = res;
+        console.log('home');
       },
     });
     this.token.edithObservable().subscribe({
