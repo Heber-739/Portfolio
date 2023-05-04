@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
 import { Image } from 'src/app/interface/Image';
 import { HardSkill } from 'src/app/interface/hardSkill';
+import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
   selector: 'app-form-skill',
@@ -19,40 +20,22 @@ export class FormSkillComponent implements OnInit {
   });
   constructor(
     private compress: NgxImageCompressService,
-    private hsService: HardSkillService
+    private hsService: HardSkillService,
+    private imgCompress: ImageCompressService
   ) {}
 
   ngOnInit(): void {
-    if (this.edithHS.id != 0) {
+    if (this.edithHS.id) {
       this.formHS.patchValue({
         name: this.edithHS.name,
         percentage: this.edithHS.percentage,
       });
+      this.image = this.edithHS.img;
     }
-    this.image = this.edithHS.img;
   }
 
-  onchange() {
-    this.compress.uploadFile().then(({ image, orientation, fileName }) => {
-      this.compress
-        .compressFile(image, orientation, 50, 50)
-        .then((compressedImage) => {
-          const getType = (t: string) => t.slice(5, t.indexOf(';'));
-          fetch(compressedImage)
-            .then((res) => res.blob())
-            .then((blob) => {
-              const reader = new FileReader();
-              reader.readAsDataURL(blob);
-              reader.onload = () => {
-                this.image = new Image(
-                  String(reader.result),
-                  fileName,
-                  getType(image)
-                );
-              };
-            });
-        });
-    });
+  loadImage() {
+    this.imgCompress.compress().then((res) => (this.image = res));
   }
   saveHardSkill() {
     let hs: HardSkill = {

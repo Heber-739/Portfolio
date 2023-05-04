@@ -231,8 +231,17 @@
     position: static;
   }
 }
-.contact {
-  position: relative;
+
+.list {
+  display: flex;
+  margin: auto 0;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: column;
+  list-style: none;
+  align-self: flex-start;
+}
+.list .item:nth-child(3) .a_item {
   animation: border 10s infinite 6s;
 }
 
@@ -246,15 +255,6 @@
     outline: 2px solid rgba(255, 255, 255, 0);
     outline-offset: 10px;
   }
-}
-.list {
-  display: flex;
-  margin: auto 0;
-  width: fit-content;
-  height: fit-content;
-  flex-direction: column;
-  list-style: none;
-  align-self: flex-start;
 }
 
 .item {
@@ -322,9 +322,7 @@ ul li.btn {
   .pictures {
     height: 200px;
   }
-  .contact {
-    margin: 20px auto 0;
-  }
+
   .item {
     margin-top: 13px;
   }
@@ -356,9 +354,7 @@ ul li.btn {
   .pictures {
     height: 230px;
   }
-  .contact {
-    margin: 25px auto 0;
-  }
+
   .item {
     margin-top: 25px;
     width: 150px;
@@ -375,9 +371,7 @@ ul li.btn {
   .pictures {
     display: none;
   }
-  .contact {
-    margin: 15px auto 0;
-  }
+
   .item {
     margin-top: 10px;
   }
@@ -397,9 +391,7 @@ ul li.btn {
   .hamburguer {
     display: none;
   }
-  .contact {
-    margin: 20px auto 0;
-  }
+
   .item {
     margin-top: 15px;
     width: 160px;
@@ -415,9 +407,6 @@ ul li.btn {
 @media screen and (min-width: 1440px) {
   .nav {
     width: 200px;
-  }
-  .contact {
-    margin: 30px auto 0;
   }
   .item {
     margin-top: 25px;

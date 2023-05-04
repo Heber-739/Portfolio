@@ -1,50 +1,38 @@
 <form class="edith_form" formGroup="formHS">
-  <div class="input_container">
-    <input
-      class="input_text"
+  <label for="name" class="lbl" [ngClass]="edithHS.id == 0 ? '' : 'active'"
+    ><input
+      class="input"
       type="text"
-      (focus)="name.classList.add('active')"
       id="name"
       formControlName="name"
       autocomplete="off"
       placeholder="Nombre del skill"
     />
-    <label
-      for="name"
-      class="label"
-      [ngClass]="edithHS.id == 0 ? '' : 'active'"
-      #name
-      >Nombre</label
-    >
-  </div>
+    <span>Nombre</span>
+  </label>
 
-  <div class="input_container">
-    <input
-      class="input_text"
+  <label
+    for="percentage"
+    class="lbl"
+    [ngClass]="edithHS.id == 0 ? '' : 'active'"
+    ><input
+      class="input"
       type="number"
-      (focus)="percentage.classList.add('active')"
       id="percentage"
       formControlName="percentage"
       autocomplete="off"
       placeholder="Porcentage en multiplo de 5"
     />
-    <label
-      for="percentage"
-      class="label"
-      [ngClass]="edithHS.id == 0 ? '' : 'active'"
-      #percentage
-      >Porcentaje</label
-    >
-  </div>
+    <span>Porcentaje</span>
+  </label>
 
   <div class="img_container">
     <small>Tamaño máximo de imagen 1MB</small>
-
-    <label for="file" class="btn"
-      >Logo<input id="file" class="img_file" (focus)="onchange()"
-    /></label>
-
-    <img *ngIf="image" class="outputImg" [src]="image.base64" />
+    <button (click)="loadImage()" class="btn">Cargar foto de pérfil</button>
+    <img
+      class="outputImg"
+      [src]="image ? image.base64 : '../../../assets/img/picture.png'"
+    />
   </div>
   <button class="btn" (click)="saveHardSkill()">Guardar</button>
 </form>

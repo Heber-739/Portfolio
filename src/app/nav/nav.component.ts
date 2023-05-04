@@ -21,11 +21,11 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /* this.menu = true;
+    this.menu = true;
     setTimeout(() => {
       this.menu = false;
       this.start = false;
-    }, 7000); */
+    }, 700);
     this.user = this.userS.getUser();
     this.photo = this.user.img.base64;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });

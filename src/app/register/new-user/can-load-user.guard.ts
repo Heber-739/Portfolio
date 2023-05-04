@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { CanLoad, Router, UrlTree } from '@angular/router';
 import { TokenService } from 'src/app/backend/service/token.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanLoadUserGuard implements CanActivate {
+export class CanLoadUserGuard implements CanLoad {
   constructor(private router: Router, private token: TokenService) {}
-
-  canActivate(): UrlTree | boolean {
-    return true;
+  canLoad(): boolean | UrlTree {
     /* if (!this.token.getToken()) {
-      return this.router.parseUrl('login');
+      return this.router.parseUrl('/login');
     } else {
       return true;
     } */
+    return true;
   }
 }

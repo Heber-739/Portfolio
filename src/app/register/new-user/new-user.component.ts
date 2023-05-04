@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { Image } from 'src/app/interface/Image';
@@ -19,8 +19,8 @@ export class NewUserComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     username: new FormControl({
-      value: this.user.username,
-      disabled: true,
+      value: this.user ? this.user.username : '',
+      disabled: !!this.user,
     }),
     age: new FormControl('', [Validators.required, Validators.min(10)]),
     github: new FormControl('', [Validators.required]),
@@ -33,7 +33,7 @@ export class NewUserComponent implements OnInit {
     private compress: ImageCompressService
   ) {}
   ngOnInit(): void {
-    if (this.user) {
+    if (this.user.username) {
       this.userForm.setValue({
         name: this.user.name,
         surname: this.user.surname,

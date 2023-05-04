@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/backend/service/user.service';
 import { DataUser } from 'src/app/interface/dataUser';
 

@@ -31,9 +31,9 @@ const routing: Routes = [
     path: 'user',
     loadChildren: () =>
       import('./register/new-user/user.module').then((m) => m.UserModule),
-    canActivate: [CanLoadUserGuard],
+    canLoad: [CanLoadUserGuard],
   },
-  { path: '**', component: HomeComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
@@ -46,6 +46,6 @@ const routing: Routes = [
     SharedModule,
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [CanLoadUserGuard],
 })
 export class RoutingAppModule {}

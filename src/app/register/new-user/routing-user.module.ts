@@ -4,16 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { NewUserComponent } from './new-user.component';
 import { SharedModule } from '../../shared.module';
 
-const routing: Routes = [
-  {
-    path: '',
-    component: NewUserComponent,
-  },
-];
+const rout: Routes = [{ path: 'e', component: NewUserComponent }];
 
 @NgModule({
   declarations: [NewUserComponent],
-  imports: [CommonModule, RouterModule.forChild(routing), SharedModule],
+  imports: [CommonModule, RouterModule.forChild(rout), SharedModule],
   exports: [RouterModule],
 })
 export class RoutingUserModule {}

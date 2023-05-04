@@ -3,7 +3,7 @@
     {{ this.toEdith ? "Cancelar" : "Agregar skills" }}
   </div>
 
-  <app-form-skill *ngIf="edithHS.id" [edithHS]="edithHS"></app-form-skill>
+  <app-form-skill *ngIf="toEdith" [edithHS]="edithHS"></app-form-skill>
 
   <div class="box_skills">
     <div
