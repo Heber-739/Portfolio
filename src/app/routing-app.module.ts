@@ -7,9 +7,8 @@ import { CanLoadUserGuard } from './register/new-user/can-load-user.guard';
 import { SharedModule } from './shared.module';
 
 const routing: Routes = [
-  { path: '', component: HomeComponent },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
