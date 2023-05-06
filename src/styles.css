@@ -125,13 +125,14 @@ p {
 
 .lbl span {
   position: absolute;
-  top: 5px;
+  top: 10px;
   left: 15px;
   scale: 1;
 }
 .input:focus ~ span,
-.input.ng-touched ~ span {
-  transform: translate(-15px, -25px) scale(0.8);
+.input.ng-touched ~ span,
+.input:not(.ng-invalid) ~ span {
+  transform: translate(-10px, -35px) scale(0.8);
   transition: transform 0.3s ease-in-out;
 }
 .input.ng-invalid.ng-touched + span::after {
@@ -176,7 +177,7 @@ p {
 label.lbl {
   position: relative;
   width: 100%;
-  margin: 40px auto 0;
+  margin: 45px auto 0;
   text-align: center;
 }
 

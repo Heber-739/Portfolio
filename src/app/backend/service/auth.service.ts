@@ -48,7 +48,7 @@ export class AuthService {
         if (data.exist) {
           this.userS.getUser();
         } else {
-          this.router.navigate(['newUser']);
+          this.router.navigate(['user']);
         }
       },
       error: (err) => {

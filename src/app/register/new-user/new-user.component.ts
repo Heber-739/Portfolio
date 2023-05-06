@@ -19,8 +19,8 @@ export class NewUserComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     username: new FormControl({
-      value: this.user ? this.user.username : '',
-      disabled: !!this.user,
+      value: this.tokenService.getUsername(),
+      disabled: true,
     }),
     age: new FormControl('', [Validators.required, Validators.min(10)]),
     github: new FormControl('', [Validators.required]),

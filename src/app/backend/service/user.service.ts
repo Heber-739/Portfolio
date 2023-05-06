@@ -53,9 +53,7 @@ export class UserService {
       next: (res) => {
         this.token.setUsername(user.username);
         this.token.setUser(res);
-        this.popup.showMessage(
-          `Usuario crceado!\nAhora puede completar otros datos como educación y skills más abajo.`
-        );
+        this.popup.showMessage(`Usuario crceado!`);
       },
       error: (err) => {
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
