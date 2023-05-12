@@ -4,15 +4,15 @@
     <img class="illustration" src="assets/img/illustrations/ill-06.png" />
   </div>
   <ng-container *ngIf="edithMode">
-    <div class="btn add_btn" (click)="addWorkExp()">
+    <div class="btn add_btn" (click)="addJob()">
       {{ this.toEdith ? "Cancelar" : "Agregar Experiencia Laboral" }}
     </div>
   </ng-container>
   <ng-container *ngIf="toEdith">
-    <app-form-user-exp [edithWorks]="edithWorks"></app-form-user-exp>
+    <app-form-job [edithJob]="edithJob"></app-form-job>
   </ng-container>
 
-  <div class="cont" *ngFor="let i of works">
+  <div class="cont" *ngFor="let i of jobs">
     <div class="border"></div>
     <h2 class="sub_title">{{ i.name }}</h2>
     <p class="text">{{ i.description }}</p>

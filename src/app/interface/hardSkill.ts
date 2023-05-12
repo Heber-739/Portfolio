@@ -1,11 +1,11 @@
-import { Image } from './Image';
+import { Tag } from './tag';
 
 export class HardSkill {
   id?: number;
-  name: string;
+  tag: Tag;
   percentage: number;
-  img: Image;
-  constructor(name: string, percentage: number, img: Image) {
-    (this.name = name), (this.percentage = percentage), (this.img = img);
+  constructor(percentage: number, tag: Tag) {
+    this.percentage = percentage;
+    this.tag = tag;
   }
 }

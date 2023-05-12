@@ -7,7 +7,6 @@ import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
-import { Image } from 'src/app/interface/Image';
 
 @Injectable({
   providedIn: 'root',
@@ -88,16 +87,5 @@ export class UserService {
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
-  }
-
-  /* ---------------------- */
-  public sendImage(img: Image) {
-    this.http.post<Image>(`${environment.URL}/image/create`, img).subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err),
-    });
-  }
-  public getImage(id: number) {
-    return this.http.get<Image>(`${environment.URL}/image/get/${id}`);
   }
 }

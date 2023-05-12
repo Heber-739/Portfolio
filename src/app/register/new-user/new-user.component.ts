@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TokenService } from 'src/app/backend/service/token.service';
 import { UserService } from 'src/app/backend/service/user.service';
-import { Image } from 'src/app/interface/Image';
 import { DataUser } from 'src/app/interface/dataUser';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
@@ -13,7 +12,7 @@ import { ImageCompressService } from 'src/app/service/image-compress.service';
 })
 export class NewUserComponent implements OnInit {
   user: DataUser = this.tokenService.getUser();
-  image!: Image;
+  image!: string;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),

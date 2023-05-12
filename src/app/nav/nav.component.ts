@@ -27,7 +27,7 @@ export class NavComponent implements OnInit {
       this.start = false;
     }, 700);
     this.user = this.userS.getUser();
-    this.photo = this.user.img.base64;
+    this.photo = this.user.img;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService
       .loggedObservable()

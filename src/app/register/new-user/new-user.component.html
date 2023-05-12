@@ -93,7 +93,7 @@
       <small>Tamañoo máximo de imagen 1MB</small>
       <img
         class="outputImg"
-        [src]="image ? image.base64 : '../../../assets/img/picture.png'"
+        [src]="image ? image : '../../../assets/img/picture.png'"
       />
       <button (click)="loadImage()" class="btn">Cargar foto de pérfil</button>
     </div>

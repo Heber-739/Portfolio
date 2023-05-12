@@ -18,7 +18,7 @@
     <div class="cards_container" *ngFor="let i of eds">
       <div class="card box">
         <div class="card_img_container">
-          <img src="{{ i.img.base64 }}" alt="{{ i.name }}" class="card_img" />
+          <img src="{{ i.img }}" alt="{{ i.name }}" class="card_img" />
         </div>
         <a class="card_title link" target="_blank" href="{{ i.link }}">{{
           i.name

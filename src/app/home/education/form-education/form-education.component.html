@@ -1,4 +1,4 @@
-<form class="form" formGroup="formEd">
+<form class="form" [formGroup]="formEd">
   <div class="input_container">
     <input
       class="input_text"
@@ -42,7 +42,7 @@
       >Imagen o banner<input id="file" class="img_file" (focus)="onchange()"
     /></label>
 
-    <img *ngIf="image" class="outputImg" [src]="image.base64" />
+    <img *ngIf="image" class="outputImg" [src]="image" />
   </div>
   <button class="btn" (click)="saveEducation()">Guardar</button>
 </form>

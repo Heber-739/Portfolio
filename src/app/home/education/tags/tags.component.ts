@@ -30,7 +30,7 @@ export class TagsComponent implements OnInit {
   }
 
   add() {
-    let tag: Tag = new Tag(this.name.value);
+    let tag: Tag = new Tag(this.name.value, '');
     let res = this.tagS.createTag(tag);
     this.tags.push(res);
     this.name.reset();

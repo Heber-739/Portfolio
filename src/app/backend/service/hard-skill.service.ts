@@ -43,10 +43,6 @@ export class HardSkillService {
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
-      complete: () =>
-        this.popup.showMessage(
-          'Ya puede ver la lista completa de Skills existentes en la Base de Datos.'
-        ),
     });
     return ret;
   }

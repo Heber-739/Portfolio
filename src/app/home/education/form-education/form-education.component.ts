@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { EducationService } from 'src/app/backend/service/education.service';
-import { Image } from 'src/app/interface/Image';
 import { Education } from 'src/app/interface/education';
+import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
   selector: 'app-form-education',
@@ -14,14 +14,14 @@ export class FormEducationComponent implements OnInit {
   @Input() edithEd!: Education;
   edId: number = 0;
   edFinish: boolean = false;
-  image!: Image;
+  image!: string;
   formEd = new FormGroup({
     name: new FormControl('', [Validators.required]),
     link: new FormControl('', [Validators.required]),
   });
 
   constructor(
-    private compress: NgxImageCompressService,
+    private imageCompress: ImageCompressService,
     private edService: EducationService
   ) {}
 
@@ -38,26 +38,7 @@ export class FormEducationComponent implements OnInit {
   }
 
   onchange() {
-    this.compress.uploadFile().then(({ image, orientation, fileName }) => {
-      this.compress
-        .compressFile(image, orientation, 50, 50)
-        .then((compressedImage) => {
-          const getType = (t: string) => t.slice(5, t.indexOf(';'));
-          fetch(compressedImage)
-            .then((res) => res.blob())
-            .then((blob) => {
-              const reader = new FileReader();
-              reader.readAsDataURL(blob);
-              reader.onload = () => {
-                this.image = new Image(
-                  String(reader.result),
-                  fileName,
-                  getType(image)
-                );
-              };
-            });
-        });
-    });
+    this.imageCompress.compress().then((resolve) => (this.image = resolve));
   }
   saveEducation() {
     let ed: Education = {

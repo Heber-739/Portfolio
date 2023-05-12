@@ -1,10 +1,8 @@
-import { Image } from './Image';
-
 export class DataUser {
   name: string;
   surname: string;
   age: number;
-  img: Image;
+  img: string;
   username: string;
   github: string;
   linkedin: string;
@@ -13,7 +11,7 @@ export class DataUser {
     name: string,
     surname: string,
     age: number,
-    img: Image,
+    img: string,
     username: string,
     github: string,
     linkedin: string,

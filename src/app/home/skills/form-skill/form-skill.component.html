@@ -1,4 +1,4 @@
-<form class="edith_form" formGroup="formHS">
+<form class="edith_form" [formGroup]="formHS">
   <label for="name" class="lbl" [ngClass]="edithHS.id == 0 ? '' : 'active'"
     ><input
       class="input"
@@ -31,7 +31,7 @@
     <button (click)="loadImage()" class="btn">Cargar foto de pérfil</button>
     <img
       class="outputImg"
-      [src]="image ? image.base64 : '../../../assets/img/picture.png'"
+      [src]="image ? image : '../../../assets/img/picture.png'"
     />
   </div>
   <button class="btn" (click)="saveHardSkill()">Guardar</button>

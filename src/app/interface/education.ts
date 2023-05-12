@@ -1,4 +1,3 @@
-import { Image } from './Image';
 import { Tag } from './tag';
 
 export class Education {
@@ -6,9 +5,9 @@ export class Education {
   name: string;
   link: string;
   finish: boolean;
-  img: Image;
+  img: string;
   tags?: Tag[];
-  constructor(name: string, link: string, finish: boolean, img: Image) {
+  constructor(name: string, link: string, finish: boolean, img: string) {
     this.name = name;
     this.link = link;
     this.finish = finish;
