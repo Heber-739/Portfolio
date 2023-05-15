@@ -1,5 +1,5 @@
 <form class="edith_form" [formGroup]="formHS">
-  <label for="name" class="lbl" [ngClass]="edithHS.id == 0 ? '' : 'active'"
+  <label for="name" class="lbl"
     ><input
       class="input"
       type="text"
@@ -11,10 +11,7 @@
     <span>Nombre</span>
   </label>
 
-  <label
-    for="percentage"
-    class="lbl"
-    [ngClass]="edithHS.id == 0 ? '' : 'active'"
+  <label for="percentage" class="lbl"
     ><input
       class="input"
       type="number"

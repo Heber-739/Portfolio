@@ -36,13 +36,11 @@ export class FormSkillComponent implements OnInit {
     this.imgCompress.compress().then((res) => (this.image = res));
   }
   saveHardSkill() {
-    let hs: HardSkill = {
-      percentage: this.formHS.get('percentage')?.value,
-      tag: new Tag(this.formHS.get('name')?.value, this.image),
-    };
-    if (this.edithHS.id == 0) {
+    let tg = new Tag(this.formHS.get('name')?.value, this.image);
+    let hs: HardSkill = new HardSkill(this.formHS.get('percentage')?.value, tg);
+    if (!this.edithHS.id) {
       this.hsService.createHardSkill(hs);
-    } else if (this.edithHS.id != 0) {
+    } else if (this.edithHS.id) {
       this.hsService.updateHardSkill(this.edithHS.id!, hs);
     }
     this.image = '';

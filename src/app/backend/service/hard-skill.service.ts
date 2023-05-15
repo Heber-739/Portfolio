@@ -82,11 +82,15 @@ export class HardSkillService {
   }
   public createHardSkill(hs: HardSkill) {
     let username = this.token.getUsername();
-    this.http.post<HardSkill>(this.URL + `/create/${username}`, hs).subscribe({
-      next: (res) => this.local.add<HardSkill>(res, KEY),
-      error: (err) =>
-        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
-      complete: () => {
+    console.log(hs, username);
+    this.http.post<any>(this.URL + `/create/${username}`, hs).subscribe({
+      next: (res) => {
+        /* this.local.add<HardSkill>(res, KEY); */
+        console.log(res);
+      },
+      error: (err) => console.log(err),
+      /*         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+       */ complete: () => {
         this.changeObservable();
         this.popup.showMessage('Hard Skill creado');
       },
