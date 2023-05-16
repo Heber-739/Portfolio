@@ -1,9 +1,9 @@
 ﻿<section class="body" *ngIf="!isLogged">
   <form class="form" novalidate [formGroup]="login">
     <h2 class="title">Iniciar Sesión</h2>
-    <div class="input_container">
-      
-      <label for="username" class="lbl" ><input
+
+    <label for="username" class="lbl"
+      ><input
         id="username"
         class="input"
         type="text"
@@ -11,37 +11,19 @@
         autocomplete="off"
         formControlName="username"
       />
-<span>Nombre de usuario:</span> 
-</label>
-    </div>
+      <span>Nombre de usuario</span>
+    </label>
 
-    <small
-      *ngIf="
-        login.get('username')?.hasError('required') &&
-        login.get('username')?.dirty
-      "
-    >
-      Campo obligatorio</small
-    >
-    <div class="input_container">
-      <input
-        (focus)="Password.classList.add('active')"
+    <label for="password" class="lbl"
+      ><input
         id="password"
-        class="input_text input"
+        class="input"
         type="password"
         placeholder="Contraseña"
         autocomplete="off"
         formControlName="password"
       />
-      <label for="password" class="label" #Password> Contraseña: </label>
-    </div>
-    <small
-      *ngIf="
-        login.get('password')?.hasError('required') &&
-        login.get('password')?.dirty
-      "
-    >
-      Campo obligatorio</small
+      <span>Contraseña</span></label
     >
 
     <button
