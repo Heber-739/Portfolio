@@ -33,9 +33,11 @@ export class SkillsComponent implements OnInit, AfterContentInit, OnDestroy {
       .subscribe({
         next: (res) => (this.edithMode = res),
       });
+    console.log(this.skills);
   }
   ngAfterContentInit(): void {
     this.hsService.getHardSkill();
+    console.log('1');
   }
   ngOnDestroy(): void {
     this.unsuscribe.next(true);

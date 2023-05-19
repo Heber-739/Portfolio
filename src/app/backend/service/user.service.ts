@@ -7,42 +7,37 @@ import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
+import { CRUDLocalService } from './CRUD-Local.service';
+
+const TOKEN_KEY = 'authToken';
+const AUTHORITIES = 'authAuthorities';
+const USER = 'userFromDataBase';
+const EXIST = 'UserExistDB';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private user$: Subject<DataUser> = new Subject();
   URL: string = `${environment.URL}/user`;
   constructor(
     private router: Router,
     private popup: ModalService,
     private http: HttpClient,
-    private token: TokenService
+    private local: CRUDLocalService
   ) {}
 
-  public subscribeUser() {
-    return this.user$.asObservable();
-  }
-  public changeObservable() {
-    let user = this.token.getUser();
-    this.user$.next(user);
-  }
-
   public getUser(): DataUser {
-    let userId = this.token.getUsername();
+    let userId = this.local.getUsername();
     let ret: DataUser = {} as DataUser;
     this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
       next: (res) => {
-        this.token.setUser(res);
+        this.local.set<DataUser>(res, USER);
         ret = res;
-        console.log(res);
       },
       error: (error) =>
         this.popup.showMessage(
           `Ocurrió un error inesperado. Código ${error.status}`
         ),
-      complete: () => this.changeObservable(),
     });
     return ret;
   }
@@ -50,17 +45,13 @@ export class UserService {
   public sendUser(user: DataUser) {
     this.http.post<DataUser>(this.URL + `/create`, user).subscribe({
       next: (res) => {
-        this.token.setUsername(user.username);
-        this.token.setUser(res);
-        this.popup.showMessage(`Usuario crceado!`);
-      },
-      error: (err) => {
-        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`);
-      },
-      complete: () => {
-        this.changeObservable();
+        this.local.setUsername(user.username);
+        this.local.set(res, USER);
+        this.popup.showMessage('Usuario crceado');
         this.router.navigate(['']);
       },
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
   }
   public updateUser(user: DataUser) {
@@ -69,16 +60,13 @@ export class UserService {
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.token.setUser(user);
+          this.local.set<DataUser>(user, USER);
+          this.router.navigate(['']);
         },
         error: (err) =>
           this.popup.showMessage(
             `${err.error.message}\nError N° ${err.status}`
           ),
-        complete: () => {
-          this.changeObservable();
-          this.router.navigate(['']);
-        },
       });
   }
   public deleteUser(id: string) {

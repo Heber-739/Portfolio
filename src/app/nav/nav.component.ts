@@ -16,6 +16,7 @@ export class NavComponent implements OnInit {
   menu!: boolean;
   photo!: string;
   constructor(private tokenService: TokenService, private userS: UserService) {
+    this.user = this.userS.getUser();
     this.isLogged = !!this.tokenService.getToken();
     this.changeTheme(localStorage.getItem('theme') || 'blue');
   }
@@ -26,7 +27,6 @@ export class NavComponent implements OnInit {
       this.menu = false;
       this.start = false;
     }, 700);
-    this.user = this.userS.getUser();
     this.photo = this.user.img;
     this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
     this.tokenService

@@ -47,6 +47,7 @@ export class AuthService {
         this.token.changeObservable(true);
         if (data.exist) {
           this.userS.getUser();
+          this.router.navigate(['']);
         } else {
           this.router.navigate(['user']);
         }

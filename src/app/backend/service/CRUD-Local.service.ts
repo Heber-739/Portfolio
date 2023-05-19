@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+const USERNAME = 'authUsername';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +16,7 @@ export class CRUDLocalService {
   public get<T>(key: string): T[] {
     return JSON.parse(window.sessionStorage.getItem(key) || '[]');
   }
-  public set<T>(arrayT: T[], key: string): void {
+  public set<T>(arrayT: T | T[], key: string): void {
     window.sessionStorage.setItem(key, JSON.stringify(arrayT));
   }
 
@@ -32,5 +34,14 @@ export class CRUDLocalService {
     let i: number = arr.findIndex((e) => e == el);
     arr[i] = el;
     this.set(arr, key);
+  }
+
+  /* ----- User ----- */
+  public setUsername(username: string) {
+    this.set(username, USERNAME);
+  }
+
+  public getUsername() {
+    return this.get(USERNAME);
   }
 }
