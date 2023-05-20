@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../backend/service/token.service';
 import { UserService } from '../backend/service/user.service';
 import { DataUser } from '../interface/dataUser';
+import { CRUDLocalService } from '../backend/service/CRUD-Local.service';
+import { AuthService } from '../backend/service/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -14,10 +15,14 @@ export class NavComponent implements OnInit {
   user!: DataUser;
   start: boolean = false;
   menu!: boolean;
-  photo!: string;
-  constructor(private tokenService: TokenService, private userS: UserService) {
-    this.user = this.userS.getUser();
-    this.isLogged = !!this.tokenService.getToken();
+  constructor(
+    private authS: AuthService,
+    private userS: UserService,
+    private local: CRUDLocalService
+  ) {
+    this.user =
+      this.local.getUserData<DataUser>('user') ?? this.userS.getUser();
+    this.isLogged = !!this.local.getUserData('token');
     this.changeTheme(localStorage.getItem('theme') || 'blue');
   }
 
@@ -27,20 +32,19 @@ export class NavComponent implements OnInit {
       this.menu = false;
       this.start = false;
     }, 700);
-    this.photo = this.user.img;
-    this.userS.subscribeUser().subscribe({ next: (res) => (this.user = res) });
-    this.tokenService
-      .loggedObservable()
-      .subscribe({ next: (res) => (this.isLogged = res) });
+    this.authS.logged$().subscribe({
+      next: (res) => {
+        this.isLogged = res;
+        this.user = this.local.getUserData('user') ?? this.userS.getUser();
+      },
+    });
   }
 
   open() {
     this.menu = !this.menu;
   }
   logout(): void {
-    this.tokenService.logOut();
-    this.tokenService.changeObservable(false);
-    window.location.reload();
+    this.authS.logOut();
     this.selColor = false;
   }
 

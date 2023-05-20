@@ -1,18 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { DataUser } from 'src/app/interface/dataUser';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { TokenService } from './token.service';
 import { CRUDLocalService } from './CRUD-Local.service';
-
-const TOKEN_KEY = 'authToken';
-const AUTHORITIES = 'authAuthorities';
-const USER = 'userFromDataBase';
-const EXIST = 'UserExistDB';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +20,11 @@ export class UserService {
   ) {}
 
   public getUser(): DataUser {
-    let userId = this.local.getUsername();
+    let userId = this.local.getUserData('username');
     let ret: DataUser = {} as DataUser;
     this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
       next: (res) => {
-        this.local.set<DataUser>(res, USER);
+        this.local.set<DataUser>(res, 'user');
         ret = res;
       },
       error: (error) =>
@@ -45,8 +38,8 @@ export class UserService {
   public sendUser(user: DataUser) {
     this.http.post<DataUser>(this.URL + `/create`, user).subscribe({
       next: (res) => {
-        this.local.setUsername(user.username);
-        this.local.set(res, USER);
+        this.local.setUserData(user.username, 'username');
+        this.local.set(res, 'user');
         this.popup.showMessage('Usuario crceado');
         this.router.navigate(['']);
       },
@@ -60,7 +53,7 @@ export class UserService {
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.local.set<DataUser>(user, USER);
+          this.local.setUserData(user, 'user');
           this.router.navigate(['']);
         },
         error: (err) =>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { DataUser } from 'src/app/interface/dataUser';
 
@@ -6,7 +6,6 @@ const tokenKey = 'authToken';
 const usernameKey = 'authUsername';
 const authoritiesKey = 'authAuthorities';
 const user = 'userFromDataBase';
-const exist = 'UserExistDB';
 
 @Injectable({
   providedIn: 'root',
@@ -72,3 +71,4 @@ export class TokenService {
     window.sessionStorage.clear();
   }
 }
+ */
