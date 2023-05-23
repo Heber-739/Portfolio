@@ -127,25 +127,10 @@
   opacity: 1 !important;
   z-index: 3;
 }
-.curtain_on {
+.curtain.curtain_on {
   width: 100vw;
   height: 100vh;
   opacity: 0;
-}
-@keyframes show {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    width: 100vw;
-    height: 100vh;
-    opacity: 0;
-  }
-  100% {
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
 }
 
 @keyframes moveRight {

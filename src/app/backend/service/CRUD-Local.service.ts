@@ -6,6 +6,7 @@ const DATA: { [key: string]: string } = {
   authorities: 'authAuthorities',
   user: 'userFromDataBase',
   exist: 'UserExistDB',
+  animation: 'animation',
 };
 
 @Injectable({

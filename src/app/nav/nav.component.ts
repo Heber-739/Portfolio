@@ -11,15 +11,17 @@ import { AuthService } from '../backend/service/auth.service';
 })
 export class NavComponent implements OnInit {
   selColor: boolean = false;
-  isLogged: boolean = false;
-  user!: DataUser;
-  start: boolean = false;
-  menu!: boolean;
+  isLogged: boolean;
+  user: DataUser;
+  start: boolean;
+  menu: boolean;
   constructor(
     private authS: AuthService,
     private userS: UserService,
     private local: CRUDLocalService
   ) {
+    let k: boolean = this.local.get('animation') ?? true;
+    [this.start, this.menu] = [k, k];
     this.user =
       this.local.getUserData<DataUser>('user') ?? this.userS.getUser();
     this.isLogged = !!this.local.getUserData('token');
@@ -27,11 +29,11 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menu = true;
-    setTimeout(() => {
-      this.menu = false;
-      this.start = false;
-    }, 700);
+    if (this.start) {
+      setTimeout(() => {
+        [this.menu, this.start] = [false, false];
+      }, 7000);
+    }
     this.authS.logged$().subscribe({
       next: (res) => {
         this.isLogged = res;
