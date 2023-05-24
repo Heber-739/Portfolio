@@ -9,11 +9,15 @@
     <button
       *ngIf="!edithMode"
       class="btn btn_primary"
-      (click)="edithModeEnter()"
+      (click)="edithChange(true)"
     >
       Entrar en modo de edición
     </button>
-    <button *ngIf="edithMode" class="btn btn_primary" (click)="edithModeExit()">
+    <button
+      *ngIf="edithMode"
+      class="btn btn_primary"
+      (click)="edithChange(false)"
+    >
       Salir modo de edición
     </button>
   </ng-container>

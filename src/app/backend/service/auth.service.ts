@@ -33,6 +33,10 @@ export class AuthService {
     return this.edithMode$.asObservable();
   }
 
+  public changeEdith(status: boolean) {
+    this.edithMode$.next(status);
+  }
+
   public newUser(dataUser: NewUser) {
     this.http.post<any>(this.authURL + '/generated', dataUser).subscribe({
       next: (res) => {

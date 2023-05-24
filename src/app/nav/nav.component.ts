@@ -30,9 +30,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.start) {
-      setTimeout(() => {
-        [this.menu, this.start] = [false, false];
-      }, 7000);
+      setTimeout(() => ([this.menu, this.start] = [false, false]), 7000);
     }
     this.authS.logged$().subscribe({
       next: (res) => {

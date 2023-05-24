@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
 
-const DATA: { [key: string]: string } = {
+export const DATA: { [key: string]: string } = {
   username: 'authUsername',
   token: 'authToken',
   authorities: 'authAuthorities',
   user: 'userFromDataBase',
   exist: 'UserExistDB',
   animation: 'animation',
+  skills: 'userHardSkills',
+  allSkills: 'allSkillsInDB',
+  educations: 'userEducations',
+  allEducations: 'allEducationsInDB',
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class CRUDLocalService {
-  public getAll(key: string): any {
-    return JSON.parse(window.sessionStorage.getItem(key) || 'null');
-  }
-  public setAll<T>(arrayT: T, key: string): void {
-    window.sessionStorage.setItem(key, JSON.stringify(arrayT));
-  }
-
   public get<T>(key: string): T {
     return JSON.parse(window.sessionStorage.getItem(key) || 'null');
   }

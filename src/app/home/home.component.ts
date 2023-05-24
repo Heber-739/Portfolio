@@ -1,43 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TokenService } from '../backend/service/token.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { CRUDLocalService } from '../backend/service/CRUD-Local.service';
+import { AuthService } from '../backend/service/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   edithMode: boolean = false;
-  isLogged!: boolean;
-  unsuscribe: Subject<boolean> = new Subject();
+  isLogged: boolean;
 
-  constructor(private token: TokenService) {
-    this.isLogged = !!this.token.getToken();
+  constructor(private local: CRUDLocalService, private authS: AuthService) {
+    this.isLogged = !!this.local.get('token');
   }
 
   ngOnInit(): void {
-    this.token
-      .loggedObservable()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.isLogged = res),
-      });
-    this.token
-      .edithObservable()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.edithMode = res),
-      });
-  }
-  ngOnDestroy(): void {
-    this.unsuscribe.next(true);
+    this.authS.logged$().subscribe({
+      next: (res) => (this.isLogged = res),
+    });
+    this.authS.edith$().subscribe({
+      next: (res) => (this.edithMode = res),
+    });
   }
 
-  edithModeEnter() {
-    this.token.changeEdithObservable(true);
-  }
-  edithModeExit() {
-    this.token.changeEdithObservable(false);
+  edithChange(value: boolean) {
+    this.authS.changeEdith(value);
   }
 }

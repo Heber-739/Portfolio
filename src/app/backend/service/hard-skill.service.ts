@@ -5,11 +5,10 @@ import { HardSkill } from 'src/app/interface/hardSkill';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { TokenService } from './token.service';
 import { CRUDLocalService } from './CRUD-Local.service';
+import { DATA } from '../../backend/service/CRUD-Local.service';
 
-const GET_ALL = 'AllHardSkillDB';
-const KEY = 'userHardSkill';
+const { username, skills, allSkills } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -21,16 +20,14 @@ export class HardSkillService {
   constructor(
     private popup: ModalService,
     private http: HttpClient,
-    private token: TokenService,
     private local: CRUDLocalService
   ) {}
 
   public subscribeHSs() {
     return this.hSkills$.asObservable();
   }
-  public changeObservable(hssGet?: HardSkill[]) {
-    let hss = hssGet ? hssGet : this.local.get<HardSkill>(KEY);
-    this.hSkills$.next(hss);
+  public changeObservable() {
+    this.hSkills$.next(this.local.get<HardSkill[]>(skills));
   }
 
   /* -------------CRUD´s Methods------------- */
@@ -38,7 +35,7 @@ export class HardSkillService {
     let ret: HardSkill[] = [];
     this.http.get<HardSkill[]>(this.URL + '/listAll').subscribe({
       next: (res) => {
-        this.local.setAll<HardSkill>(res, GET_ALL);
+        this.local.set<HardSkill[]>(res, allSkills);
         ret = res;
       },
       error: (err) =>
@@ -47,21 +44,23 @@ export class HardSkillService {
     return ret;
   }
 
-  public getHardSkill() {
-    let userId = this.token.getUsername();
-    this.http.get<HardSkill[]>(this.URL + `/list/${userId}`).subscribe({
+  public getHardSkill(): HardSkill[] {
+    let ret: HardSkill[] = [];
+    this.http.get<HardSkill[]>(this.URL + `/list/${username}`).subscribe({
       next: (res) => {
-        this.local.set<HardSkill>(res, KEY);
-        this.changeObservable(res);
+        this.local.set<HardSkill[]>(res, skills);
+        ret = res;
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
+    return ret;
   }
+
   public addHSToUser(hs: HardSkill, userId: string) {
     this.http.get<Message>(this.URL + `/add/${hs.id}/${userId}`).subscribe({
       next: (res) => {
-        this.local.add<HardSkill>(hs, KEY);
+        this.local.add<HardSkill>(hs, skills);
         this.popup.showMessage(res.message);
       },
       error: (err) =>
@@ -70,40 +69,35 @@ export class HardSkillService {
     });
   }
   public removeHSToUser(hs: HardSkill) {
-    let userId: string = this.token.getUsername();
-    this.http.get<Message>(this.URL + `/remove/${hs.id}/${userId}`).subscribe({
-      next: (res) => {
-        this.popup.showMessage(res.message);
-        this.local.remove<HardSkill>(hs, KEY);
-      },
-      error: (err) => console.log(err),
-      complete: () => this.changeObservable(),
-    });
+    this.http
+      .get<Message>(this.URL + `/remove/${hs.id}/${username}`)
+      .subscribe({
+        next: (res) => {
+          this.popup.showMessage(res.message);
+          this.local.remove<HardSkill>(hs, skills);
+        },
+        error: (err) => console.log(err),
+        complete: () => this.changeObservable(),
+      });
   }
   public createHardSkill(hs: HardSkill) {
-    let username = this.token.getUsername();
-    console.log(hs, username);
-    this.http.post<any>(this.URL + `/create/${username}`, hs).subscribe({
-      next: (res) => {
-        /* this.local.add<HardSkill>(res, KEY); */
-        console.log(res);
-      },
-      error: (err) => console.log(err),
-      /*         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
-       */ complete: () => {
+    this.http.post<HardSkill>(this.URL + `/create/${username}`, hs).subscribe({
+      next: (res) => this.local.add<HardSkill>(res, skills),
+      error: (err) =>
+        this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => {
         this.changeObservable();
         this.popup.showMessage('Hard Skill creado');
       },
     });
   }
   public deleteHardSkill(hs: HardSkill) {
-    let userId = this.token.getUsername();
     this.http
-      .delete<Message>(this.URL + `/delete/${hs.id}/${userId}`)
+      .delete<Message>(this.URL + `/delete/${hs.id}/${username}`)
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.local.remove(hs, KEY);
+          this.local.remove(hs, skills);
         },
         error: (err) =>
           this.popup.showMessage(`${err.error.message}\nErro N° ${err.status}`),
@@ -114,7 +108,7 @@ export class HardSkillService {
     this.http.put<Message>(this.URL + `/update/${id}`, hs).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);
-        this.local.update<HardSkill>(hs, KEY);
+        this.local.update<HardSkill>(hs, skills);
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),

@@ -6,6 +6,9 @@ import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { CRUDLocalService } from './CRUD-Local.service';
+import { DATA } from '../../backend/service/CRUD-Local.service';
+
+const { username } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +23,8 @@ export class UserService {
   ) {}
 
   public getUser(): DataUser {
-    let userId = this.local.getUserData('username');
     let ret: DataUser = {} as DataUser;
-    this.http.get<DataUser>(this.URL + `/get/${userId}`).subscribe({
+    this.http.get<DataUser>(this.URL + `/get/${username}`).subscribe({
       next: (res) => {
         this.local.set<DataUser>(res, 'user');
         ret = res;
@@ -38,7 +40,7 @@ export class UserService {
   public sendUser(user: DataUser) {
     this.http.post<DataUser>(this.URL + `/create`, user).subscribe({
       next: (res) => {
-        this.local.setUserData(user.username, 'username');
+        this.local.setUserData(user.username, username);
         this.local.set(res, 'user');
         this.popup.showMessage('Usuario crceado');
         this.router.navigate(['']);

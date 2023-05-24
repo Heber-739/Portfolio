@@ -1,56 +1,46 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
+import { AuthService } from 'src/app/backend/service/auth.service';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
-import { TokenService } from 'src/app/backend/service/token.service';
 import { HardSkill } from 'src/app/interface/hardSkill';
+import { DATA } from '../../backend/service/CRUD-Local.service';
 
+const { skills } = DATA;
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css'],
 })
-export class SkillsComponent implements OnInit, AfterContentInit, OnDestroy {
+export class SkillsComponent implements OnInit {
   edithMode: boolean = false;
   edithHS: HardSkill = {} as HardSkill;
   toEdith: boolean = false;
   skills: HardSkill[] = [];
-  unsuscribe: Subject<boolean> = new Subject();
+
   constructor(
-    private token: TokenService,
+    private authS: AuthService,
+    private local: CRUDLocalService,
     private hsService: HardSkillService
-  ) {}
+  ) {
+    this.skills = this.local.get(skills) ?? this.hsService.getHardSkill();
+  }
 
   ngOnInit(): void {
-    this.hsService
-      .subscribeHSs()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.skills = res),
-      });
-    this.token
-      .edithObservable()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.edithMode = res),
-      });
-    console.log(this.skills);
-  }
-  ngAfterContentInit(): void {
-    this.hsService.getHardSkill();
-    console.log('1');
-  }
-  ngOnDestroy(): void {
-    this.unsuscribe.next(true);
+    this.hsService.subscribeHSs().subscribe({
+      next: (res) => (this.skills = res),
+    });
+    this.authS.edith$().subscribe({
+      next: (res) => (this.edithMode = res),
+    });
   }
 
-  addSkill() {
-    this.toEdith = !this.toEdith;
-  }
   delete(i: HardSkill) {
     this.hsService.removeHSToUser(i);
   }
-  edith(i: HardSkill) {
-    this.edithHS = i;
+  edith(i?: HardSkill) {
+    if (i) {
+      this.edithHS = i;
+    }
     this.toEdith = true;
   }
   finish() {
