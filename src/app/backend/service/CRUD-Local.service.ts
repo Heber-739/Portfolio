@@ -14,16 +14,16 @@ const DATA: { [key: string]: string } = {
 })
 export class CRUDLocalService {
   public getAll(key: string): any {
-    return JSON.parse(window.sessionStorage.getItem(key) || '[]');
+    return JSON.parse(window.sessionStorage.getItem(key) || 'null');
   }
-  public setAll<T>(arrayT: T[], key: string): void {
+  public setAll<T>(arrayT: T, key: string): void {
     window.sessionStorage.setItem(key, JSON.stringify(arrayT));
   }
 
   public get<T>(key: string): T {
     return JSON.parse(window.sessionStorage.getItem(key) || 'null');
   }
-  public set<T>(arrayT: T | T[], key: string): void {
+  public set<T>(arrayT: T, key: string): void {
     window.sessionStorage.setItem(key, JSON.stringify(arrayT));
   }
 

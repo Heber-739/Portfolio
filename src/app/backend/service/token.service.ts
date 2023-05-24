@@ -72,3 +72,26 @@ export class TokenService {
   }
 }
  */
+
+import { Subject, Observable } from 'rxjs';
+
+export class TokenService {
+  private rols: string[] = [];
+  private isLogged$: Subject<boolean> = new Subject();
+  private edithMode$: Subject<boolean> = new Subject();
+
+  constructor() {}
+
+  public loggedObservable(): Observable<boolean> {
+    return this.isLogged$.asObservable();
+  }
+  public changeObservable(status: boolean): void {
+    this.isLogged$.next(status);
+  }
+  public edithObservable(): Observable<boolean> {
+    return this.edithMode$.asObservable();
+  }
+  public changeEdithObservable(status: boolean): void {
+    this.edithMode$.next(status);
+  }
+}
