@@ -5,11 +5,9 @@ import { Message } from 'src/app/interface/Message';
 import { SoftSkill } from 'src/app/interface/softSkill';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { TokenService } from './token.service';
-import { CRUDLocalService } from './CRUD-Local.service';
+import { DATA } from '../../backend/service/CRUD-Local.service';
 
-const GET_ALL = 'AllSoftSkillDB';
-const KEY = 'userSoftSkill';
+const { username } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +19,6 @@ export class SoftSkillService {
   constructor(
     private popup: ModalService,
     private http: HttpClient,
-    private token: TokenService,
     private local: CRUDLocalService
   ) {}
 

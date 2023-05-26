@@ -6,8 +6,9 @@ import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { CRUDLocalService } from './CRUD-Local.service';
 import { DATA } from '../../backend/service/CRUD-Local.service';
+import { Job } from 'src/app/interface/job';
 
-const { jobs } = DATA;
+const { jobs, allJobs, username } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +26,8 @@ export class JobService {
   public subscribeJob() {
     return this.job$.asObservable();
   }
-  public changeObservable(job?: Job[]) {
-    let res: Job[] = job ?? this.local.get<Job>(KEY);
-    this.job$.next(res);
+  public changeObservable() {
+    this.job$.next(this.local.get<Job[]>(jobs));
   }
 
   /* -------------CRUD´s Methods------------- */
@@ -35,7 +35,7 @@ export class JobService {
     let ret: Job[] = [];
     this.http.get<Job[]>(this.URL + '/listAll').subscribe({
       next: (res) => {
-        this.local.setAll(res, GET_ALL);
+        this.local.set(res, allJobs);
         ret = res;
       },
       error: (err) =>
@@ -45,20 +45,16 @@ export class JobService {
   }
 
   public getJobs() {
-    let username = this.token.getUsername();
     this.http.get<Job[]>(this.URL + `/list/${username}`).subscribe({
-      next: (res) => {
-        this.local.set(res, KEY);
-        this.changeObservable(res);
-      },
+      next: (res) => this.local.set(res, jobs),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
+      complete: () => this.changeObservable(),
     });
   }
   public createJob(job: Job) {
-    let username = this.token.getUsername();
     this.http.post<Job>(this.URL + `/create/${username}`, job).subscribe({
-      next: (res) => this.local.add<Job>(res, KEY),
+      next: (res) => this.local.add<Job>(res, jobs),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => {
@@ -68,13 +64,12 @@ export class JobService {
     });
   }
   public deleteJob(job: Job) {
-    let username = this.token.getUsername();
     this.http
       .delete<Message>(this.URL + `/delete/${job.id}/${username}`)
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.local.remove<Job>(job, KEY);
+          this.local.remove<Job>(job, jobs);
         },
         error: (err) =>
           this.popup.showMessage(
@@ -84,13 +79,12 @@ export class JobService {
       });
   }
   public updateWorkExp(job: Job) {
-    let username = this.token.getUsername();
     this.http
       .put<Message>(this.URL + `/update/${job.id}/${username}`, job)
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.local.update<Job>(job, KEY);
+          this.local.update<Job>(job, jobs);
         },
         error: (err) =>
           this.popup.showMessage(
