@@ -4,12 +4,10 @@ import { Subject } from 'rxjs';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { TokenService } from './token.service';
 import { CRUDLocalService } from './CRUD-Local.service';
-import { Job } from 'src/app/interface/job';
+import { DATA } from '../../backend/service/CRUD-Local.service';
 
-const GET_ALL = 'AllJobDB';
-const KEY = 'userJob';
+const { jobs } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +19,6 @@ export class JobService {
   constructor(
     private popup: ModalService,
     private http: HttpClient,
-    private token: TokenService,
     private local: CRUDLocalService
   ) {}
 
