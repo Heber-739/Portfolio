@@ -14,6 +14,7 @@ export const DATA: { [key: string]: string } = {
   jobs: 'userJobs',
   allJobs: 'allJobsInDB',
   softs: 'userSoftSkills',
+  allSofts: 'allSoftSkillInDB',
 };
 
 @Injectable({

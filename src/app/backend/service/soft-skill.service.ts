@@ -5,9 +5,12 @@ import { Message } from 'src/app/interface/Message';
 import { SoftSkill } from 'src/app/interface/softSkill';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { DATA } from '../../backend/service/CRUD-Local.service';
+import {
+  CRUDLocalService,
+  DATA,
+} from '../../backend/service/CRUD-Local.service';
 
-const { username } = DATA;
+const { username, softs, allSofts } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +28,8 @@ export class SoftSkillService {
   public subscribeSs() {
     return this.sSkills$.asObservable();
   }
-  public changeObservableSs(sSsGet?: SoftSkill[]) {
-    let sss: SoftSkill[] = sSsGet ? sSsGet : this.local.get<SoftSkill>(KEY);
-    this.sSkills$.next(sss);
+  public changeObservableSs() {
+    this.sSkills$.next(this.local.get<SoftSkill[]>(softs));
   }
 
   /* -------------CRUD´s Methods------------- */
@@ -35,7 +37,7 @@ export class SoftSkillService {
     let ret: SoftSkill[] = [];
     this.http.get<SoftSkill[]>(this.URL + '/listAll').subscribe({
       next: (res) => {
-        this.local.setAll<SoftSkill>(res, GET_ALL);
+        this.local.set<SoftSkill[]>(res, allSofts);
         ret = res;
       },
       error: (err) =>
@@ -49,9 +51,8 @@ export class SoftSkillService {
   }
 
   public getSoftSkill() {
-    let username = this.token.getUsername();
     this.http.get<SoftSkill[]>(this.URL + `/list/${username}`).subscribe({
-      next: (res) => this.local.set<SoftSkill>(res, KEY),
+      next: (res) => this.local.set<SoftSkill[]>(res, softs),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => this.changeObservableSs(),
@@ -61,20 +62,18 @@ export class SoftSkillService {
     this.http.get<Message>(this.URL + `/add/${ss.id}/${userId}`).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);
-        this.local.add<SoftSkill>(ss, KEY);
+        this.local.add<SoftSkill>(ss, softs);
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
-      complete: () => {
-        this.changeObservableSs();
-      },
+      complete: () => this.changeObservableSs(),
     });
   }
   public removeSSToUser(ss: SoftSkill, userId: string) {
     this.http.get<Message>(this.URL + `/remove/${ss.id}/${userId}`).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);
-        this.local.remove<SoftSkill>(ss, KEY);
+        this.local.remove<SoftSkill>(ss, softs);
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
@@ -82,9 +81,8 @@ export class SoftSkillService {
     });
   }
   public createSoftSkill(ss: SoftSkill) {
-    let username = this.token.getUsername();
     this.http.post<SoftSkill>(this.URL + `/create/${username}`, ss).subscribe({
-      next: (res) => this.local.add<SoftSkill>(res, KEY),
+      next: (res) => this.local.add<SoftSkill>(res, softs),
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => {
@@ -96,13 +94,12 @@ export class SoftSkillService {
     });
   }
   public deleteSoftSkill(ss: SoftSkill) {
-    let username = this.token.getUsername();
     this.http
       .get<Message>(this.URL + `/remove/${ss.id}/${username}`)
       .subscribe({
         next: (res) => {
           this.popup.showMessage(res.message);
-          this.local.remove<SoftSkill>(ss, KEY);
+          this.local.remove<SoftSkill>(ss, softs);
         },
         error: (err) =>
           this.popup.showMessage(
@@ -115,7 +112,7 @@ export class SoftSkillService {
     this.http.put<Message>(this.URL + `/update/${ss.id}`, ss).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);
-        this.local.update<SoftSkill>(ss, KEY);
+        this.local.update<SoftSkill>(ss, softs);
       },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
