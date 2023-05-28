@@ -1,22 +1,23 @@
 <section class="section">
   <p>Ingrese los contenidos que desarrolló en la educación.</p>
-  <div *ngIf="tags" class="tags">
-    <ng-container *ngFor="let i of tags">
-      <p class="add_tag" (click)="deleteTag(i)">{{ i.name }} <span>x</span></p>
+  <div class="tags">
+    <ng-container *ngFor="let i of ed.tags">
+      <p class="add_tag">{{ i.name }} <span (click)="deleteTag(i)">x</span></p>
     </ng-container>
   </div>
   <form class="form">
     <div class="input_container">
-      <input
-        class="input_text"
-        type="text"
-        (focus)="name.classList.add('active')"
-        id="name"
-        formControlName="name"
-        placeholder="Nombre del contenido"
-        autocomplete="off"
-      />
-      <label for="name" class="label" #name>Nombre</label>
+      <label for="name" class="lbl"
+        ><input
+          class="input"
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Nombre del contenido"
+          autocomplete="off"
+        />
+        <span>Nombre</span></label
+      >
 
       <div class="allTags" *ngIf="showAllTags">
         <ng-container *ngFor="let i of matchTags">
@@ -27,6 +28,14 @@
           </div>
         </ng-container>
       </div>
+    </div>
+    <div class="img_container">
+      <small>Tamañoo máximo de imagen 1MB</small>
+      <img
+        class="outputImg"
+        [src]="image ? image : '../../../assets/img/picture.png'"
+      />
+      <button (click)="loadImage()" class="btn">Cargar logo</button>
     </div>
     <button class="btn add" (click)="add()">Agregar</button>
   </form>

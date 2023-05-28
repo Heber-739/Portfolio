@@ -1,6 +1,5 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { TokenService } from 'src/app/backend/service/token.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/backend/service/auth.service';
 import { JobService } from 'src/app/backend/service/job.service';
 import { Job } from 'src/app/interface/job';
 
@@ -9,43 +8,31 @@ import { Job } from 'src/app/interface/job';
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.css'],
 })
-export class JobComponent implements OnInit, AfterContentInit, OnDestroy {
+export class JobComponent implements OnInit {
   edithMode: boolean = false;
   toEdith: boolean = false;
-  jobs: Job[] = [];
+  jobs: Job[];
   edithJob: Job = {} as Job;
-  unsuscribe: Subject<boolean> = new Subject();
-  constructor(private token: TokenService, private jobService: JobService) {}
+  constructor(private auth: AuthService, private jobService: JobService) {
+    this.jobs = this.jobService.getJobs();
+  }
 
   ngOnInit(): void {
-    this.jobService
-      .subscribeJob()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.jobs = res),
-      });
-    this.token
-      .edithObservable()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.edithMode = res),
-      });
-  }
-  ngAfterContentInit(): void {
-    this.jobService.getJobs();
-  }
-  ngOnDestroy(): void {
-    this.unsuscribe.next(true);
+    this.jobService.subscribeJob().subscribe({
+      next: (res) => (this.jobs = res),
+    });
+    this.auth.edith$().subscribe({
+      next: (res) => (this.edithMode = res),
+    });
   }
 
-  addJob() {
-    this.toEdith = !this.toEdith;
-  }
   delete(e: Job) {
     this.jobService.deleteJob(e);
   }
-  edith(e: Job) {
-    this.edithJob = e;
-    this.addJob();
+  edith(e?: Job) {
+    if (e) {
+      this.edithJob = e;
+    }
+    this.toEdith = !this.toEdith;
   }
 }

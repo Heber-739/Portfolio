@@ -1,23 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../backend/service/user.service';
+import { Component } from '@angular/core';
+import { CRUDLocalService, DATA } from '../backend/service/CRUD-Local.service';
+import { DataUser } from '../interface/dataUser';
+const { user } = DATA;
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
 })
-export class FooterComponent implements OnInit {
-  github: string = '';
-  linkedin: string = '';
+export class FooterComponent {
+  github: string;
+  linkedin: string;
 
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userService.subscribeUser().subscribe({
-      next: (res) => {
-        this.github = res.github;
-        this.linkedin = res.linkedin;
-      },
-    });
+  constructor(private local: CRUDLocalService) {
+    let user_ = this.local.get<DataUser>(user);
+    [this.github, this.linkedin] = [user_.github, user_.linkedin];
   }
 }

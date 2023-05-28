@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginUser } from '../backend/interface/loginUser';
 import { AuthService } from '../backend/service/auth.service';
-import { TokenService } from '../backend/service/token.service';
 
 @Component({
   selector: 'app-login',
@@ -17,15 +16,10 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(
-    private tokenService: TokenService,
-    private authservice: AuthService
-  ) {}
+  constructor(private auth: AuthService, private authservice: AuthService) {}
 
   ngOnInit(): void {
-    this.tokenService
-      .loggedObservable()
-      .subscribe({ next: (res) => (this.isLogged = res) });
+    this.auth.logged$().subscribe({ next: (res) => (this.isLogged = res) });
   }
 
   enter(): void {

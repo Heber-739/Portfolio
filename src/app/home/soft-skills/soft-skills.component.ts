@@ -1,7 +1,6 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/backend/service/auth.service';
 import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
-import { TokenService } from 'src/app/backend/service/token.service';
 import { SoftSkill } from 'src/app/interface/softSkill';
 
 @Component({
@@ -9,48 +8,32 @@ import { SoftSkill } from 'src/app/interface/softSkill';
   templateUrl: './soft-skills.component.html',
   styleUrls: ['./soft-skills.component.css'],
 })
-export class SoftSkillsComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class SoftSkillsComponent implements OnInit {
   edithMode: boolean = false;
   toEdith: boolean = false;
-  sSs: SoftSkill[] = [];
+  sSs: SoftSkill[];
   edithSS: SoftSkill = {} as SoftSkill;
-  unsuscribe: Subject<boolean> = new Subject();
 
-  constructor(
-    private token: TokenService,
-    private ssService: SoftSkillService
-  ) {}
+  constructor(private auth: AuthService, private ssService: SoftSkillService) {
+    this.sSs = this.ssService.getSoftSkill();
+  }
 
   ngOnInit(): void {
-    this.ssService
-      .subscribeSs()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.sSs = res),
-      });
-    this.token
-      .edithObservable()
-      .pipe(takeUntil(this.unsuscribe))
-      .subscribe({
-        next: (res) => (this.edithMode = res),
-      });
+    this.ssService.subscribeSs().subscribe({
+      next: (res) => (this.sSs = res),
+    });
+    this.auth.edith$().subscribe({
+      next: (res) => (this.edithMode = res),
+    });
   }
-  ngAfterContentInit(): void {
-    this.ssService.getSoftSkill();
-  }
-  ngOnDestroy(): void {
-    this.unsuscribe.next(true);
-  }
-  addSoftSkill() {
-    this.toEdith = !this.toEdith;
-  }
+
   delete(e: SoftSkill) {
     this.ssService.deleteSoftSkill(e);
   }
-  edith(ss: SoftSkill) {
-    this.addSoftSkill();
-    this.edithSS = ss;
+  edith(ss?: SoftSkill) {
+    if (ss) {
+      this.edithSS = ss;
+    }
+    this.toEdith = !this.toEdith;
   }
 }

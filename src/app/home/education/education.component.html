@@ -13,6 +13,7 @@
     *ngIf="this.toEdith"
     [edithEd]="edithEd"
   ></app-form-education>
+  <app-tags *ngIf="this.edithEd.id" [ed]="edithEd"></app-tags>
 
   <div class="education_container">
     <div class="cards_container" *ngFor="let i of eds">

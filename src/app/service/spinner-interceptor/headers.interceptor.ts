@@ -7,31 +7,32 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { finalize, Observable } from 'rxjs';
-import { TokenService } from '../../backend/service/token.service';
 import { SpinnerService } from './spinner.service';
+import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeadersInterceptor implements HttpInterceptor {
-  constructor(private tokenService: TokenService, private spinnerService: SpinnerService) {}
+  constructor(
+    private local: CRUDLocalService,
+    private spinnerService: SpinnerService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.spinnerService.show()
+    this.spinnerService.show();
     let intReq = req;
-    const token = this.tokenService.getToken();
+    const token = this.local.get<string>('token');
 
     if (token != null) {
       intReq = req.clone({
         headers: req.headers.set('Authorization', 'Bearer' + token),
       });
     }
-    return next.handle(intReq).pipe(
-      finalize(()=>this.spinnerService.hide())
-    )
+    return next.handle(intReq).pipe(finalize(() => this.spinnerService.hide()));
   }
 }
 export const interceptorProvider = [

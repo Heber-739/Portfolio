@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NgxImageCompressService } from 'ngx-image-compress';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { Education } from 'src/app/interface/education';
+import { Tag } from 'src/app/interface/tag';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
@@ -12,7 +12,6 @@ import { ImageCompressService } from 'src/app/service/image-compress.service';
 })
 export class FormEducationComponent implements OnInit {
   @Input() edithEd!: Education;
-  edId: number = 0;
   edFinish: boolean = false;
   image!: string;
   formEd = new FormGroup({
@@ -27,7 +26,6 @@ export class FormEducationComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.edithEd.id) {
-      this.edId = this.edithEd.id;
       this.formEd.patchValue({
         name: this.edithEd.name,
         link: this.edithEd.link,
@@ -48,11 +46,10 @@ export class FormEducationComponent implements OnInit {
       img: this.image,
     };
     this.formEd.reset();
-    if (this.edId == 0) {
-      this.edId = this.edService.createEducation(ed);
-    } else {
-      ed.id = this.edId;
+    if (this.edithEd.id) {
       this.edService.updateEducation(ed);
+    } else if (!this.edithEd.id) {
+      this.edithEd = this.edService.createEducation(ed);
     }
   }
   finished() {}

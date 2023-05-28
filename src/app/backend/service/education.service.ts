@@ -59,13 +59,18 @@ export class EducationService {
     });
     return ret;
   }
-  public createEducation(ed: Education) {
+  public createEducation(ed: Education): Education {
+    let ret: Education = {} as Education;
     this.http.post<Education>(this.URL + `/create/${username}`, ed).subscribe({
-      next: (res) => this.local.add<Education>(res, educations),
+      next: (res) => {
+        this.local.add<Education>(res, educations);
+        ret = res;
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\n Error N° ${err.status}`),
       complete: () => this.changeObservable(),
     });
+    return ret;
   }
   public deleteEducation(el: Education) {
     this.http

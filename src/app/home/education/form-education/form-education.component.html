@@ -42,9 +42,11 @@
       >Imagen o banner<input id="file" class="img_file" (focus)="onchange()"
     /></label>
 
-    <img *ngIf="image" class="outputImg" [src]="image" />
+    <img
+      class="outputImg"
+      [src]="image ? image : '../../../assets/img/picture.png'"
+    />
   </div>
   <button class="btn" (click)="saveEducation()">Guardar</button>
 </form>
-<app-tags *ngIf="this.edId != 0" [edId]="edId"></app-tags>
 <button class="btn" (click)="finished()">Finalizar</button>

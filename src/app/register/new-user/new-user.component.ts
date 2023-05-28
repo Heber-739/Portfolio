@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TokenService } from 'src/app/backend/service/token.service';
+import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { DataUser } from 'src/app/interface/dataUser';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
@@ -11,14 +11,14 @@ import { ImageCompressService } from 'src/app/service/image-compress.service';
   styleUrls: ['./new-user.component.css'],
 })
 export class NewUserComponent implements OnInit {
-  user: DataUser = this.tokenService.getUser();
+  user: DataUser = this.local.get<DataUser>('user');
   image!: string;
 
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     username: new FormControl({
-      value: this.tokenService.getUsername(),
+      value: this.local.get<string>('username'),
       disabled: true,
     }),
     age: new FormControl('', [Validators.required, Validators.min(10)]),
@@ -27,7 +27,7 @@ export class NewUserComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
   });
   constructor(
-    private tokenService: TokenService,
+    private local: CRUDLocalService,
     private userService: UserService,
     private compress: ImageCompressService
   ) {}

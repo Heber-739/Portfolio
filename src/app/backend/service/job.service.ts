@@ -43,13 +43,18 @@ export class JobService {
     return ret;
   }
 
-  public getJobs() {
+  public getJobs(): Job[] {
+    let ret: Job[] = [];
     this.http.get<Job[]>(this.URL + `/list/${username}`).subscribe({
-      next: (res) => this.local.set(res, jobs),
+      next: (res) => {
+        this.local.set(res, jobs);
+        ret = res;
+      },
       error: (err) =>
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
       complete: () => this.changeObservable(),
     });
+    return ret;
   }
   public createJob(job: Job) {
     this.http.post<Job>(this.URL + `/create/${username}`, job).subscribe({
