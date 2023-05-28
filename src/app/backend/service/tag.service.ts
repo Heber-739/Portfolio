@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Message } from 'src/app/interface/Message';
 import { Tag } from 'src/app/interface/tag';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { CRUDLocalService } from './CRUD-Local.service';
+import { CRUDLocalService, DATA } from './CRUD-Local.service';
 
-const GET_ALL = 'getAllTagsFromDB';
+const { allTags } = DATA;
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class TagService {
     let ret: Tag[] = [];
     this.http.get<Tag[]>(this.URL + '/listAll').subscribe({
       next: (res) => {
-        this.local.setAll<Tag>(res, GET_ALL);
+        this.local.set<Tag[]>(res, allTags);
         ret = res;
       },
       error: (err) =>
@@ -43,9 +42,6 @@ export class TagService {
         this.popup.showMessage(`${err.error.message}\nError N° ${err.status}`),
     });
     return ret;
-  }
-  public getOne(name: string): Observable<Tag> {
-    return this.http.get<Tag>(this.URL + `/getOne/${name}`);
   }
 
   public addTagToEducation(tagId: number, edId: number): Tag {

@@ -5,8 +5,7 @@ import { HardSkill } from 'src/app/interface/hardSkill';
 import { Message } from 'src/app/interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
-import { CRUDLocalService } from './CRUD-Local.service';
-import { DATA } from '../../backend/service/CRUD-Local.service';
+import { CRUDLocalService, DATA } from './CRUD-Local.service';
 
 const { username, skills, allSkills } = DATA;
 

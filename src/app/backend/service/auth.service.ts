@@ -8,6 +8,7 @@ import { LoginUser } from '../interface/loginUser';
 import { NewUser } from '../interface/newUser';
 import { CRUDLocalService } from './CRUD-Local.service';
 import { Observable, Subject } from 'rxjs';
+import { Message } from 'src/app/interface/Message';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class AuthService {
   }
 
   public newUser(dataUser: NewUser) {
-    this.http.post<any>(this.authURL + '/generated', dataUser).subscribe({
+    this.http.post<Message>(this.authURL + '/generated', dataUser).subscribe({
       next: (res) => {
         this.popup.showMessage(res.message);
       },
