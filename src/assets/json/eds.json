@@ -1,0 +1,207 @@
+[
+    {
+        "id": 1,
+        "name": "Oracle Next-Education",
+        "link": "https://www.oracle.com/ar/education/oracle-next-education/",
+        "finish": true,
+        "img": "data:image/png;base64,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",
+        "type_img": "image/png",
+        "tags": [
+            {
+                "id": 1,
+                "abbreviation": "Introd. a la programación",
+                "name": "Introducción a la programación"
+            },
+            {
+                "id": 5,
+                "abbreviation": "Javascript",
+                "name": "Javascript"
+            },
+            {
+                "id": 4,
+                "abbreviation": "HTML5",
+                "name": "HTML5"
+            },
+            {
+                "id": 3,
+                "abbreviation": "Java",
+                "name": "Java"
+            },
+            {
+                "id": 2,
+                "abbreviation": "Soft Skills",
+                "name": "Soft Skills"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Argentina Programa",
+        "link": "https://www.argentina.gob.ar/economia/conocimiento/argentina-programa",
+        "finish": true,
+        "img": "data:image/png;base64,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",
+        "type_img": "image/png",
+        "tags": [
+            {
+                "id": 10,
+                "abbreviation": "Spring Boot",
+                "name": "Spring Boot"
+            },
+            {
+                "id": 6,
+                "abbreviation": "Introd. Desarrollo Web",
+                "name": "Introducción al desarrollo web"
+            },
+            {
+                "id": 12,
+                "abbreviation": "POO",
+                "name": "POO: buenas prácticas"
+            },
+            {
+                "id": 8,
+                "abbreviation": "Angular",
+                "name": "Angular"
+            },
+            {
+                "id": 3,
+                "abbreviation": "Java",
+                "name": "Java"
+            },
+            {
+                "id": 9,
+                "abbreviation": "DevOps",
+                "name": "DevOps"
+            },
+            {
+                "id": 11,
+                "abbreviation": "Base de datos",
+                "name": "Base de datos"
+            },
+            {
+                "id": 7,
+                "abbreviation": "Programac. Frontend",
+                "name": "Programación Frontend"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Open Bootcamp",
+        "link": "https://open-bootcamp.com/",
+        "finish": false,
+        "img": "data:image/png;base64,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",
+        "type_img": "image/png",
+        "tags": [
+            {
+                "id": 10,
+                "abbreviation": "Spring Boot",
+                "name": "Spring Boot"
+            },
+            {
+                "id": 1,
+                "abbreviation": "Introd. a la programación",
+                "name": "Introducción a la programación"
+            },
+            {
+                "id": 14,
+                "abbreviation": "Git",
+                "name": "Git"
+            },
+            {
+                "id": 15,
+                "abbreviation": "Python",
+                "name": "Python"
+            },
+            {
+                "id": 3,
+                "abbreviation": "Java",
+                "name": "Java"
+            },
+            {
+                "id": 16,
+                "abbreviation": "React",
+                "name": "React"
+            },
+            {
+                "id": 7,
+                "abbreviation": "Programac. Frontend",
+                "name": "Programación Frontend"
+            },
+            {
+                "id": 13,
+                "abbreviation": "Test. JUnit",
+                "name": "IntTesting con JUnit"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Gestión de proyectos",
+        "link": "https://grow.google/intl/es-419_us/certificates/project-management/#?modal_active=none",
+        "finish": false,
+        "img": "data:image/png;base64,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",
+        "type_img": "image/png",
+        "tags": [
+            {
+                "id": 18,
+                "abbreviation": "Estatuto del proy.",
+                "name": "Estatuto del proyecto"
+            },
+            {
+                "id": 24,
+                "abbreviation": "Gest. de los interesados",
+                "name": "Gestión de los interesados"
+            },
+            {
+                "id": 26,
+                "abbreviation": "Planif. de Proyectos",
+                "name": "Planificación de Proyectos"
+            },
+            {
+                "id": 20,
+                "abbreviation": "Pensamiento estratégico",
+                "name": "Pensamiento estratégico"
+            },
+            {
+                "id": 21,
+                "abbreviation": "Adquisiciones",
+                "name": "Adquisiciones"
+            },
+            {
+                "id": 23,
+                "abbreviation": "Estimación de tareas",
+                "name": "Estimación de tareas"
+            },
+            {
+                "id": 19,
+                "abbreviation": "Gest. de proyectos",
+                "name": "Gestión de proyectos"
+            },
+            {
+                "id": 17,
+                "abbreviation": "abbreviation\": \"Gest. de riesgos",
+                "name": "Gestión de riesgos"
+            },
+            {
+                "id": 22,
+                "abbreviation": "Cult. organización",
+                "name": "Cultura de la organización"
+            },
+            {
+                "id": 25,
+                "abbreviation": "Redacc. de negocios",
+                "name": "Redacción de negocios"
+            },
+            {
+                "id": 27,
+                "abbreviation": "Desarr. Profesional",
+                "name": "Desarrollo Profesional"
+            },
+            {
+                "id": 28,
+                "abbreviation": "Gest. Cambios",
+                "name": "Gestión de los cambios"
+            }
+        ]
+    }
+]

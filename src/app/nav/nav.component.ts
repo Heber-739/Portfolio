@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../backend/service/user.service';
 import { DataUser } from '../interface/dataUser';
-import { CRUDLocalService } from '../backend/service/CRUD-Local.service';
+import { CRUDLocalService, DATA } from '../backend/service/CRUD-Local.service';
 import { AuthService } from '../backend/service/auth.service';
+import * as userJson from '../../assets/json/user.json';
 
+const { user, token, animation, theme } = DATA;
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -12,7 +14,7 @@ import { AuthService } from '../backend/service/auth.service';
 export class NavComponent implements OnInit {
   selColor: boolean = false;
   isLogged: boolean;
-  user: DataUser;
+  usser: DataUser;
   start: boolean;
   menu: boolean;
   constructor(
@@ -20,12 +22,13 @@ export class NavComponent implements OnInit {
     private userS: UserService,
     private local: CRUDLocalService
   ) {
-    let k: boolean = this.local.get('animation') ?? true;
+    let k: boolean = this.local.get(animation) ?? true;
     [this.start, this.menu] = [k, k];
-    this.user =
-      this.local.getUserData<DataUser>('user') ?? this.userS.getUser();
-    this.isLogged = !!this.local.getUserData('token');
-    this.changeTheme(localStorage.getItem('theme') || 'blue');
+    /* --------------------------- */
+    this.usser = this.local.getUserData<DataUser>(user) ?? userJson;
+    /* --------------------------- */
+    this.isLogged = !!this.local.getUserData(token);
+    this.changeTheme(localStorage.getItem(theme) || 'blue');
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class NavComponent implements OnInit {
     this.authS.logged$().subscribe({
       next: (res) => {
         this.isLogged = res;
-        this.user = this.local.getUserData('user') ?? this.userS.getUser();
+        this.usser = this.local.getUserData(user) ?? userJson;
       },
     });
   }
@@ -54,7 +57,7 @@ export class NavComponent implements OnInit {
     } else {
       this.open();
       this.selColor = false;
-      localStorage.setItem('theme', v);
+      localStorage.setItem(theme, v);
       let c: string[] = this.colors(v);
       for (let i = 0; i < 5; i++) {
         document.documentElement.style.setProperty(

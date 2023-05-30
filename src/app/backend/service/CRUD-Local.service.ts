@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export const DATA: { [key: string]: string } = {
+  theme: 'themeSelected',
   username: 'authUsername',
   token: 'authToken',
   authorities: 'authAuthorities',
