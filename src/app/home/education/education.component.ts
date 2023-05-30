@@ -6,6 +6,7 @@ import {
 import { AuthService } from 'src/app/backend/service/auth.service';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { Education } from 'src/app/interface/education';
+import * as edsUser from '../../../assets/json/eds.json';
 
 const { educations } = DATA;
 
@@ -25,7 +26,8 @@ export class EducationComponent implements OnInit {
     private authS: AuthService,
     private ed: EducationService
   ) {
-    this.eds = this.local.get(educations) ?? this.ed.getEducation();
+    this.eds = this.local.get(educations) ?? edsUser;
+    /* this.eds = this.local.get(educations) ?? this.ed.getEducation(); */
   }
 
   ngOnInit(): void {

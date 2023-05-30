@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CRUDLocalService } from '../backend/service/CRUD-Local.service';
+import { CRUDLocalService, DATA } from '../backend/service/CRUD-Local.service';
 import { AuthService } from '../backend/service/auth.service';
 
+const { token } = DATA;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   isLogged: boolean;
 
   constructor(private local: CRUDLocalService, private authS: AuthService) {
-    this.isLogged = !!this.local.get('token');
+    this.isLogged = !!this.local.get(token);
   }
 
   ngOnInit(): void {

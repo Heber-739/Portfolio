@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { Education } from 'src/app/interface/education';
-import { Tag } from 'src/app/interface/tag';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({

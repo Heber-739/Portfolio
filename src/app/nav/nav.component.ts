@@ -24,8 +24,10 @@ export class NavComponent implements OnInit {
   ) {
     let k: boolean = this.local.get(animation) ?? true;
     [this.start, this.menu] = [k, k];
+    /* this.usser = this.local.getUserData<DataUser>(user) ?? this.userS.getUser(); */
     /* --------------------------- */
     this.usser = this.local.getUserData<DataUser>(user) ?? userJson;
+    this.local.set<DataUser>(this.usser, user);
     /* --------------------------- */
     this.isLogged = !!this.local.getUserData(token);
     this.changeTheme(localStorage.getItem(theme) || 'blue');

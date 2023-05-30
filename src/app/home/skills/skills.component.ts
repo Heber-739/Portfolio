@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/backend/service/auth.service';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
 import { HardSkill } from 'src/app/interface/hardSkill';
 import { DATA } from '../../backend/service/CRUD-Local.service';
+import * as skillsJson from '../../../assets/json/skills.json';
 
 const { skills } = DATA;
 @Component({
@@ -15,14 +16,15 @@ export class SkillsComponent implements OnInit {
   edithMode: boolean = false;
   edithHS: HardSkill = {} as HardSkill;
   toEdith: boolean = false;
-  skills: HardSkill[] = [];
+  skills: HardSkill[];
 
   constructor(
     private authS: AuthService,
     private local: CRUDLocalService,
     private hsService: HardSkillService
   ) {
-    this.skills = this.local.get(skills) ?? this.hsService.getHardSkill();
+    this.skills = this.local.get(skills) ?? skillsJson;
+    /* this.skills = this.local.get(skills) ?? this.hsService.getHardSkill(); */
   }
 
   ngOnInit(): void {

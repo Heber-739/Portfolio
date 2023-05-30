@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
 import { SoftSkill } from 'src/app/interface/softSkill';

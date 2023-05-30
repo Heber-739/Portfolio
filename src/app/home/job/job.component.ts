@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/backend/service/auth.service';
 import { JobService } from 'src/app/backend/service/job.service';
 import { Job } from 'src/app/interface/job';
+import * as jobsJson from '../../../assets/json/jobs.json';
 
 @Component({
   selector: 'app-job',
@@ -14,7 +15,7 @@ export class JobComponent implements OnInit {
   jobs: Job[];
   edithJob: Job = {} as Job;
   constructor(private auth: AuthService, private jobService: JobService) {
-    this.jobs = this.jobService.getJobs();
+    this.jobs = this.jobService.getJobs() ?? jobsJson;
   }
 
   ngOnInit(): void {

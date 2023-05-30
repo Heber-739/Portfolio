@@ -13,7 +13,7 @@ export class PreloadService implements PreloadingStrategy {
     }
 
     return of(true).pipe(
-      delay(10000),
+      delay(5000),
       switchMap(() => load())
     );
   }
