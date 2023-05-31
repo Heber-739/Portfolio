@@ -3,6 +3,12 @@ import { AuthService } from 'src/app/backend/service/auth.service';
 import { JobService } from 'src/app/backend/service/job.service';
 import { Job } from 'src/app/interface/job';
 import * as jobsJson from '../../../assets/json/jobs.json';
+import {
+  CRUDLocalService,
+  DATA,
+} from 'src/app/backend/service/CRUD-Local.service';
+
+const { jobs } = DATA;
 
 @Component({
   selector: 'app-job',
@@ -12,15 +18,19 @@ import * as jobsJson from '../../../assets/json/jobs.json';
 export class JobComponent implements OnInit {
   edithMode: boolean = false;
   toEdith: boolean = false;
-  jobs: Job[];
+  jobsUser: Job[];
   edithJob: Job = {} as Job;
-  constructor(private auth: AuthService, private jobService: JobService) {
-    this.jobs = this.jobService.getJobs() ?? jobsJson;
+  constructor(
+    private local: CRUDLocalService,
+    private auth: AuthService,
+    private jobService: JobService
+  ) {
+    this.jobsUser = this.local.get<Job[]>(jobs) ?? jobsJson;
   }
 
   ngOnInit(): void {
     this.jobService.subscribeJob().subscribe({
-      next: (res) => (this.jobs = res),
+      next: (res) => (this.jobsUser = res),
     });
     this.auth.edith$().subscribe({
       next: (res) => (this.edithMode = res),

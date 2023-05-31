@@ -3,7 +3,12 @@ import { AuthService } from 'src/app/backend/service/auth.service';
 import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
 import { SoftSkill } from 'src/app/interface/softSkill';
 import * as softsJson from '../../../assets/json/Softs.json';
+import {
+  CRUDLocalService,
+  DATA,
+} from 'src/app/backend/service/CRUD-Local.service';
 
+const { softs } = DATA;
 @Component({
   selector: 'app-soft-skills',
   templateUrl: './soft-skills.component.html',
@@ -15,8 +20,12 @@ export class SoftSkillsComponent implements OnInit {
   sSs: SoftSkill[];
   edithSS: SoftSkill = {} as SoftSkill;
 
-  constructor(private auth: AuthService, private ssService: SoftSkillService) {
-    this.sSs = this.ssService.getSoftSkill() ?? softsJson;
+  constructor(
+    private local: CRUDLocalService,
+    private auth: AuthService,
+    private ssService: SoftSkillService
+  ) {
+    this.sSs = this.local.get<SoftSkill[]>(softs) ?? softsJson;
   }
 
   ngOnInit(): void {

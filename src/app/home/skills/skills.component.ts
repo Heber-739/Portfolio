@@ -23,7 +23,8 @@ export class SkillsComponent implements OnInit {
     private local: CRUDLocalService,
     private hsService: HardSkillService
   ) {
-    this.skills = this.local.get(skills) ?? skillsJson;
+    this.skills = this.local.get<HardSkill[]>(skills) ?? skillsJson;
+    console.log(this.skills);
     /* this.skills = this.local.get(skills) ?? this.hsService.getHardSkill(); */
   }
 

@@ -4,6 +4,7 @@ import { DataUser } from '../interface/dataUser';
 import { CRUDLocalService, DATA } from '../backend/service/CRUD-Local.service';
 import { AuthService } from '../backend/service/auth.service';
 import * as userJson from '../../assets/json/user.json';
+import { HttpClient } from '@angular/common/http';
 
 const { user, token, animation, theme } = DATA;
 @Component({
@@ -16,14 +17,17 @@ export class NavComponent implements OnInit {
   isLogged: boolean;
   usser: DataUser;
   start: boolean;
-  menu: boolean;
+  menu: boolean = false;
   constructor(
     private authS: AuthService,
     private userS: UserService,
-    private local: CRUDLocalService
+    private local: CRUDLocalService,
+    private httpClient: HttpClient
   ) {
+    this.sentdata();
     let k: boolean = this.local.get(animation) ?? true;
-    [this.start, this.menu] = [k, k];
+    this.start = k;
+    /* [this.start, this.menu] = [k, k]; */
     /* this.usser = this.local.getUserData<DataUser>(user) ?? this.userS.getUser(); */
     /* --------------------------- */
     this.usser = this.local.getUserData<DataUser>(user) ?? userJson;
@@ -79,5 +83,23 @@ export class NavComponent implements OnInit {
       return ['#4d4d4d', '#778899', '#595959', '#1a1a1a', '#0e0e0e'];
     }
     return ['#3c40a4', '#4d68f0', '#8697fe', '#003567', '#119e99'];
+  }
+
+  sentdata() {
+    const send = (obj: any, key: string) => {
+      sessionStorage.setItem(key, JSON.stringify(obj));
+    };
+    this.httpClient
+      .get('../../assets/json/eds.json')
+      .subscribe((res) => send(res, DATA['educations']));
+    this.httpClient
+      .get('../../assets/json/skills.json')
+      .subscribe((res) => send(res, DATA['skills']));
+    this.httpClient
+      .get('../../assets/json/jobs.json')
+      .subscribe((res) => send(res, DATA['jobs']));
+    this.httpClient
+      .get('../../assets/json/Softs.json')
+      .subscribe((res) => send(res, DATA['softs']));
   }
 }

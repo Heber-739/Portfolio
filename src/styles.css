@@ -41,14 +41,14 @@
 }
 .ill_container {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
   width: 100%;
+  background-color: black;
+  border-radius: 40% 40% 0 0;
 }
 .illustration {
-  display: none;
-  width: 200px;
-  width: clamp(170px, 25%, 300px);
+  width: clamp(100px, 25%, 300px);
   margin: 0 auto;
 }
 
