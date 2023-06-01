@@ -13,7 +13,6 @@
   (click)="open()"
   class="curtain"
 ></div>
-<!-- 
 <nav class="nav" [class.navShow]="menu">
   <div class="pictures">
     <a routerLink=""
@@ -72,60 +71,5 @@
     <li class="btn" (click)="changeTheme('red')">Rojo</li>
     <li class="btn" (click)="changeTheme('green')">Verde</li>
     <li class="btn" (click)="changeTheme('dark')">Oscuro</li>
-  </ul>
-</nav> -->
-
-<nav class="nav" [class.navShow]="menu">
-  <div class="pictures">
-    <a routerLink=""
-      ><img
-        class="photo"
-        [ngClass]="{ picture: start }"
-        [src]="usser.img ? usser.img : '../../../../assets/img/Foto.webp'"
-    /></a>
-    <a href="{{ usser.linkedin }}" target="_blank"
-      ><img
-        src="assets/img/linkedin.svg"
-        [ngClass]="{ lin: start }"
-        class="social_lin box"
-        alt="linkedin"
-    /></a>
-
-    <a href="{{ usser.github }}" target="_blank"
-      ><img
-        src="assets/img/github.svg"
-        [ngClass]="{ git: start }"
-        class="social_git box"
-        alt="github"
-      />
-    </a>
-  </div>
-  <ul class="list">
-    <li class="item">
-      <a routerLink="" (click)="open()" class="a_item"
-        ><img class="img" src="assets/img/home.svg" />Inicio</a
-      >
-    </li>
-    <li class="item">
-      <a routerLink="proyectos" (click)="open()" class="a_item"
-        ><img class="img" src="assets/img/proyectos.svg" /> Proyectos</a
-      >
-    </li>
-    <li class="item">
-      <a routerLink="contacto" (click)="open()" class="a_item"
-        ><img class="img" src="assets/img/contacto.svg" />Contacto</a
-      >
-    </li>
-    <li class="item" *ngIf="!isLogged">
-      <a routerLink="login" (click)="open()" class="a_item"
-        ><img class="img" src="assets/img/login.svg" />Login</a
-      >
-    </li>
-    <li class="item" *ngIf="isLogged" (click)="logout()">
-      <a class="a_item"><img class="img" src="assets/img/home.svg" />Logout</a>
-    </li>
-    <li class="item" (click)="changeTheme('open')">
-      <a class="a_item"><img class="img" src="assets/img/temas.svg" />Temas</a>
-    </li>
   </ul>
 </nav>

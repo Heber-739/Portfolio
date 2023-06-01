@@ -44,12 +44,20 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 150px;
   background-color: black;
-  border-radius: 40% 40% 0 0;
+}
+.ill_container h2.title {
+  margin: -30px auto 60px;
 }
 .illustration {
+  transform: translateY(-50%);
   width: clamp(100px, 25%, 300px);
-  margin: 0 auto;
+  margin: 0 auto 10px;
+  background-color: white;
+  outline: 15px solid black;
+  border-radius: 50%;
+  box-shadow: 0 -10px 30px black;
 }
 
 /* ------------------------------------------------- */
@@ -71,6 +79,7 @@ p {
   color: var(--text);
   text-align: justify;
   margin-top: 10px;
+  line-height: 1.3;
 }
 .moreInfo {
   text-align: center;
