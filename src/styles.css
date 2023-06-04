@@ -45,7 +45,7 @@
   align-items: center;
   width: 100%;
   margin-top: 150px;
-  background-color: black;
+  background-color: var(--color4);
 }
 .ill_container h2.title {
   margin: -30px auto 60px;
@@ -55,9 +55,9 @@
   width: clamp(100px, 25%, 300px);
   margin: 0 auto 10px;
   background-color: white;
-  outline: 15px solid black;
+  outline: 15px solid var(--color4);
   border-radius: 50%;
-  box-shadow: 0 -10px 30px black;
+  box-shadow: 0 -8px 12px 10px black;
 }
 
 /* ------------------------------------------------- */
