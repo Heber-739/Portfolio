@@ -1,4 +1,4 @@
-<form class="edith_form" [formGroup]="formHS">
+<form class="edith_form box" [formGroup]="formHS">
   <label for="name" class="lbl"
     ><input
       class="input"
@@ -18,18 +18,21 @@
       id="percentage"
       formControlName="percentage"
       autocomplete="off"
-      placeholder="Porcentage en multiplo de 5"
+      placeholder="Porcentage"
     />
     <span>Porcentaje</span>
   </label>
 
   <div class="img_container">
     <small>Tamaño máximo de imagen 1MB</small>
-    <button (click)="loadImage()" class="btn">Cargar foto de pérfil</button>
+    <button (click)="loadImage()" class="btn">Cargar logo</button>
     <img
       class="outputImg"
       [src]="image ? image : '../../../assets/img/picture.png'"
     />
   </div>
-  <button class="btn" (click)="saveHardSkill()">Guardar</button>
+  <div class="cont_edith_btn">
+    <button class="btn" (click)="saveHardSkill()">Guardar</button>
+    <button class="btn" (click)="abort()">Cancelar</button>
+  </div>
 </form>

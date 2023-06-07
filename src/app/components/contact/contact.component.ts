@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MailService } from '../backend/service/mail.service';
-import { Mail } from '../interface/mail';
+import { MailService } from 'src/app/backend/service/mail.service';
+import { Mail } from 'src/app/Interface/mail';
 
 @Component({
   selector: 'app-contact',

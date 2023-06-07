@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
 import { HardSkill } from 'src/app/Interface/hardSkill';
@@ -12,6 +12,7 @@ import { ImageCompressService } from 'src/app/service/image-compress.service';
 })
 export class FormSkillComponent implements OnInit {
   @Input() edithHS: HardSkill = {} as HardSkill;
+  @Output() cancel = new EventEmitter<boolean>();
   image!: string;
   formHS = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -43,8 +44,15 @@ export class FormSkillComponent implements OnInit {
     } else if (this.edithHS.id) {
       this.hsService.updateHardSkill(this.edithHS.id!, hs);
     }
+    this.reset();
+  }
+  reset() {
     this.image = '';
     this.formHS.reset();
     this.edithHS = {} as HardSkill;
+  }
+  abort() {
+    this.cancel.emit(false);
+    this.reset();
   }
 }

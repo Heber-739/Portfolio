@@ -1,9 +1,13 @@
 <section class="tinyBody">
   <div class="btn add_btn" *ngIf="edithMode" (click)="edith()">
-    {{ this.toEdith ? "Cancelar" : "Agregar skills" }}
+    Agregar skills
   </div>
 
-  <app-form-skill *ngIf="toEdith" [edithHS]="edithHS"></app-form-skill>
+  <app-form-skill
+    *ngIf="toEdith"
+    [edithHS]="edithHS"
+    (cancel)="finish()"
+  ></app-form-skill>
 
   <div class="box_skills">
     <div

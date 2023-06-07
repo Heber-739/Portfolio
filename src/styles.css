@@ -120,7 +120,27 @@ p {
   align-items: center;
 }
 .edith_form {
-  margin: 15px auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 0 10px;
+  height: fit-content;
+  background-color: var(--color4);
+  width: fit-content;
+  z-index: 99;
+}
+.edith_form::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .img_container {
   display: flex;
@@ -145,7 +165,7 @@ p {
   transition: transform 0.3s ease-in-out;
 }
 .input.ng-invalid.ng-touched + span::after {
-  content: "Campo invalido";
+  content: "Invalido";
   margin-left: 30px;
   color: rgb(255, 0, 0);
   border-radius: 50px;
