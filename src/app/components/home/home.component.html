@@ -1,0 +1,13 @@
+<section class="body">
+  <app-header> </app-header>
+  <app-education></app-education>
+  <app-soft-skills></app-soft-skills>
+  <app-job></app-job>
+
+  <ng-container>
+    <button *ngIf="!edithMode" class="btn btn_primary" (click)="edithChange()">
+      {{ edithMode ? "Salir" : "Entrar" }} modo de edición Entrar en modo de
+      edición
+    </button>
+  </ng-container>
+</section>

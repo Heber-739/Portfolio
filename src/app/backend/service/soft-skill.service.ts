@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Message } from 'src/app/interface/Message';
-import { SoftSkill } from 'src/app/interface/softSkill';
+import { Message } from 'src/app/Interface/Message';
+import { SoftSkill } from 'src/app/Interface/softSkill';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import {

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Education } from 'src/app/interface/education';
-import { Message } from 'src/app/interface/Message';
+import { Education } from 'src/app/Interface/education';
+import { Message } from 'src/app/Interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { CRUDLocalService, DATA } from './CRUD-Local.service';

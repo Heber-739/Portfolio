@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Wallet } from '../interface/wallet';
+import { Wallet } from '../Interface/wallet';
 
 const WALLET = 'wallet';
 

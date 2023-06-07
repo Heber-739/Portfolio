@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataUser } from 'src/app/interface/dataUser';
-import { Message } from 'src/app/interface/Message';
+import { DataUser } from 'src/app/Interface/dataUser';
+import { Message } from 'src/app/Interface/Message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 import { CRUDLocalService, DATA } from './CRUD-Local.service';
