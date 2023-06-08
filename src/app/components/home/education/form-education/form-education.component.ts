@@ -29,7 +29,7 @@ export class FormEducationComponent implements OnInit {
         name: this.edithEd.name,
         link: this.edithEd.link,
       });
-      this.image = this.edithEd.img;
+      this.image = this.edithEd.image;
       this.edFinish = this.edithEd.finish;
     }
   }
@@ -42,7 +42,7 @@ export class FormEducationComponent implements OnInit {
       name: this.formEd.get('name')?.value,
       link: this.formEd.get('link')?.value,
       finish: this.edFinish,
-      img: this.image,
+      image: this.image,
     };
     this.formEd.reset();
     if (this.edithEd.id) {

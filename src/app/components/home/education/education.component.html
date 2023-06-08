@@ -3,11 +3,10 @@
     <img class="illustration" src="assets/img/illustrations/educacion.png" />
     <h2 class="title">Experiencias educativas</h2>
   </div>
-  <ng-container *ngIf="edithMode">
-    <div class="btn add_btn" (click)="edith()">
-      {{ toEdith ? "Cancelar" : "Agregar Educación" }}
-    </div>
-  </ng-container>
+
+  <div *ngIf="edithMode" class="btn add_btn" (click)="edith()">
+    Agregar Educación
+  </div>
 
   <app-form-education
     *ngIf="this.toEdith"
@@ -15,26 +14,26 @@
   ></app-form-education>
   <app-tags *ngIf="this.edithEd.id" [ed]="edithEd"></app-tags>
 
-  <div class="education_container">
-    <div class="cards_container" *ngFor="let i of eds">
-      <div class="card box">
-        <div class="card_img_container">
-          <img src="{{ i.img }}" alt="{{ i.name }}" class="card_img" />
-        </div>
-        <a class="card_title link" target="_blank" href="{{ i.link }}">{{
-          i.name
-        }}</a>
-        <ul class="list">
-          <ng-container *ngFor="let t of i.tags">
-            <li>{{ t.name }}</li></ng-container
-          >
-        </ul>
-        <p class="status">{{ i.finish ? "Finalizado" : "En progreso" }}</p>
-      </div>
-      <div *ngIf="edithMode" class="cont_edith_btn">
-        <button class="edith_btn" (click)="del(i)">Eliminar</button>
-        <button class="edith_btn" (click)="edith(i)">Editar</button>
-      </div>
+  <div class="cards_container" *ngFor="let i of eds">
+    <img src="{{ i.image }}" alt="{{ i.name }}" class="card_img" />
+    <div class="description">
+      <a class="card_title link" target="_blank" href="{{ i.link }}">{{
+        i.name
+      }}</a>
+      <p class="status">{{ i.finish ? "Finalizado" : "En progreso" }}</p>
+    </div>
+
+    <ul class="list">
+      <ng-container *ngFor="let t of i.tags">
+        <li class="item">
+          <img src="{{ t.image }}" /> {{ t.name }}
+        </li></ng-container
+      >
+    </ul>
+
+    <div *ngIf="edithMode" class="cont_edith_btn">
+      <button class="edith_btn" (click)="del(i)">Eliminar</button>
+      <button class="edith_btn" (click)="edith(i)">Editar</button>
     </div>
   </div>
 </section>

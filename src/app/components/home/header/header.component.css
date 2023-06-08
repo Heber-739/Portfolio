@@ -1,6 +1,4 @@
 .presentation {
-  width: clamp(320px, 85vw, 1440px);
-  height: 100vh;
   justify-content: space-around;
   margin: 15px auto 60px;
   align-items: center;
