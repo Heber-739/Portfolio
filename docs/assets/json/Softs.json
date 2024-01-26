@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Comunicación",
+        "description": "Cuento con excelente comunicación interpersonal para evitar interpretaciones erroneas. Para ello, planteo mis desacuerdos ya sean correctas o no.  Soy especifico en mis planteos y me aseguro de que se maneja la misma idea en la comunicación. Siempre considero otras voces y las incorporo a mi trabajo si me ayudan a mejorarlo. "
+    },
+    {
+        "id": 2,
+        "name": "Organización",
+        "description": "Me valgo de las herramientas que me ayudan a organizarme de la mejor forma. Apuntes, calendarios, Trello, agendas. Planifico con antelación mis tareas y trato de organizarlas para cumplir con mis metas."
+    },
+    {
+        "id": 3,
+        "name": "Aprendizaje",
+        "description": "Poseo una buena recepción del aprendizaje. Me valgo de todos los medios que pueda para aprender nuevos contenidos que quiera o necesite para mejorar mi trabajo."
+    },
+    {
+        "id": 4,
+        "name": "Resolución de Problemas",
+        "description": "No dudo en plantear un problema apenas me presente una dificultad. Utilizo los canales que posea, o acudo a consultar a un compañero. Eliminar los obstáculos rápida y efectivamente, agiliza y mejora la calidad del trabajo individual y en consecuencia del equipo."
+    },
+    {
+        "id": 5,
+        "name": "Adaptabilidad",
+        "description": "Hago propio el espacio o método de trabajo que tenga. Práctico y me comunico para poder aceitar el flujo de trabajo e insertarme eficazmente a la dinámica grupal."
+    }
+]
