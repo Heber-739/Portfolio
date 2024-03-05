@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanPlayGuard implements CanActivate {
+export class CanPlayGuard  {
   constructor(private router: Router) {}
   canActivate():
     | boolean
