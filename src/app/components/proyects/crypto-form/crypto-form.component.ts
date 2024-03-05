@@ -6,17 +6,20 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LocalStorageService } from 'src/app/service/localStorage.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { Coin } from '../../../interface/coin';
-import { Wallet } from 'src/app/Interface/wallet';
+import { Wallet } from 'src/app/interface/wallet';
+import { CommonModule } from '@angular/common';
 
 interface SimpleCoin {
   market_data: { current_price: { usd: number } };
 }
 @Component({
   selector: 'app-crypto-form',
+  standalone: true,
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './crypto-form.component.html',
   styleUrls: ['./crypto-form.component.css'],
 })
@@ -35,9 +38,9 @@ export class CryptoFormComponent implements OnInit {
     image: '',
     symbol: '',
   };
-  depositForm = new FormGroup({
-    currency: new FormControl('', [Validators.required]),
-    money: new FormControl(''),
+  depositForm = new UntypedFormGroup({
+    currency: new UntypedFormControl('', [Validators.required]),
+    money: new UntypedFormControl(''),
   });
 
   constructor(

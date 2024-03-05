@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
 import { confirm, MyValidators } from './validators';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { JwtDto } from 'src/app/backend/interface/jwt-dto';
 import { NewUser } from 'src/app/backend/interface/newUser';
 import { AuthService } from 'src/app/backend/service/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-new-registration',
+  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './new-registration.component.html',
   styleUrls: ['./new-registration.component.css'],
 })
 export class NewRegistrationComponent {
   newRegistration!: JwtDto;
 
-  logup = new FormGroup(
+  logup = new UntypedFormGroup(
     {
-      names: new FormControl('', [Validators.required]),
-      username: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
+      names: new UntypedFormControl('', [Validators.required]),
+      username: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(16),
@@ -28,7 +31,7 @@ export class NewRegistrationComponent {
         MyValidators.haveStringMay(/[A-Z]/),
         MyValidators.haveStringMin(/[a-z]/),
       ]),
-      passwordConfirm: new FormControl('', [Validators.required]),
+      passwordConfirm: new UntypedFormControl('', [Validators.required]),
     },
     confirm
   );

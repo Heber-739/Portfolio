@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Mail } from 'src/app/Interface/mail';
-import { Message } from 'src/app/Interface/Message';
+import { Mail } from 'src/app/interface/mail';
+import { Message } from 'src/app/interface/message';
 import { ModalService } from 'src/app/service/modal.service';
 import { environment } from 'src/environments/environment';
 

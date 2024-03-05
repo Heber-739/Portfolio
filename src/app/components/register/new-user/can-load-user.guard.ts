@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Router, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanLoadUserGuard implements CanLoad {
+export class CanLoadUserGuard  {
   constructor(private router: Router, private local: CRUDLocalService) {}
   canLoad(): boolean | UrlTree {
     /* if (!this.token.getToken()) {

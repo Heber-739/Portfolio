@@ -8,7 +8,7 @@ import { LoginUser } from '../interface/loginUser';
 import { NewUser } from '../interface/newUser';
 import { CRUDLocalService } from './CRUD-Local.service';
 import { Observable, Subject } from 'rxjs';
-import { Message } from 'src/app/Interface/Message';
+import { Message } from 'src/app/interface/message';
 
 @Injectable({
   providedIn: 'root',

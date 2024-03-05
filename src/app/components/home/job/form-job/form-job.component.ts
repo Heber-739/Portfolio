@@ -1,19 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { JobService } from 'src/app/backend/service/job.service';
-import { Job } from 'src/app/Interface/job';
+import { Job } from 'src/app/interface/job';
 
 @Component({
   selector: 'app-form-job',
+  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './form-job.component.html',
   styleUrls: ['./form-job.component.css'],
 })
 export class FormJobComponent implements OnInit {
   @Input() edithJob: Job = {} as Job;
   jobId: number = 0;
-  formJob = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+  formJob = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
   });
   constructor(private jobService: JobService) {}
 

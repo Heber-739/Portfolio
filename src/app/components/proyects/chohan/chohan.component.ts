@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Wallet } from 'src/app/Interface/wallet';
+import { ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
+import { Wallet } from 'src/app/interface/wallet';
 import { MagicDices } from './dados';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 interface Regist {
   bet: number;
@@ -10,6 +11,8 @@ interface Regist {
 }
 @Component({
   selector: 'app-chohan',
+  standalone: true,
+  imports: [CurrencyPipe, ReactiveFormsModule,CommonModule],
   templateUrl: './chohan.component.html',
   styleUrls: ['./chohan.component.css'],
 })
@@ -30,8 +33,8 @@ export class ChohanComponent implements OnInit, OnDestroy {
   bet: number = 0;
   magicDices: MagicDices = new MagicDices();
 
-  nameInput = new FormControl('', [Validators.required]);
-  betInput = new FormControl('', [Validators.required]);
+  nameInput = new UntypedFormControl('', [Validators.required]);
+  betInput = new UntypedFormControl('', [Validators.required]);
 
   constructor() {
     this.wallet = JSON.parse(localStorage.getItem('wallet')!);

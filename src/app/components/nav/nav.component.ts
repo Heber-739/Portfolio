@@ -7,11 +7,15 @@ import {
 } from 'src/app/backend/service/CRUD-Local.service';
 import { AuthService } from 'src/app/backend/service/auth.service';
 import { UserService } from 'src/app/backend/service/user.service';
-import { DataUser } from 'src/app/Interface/dataUser';
+import { DataUser } from 'src/app/interface/dataUser';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 const { user, token, animation, theme } = DATA;
 @Component({
   selector: 'app-nav',
+  standalone: true,
+  imports: [CommonModule,RouterModule],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })

@@ -3,9 +3,12 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/service/localStorage.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { SpinnerService } from 'src/app/service/spinner-interceptor/spinner.service';
+import { CryptoFormComponent } from './crypto-form/crypto-form.component';
 
 @Component({
   selector: 'app-proyects',
+  standalone: true,
+  imports: [CryptoFormComponent],
   templateUrl: './proyects.component.html',
   styleUrls: ['./proyects.component.css'],
 })
