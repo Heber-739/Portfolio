@@ -5,13 +5,18 @@ import {
 } from 'src/app/backend/service/CRUD-Local.service';
 import { AuthService } from 'src/app/backend/service/auth.service';
 import { EducationService } from 'src/app/backend/service/education.service';
-import { Education } from 'src/app/Interface/education';
+import { Education } from 'src/app/interface/education';
 import * as edsUser from '../../../../assets/json/eds.json';
+import { CommonModule } from '@angular/common';
+import { FormEducationComponent } from './form-education/form-education.component';
+import { TagsComponent } from './tags/tags.component';
 
 const { educations } = DATA;
 
 @Component({
   selector: 'app-education',
+  standalone: true,
+  imports: [CommonModule,FormEducationComponent,TagsComponent],
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.css'],
 })

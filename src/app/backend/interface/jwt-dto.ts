@@ -1,4 +1,4 @@
-import { DataUser } from 'src/app/Interface/dataUser';
+import { DataUser } from 'src/app/interface/dataUser';
 
 export interface JwtDto {
   token: string;

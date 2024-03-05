@@ -3,12 +3,14 @@ import {
   DATA,
   CRUDLocalService,
 } from 'src/app/backend/service/CRUD-Local.service';
-import { DataUser } from 'src/app/Interface/dataUser';
+import { DataUser } from 'src/app/interface/dataUser';
 
 const { user } = DATA;
 
 @Component({
   selector: 'app-footer',
+  standalone: true,
+  imports: [],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
 })

@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { TagService } from 'src/app/backend/service/tag.service';
-import { Education } from 'src/app/Interface/education';
-import { Tag } from 'src/app/Interface/tag';
+import { Education } from 'src/app/interface/education';
+import { Tag } from 'src/app/interface/tag';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
   selector: 'app-tags',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.css'],
 })

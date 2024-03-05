@@ -1,11 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EducationService } from 'src/app/backend/service/education.service';
-import { Education } from 'src/app/Interface/education';
+import { Education } from 'src/app/interface/education';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
   selector: 'app-form-education',
+  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './form-education.component.html',
   styleUrls: ['./form-education.component.css'],
 })

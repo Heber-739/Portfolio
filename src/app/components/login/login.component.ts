@@ -1,10 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LoginUser } from 'src/app/backend/interface/loginUser';
 import { AuthService } from 'src/app/backend/service/auth.service';
+import { NewRegistrationComponent } from './new-registration/new-registration.component';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule, NewRegistrationComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })

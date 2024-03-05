@@ -4,10 +4,16 @@ import {
   CRUDLocalService,
 } from 'src/app/backend/service/CRUD-Local.service';
 import { AuthService } from 'src/app/backend/service/auth.service';
+import { SoftSkillsComponent } from './soft-skills/soft-skills.component';
+import { HeaderComponent } from './header/header.component';
+import { EducationComponent } from './education/education.component';
+import { JobComponent } from './job/job.component';
 
 const { token } = DATA;
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [HeaderComponent,SoftSkillsComponent,EducationComponent,JobComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

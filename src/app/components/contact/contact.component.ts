@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MailService } from 'src/app/backend/service/mail.service';
-import { Mail } from 'src/app/Interface/mail';
+import { Mail } from 'src/app/interface/mail';
 
 @Component({
   selector: 'app-contact',
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],
 })

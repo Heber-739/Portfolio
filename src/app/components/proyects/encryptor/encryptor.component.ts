@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ModalService } from 'src/app/service/modal.service';
 import { EncryptorValidators } from './validators';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-encryptor',
+  standalone: true,
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './encryptor.component.html',
   styleUrls: ['./encryptor.component.css'],
 })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-spinner-interceptor',
+  standalone:true,
   template: '<div class="lds-ripple"><div></div><div></div></div>',
   styleUrls: ['./spinner-interceptor.component.css'],
 })

@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/backend/service/auth.service';
 import { JobService } from 'src/app/backend/service/job.service';
-import { Job } from 'src/app/Interface/job';
+import { Job } from 'src/app/interface/job';
 import * as jobsJson from '../../../../assets/json/jobs.json';
 import {
   CRUDLocalService,
   DATA,
 } from 'src/app/backend/service/CRUD-Local.service';
+import { CommonModule } from '@angular/common';
+import { FormJobComponent } from './form-job/form-job.component';
 
 const { jobs } = DATA;
 
 @Component({
   selector: 'app-job',
+  standalone: true,
+  imports: [CommonModule,FormJobComponent],
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.css'],
 })
