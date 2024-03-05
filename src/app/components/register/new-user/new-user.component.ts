@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
 import { UserService } from 'src/app/backend/service/user.service';
 import { DataUser } from 'src/app/Interface/dataUser';
@@ -14,17 +14,17 @@ export class NewUserComponent implements OnInit {
   user: DataUser = this.local.get<DataUser>('user');
   image!: string;
 
-  userForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    username: new FormControl({
+  userForm = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    surname: new UntypedFormControl('', [Validators.required]),
+    username: new UntypedFormControl({
       value: this.local.get<string>('username'),
       disabled: true,
     }),
-    age: new FormControl('', [Validators.required, Validators.min(10)]),
-    github: new FormControl('', [Validators.required]),
-    linkedin: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    age: new UntypedFormControl('', [Validators.required, Validators.min(10)]),
+    github: new UntypedFormControl('', [Validators.required]),
+    linkedin: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
   });
   constructor(
     private local: CRUDLocalService,

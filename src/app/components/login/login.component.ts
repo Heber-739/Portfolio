@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { LoginUser } from 'src/app/backend/interface/loginUser';
 import { AuthService } from 'src/app/backend/service/auth.service';
 
@@ -11,9 +11,9 @@ import { AuthService } from 'src/app/backend/service/auth.service';
 export class LoginComponent implements OnInit {
   isLogged: boolean = false;
 
-  login = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+  login = new UntypedFormGroup({
+    username: new UntypedFormControl('', [Validators.required]),
+    password: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(private auth: AuthService, private authservice: AuthService) {}

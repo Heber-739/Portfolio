@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { EducationService } from 'src/app/backend/service/education.service';
 import { Education } from 'src/app/Interface/education';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
@@ -13,9 +13,9 @@ export class FormEducationComponent implements OnInit {
   @Input() edithEd!: Education;
   edFinish: boolean = false;
   image!: string;
-  formEd = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    link: new FormControl('', [Validators.required]),
+  formEd = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    link: new UntypedFormControl('', [Validators.required]),
   });
 
   constructor(

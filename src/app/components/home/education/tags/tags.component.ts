@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { TagService } from 'src/app/backend/service/tag.service';
 import { Education } from 'src/app/Interface/education';
 import { Tag } from 'src/app/Interface/tag';
@@ -17,7 +17,7 @@ export class TagsComponent implements OnInit {
   matchTags: Tag[] = [];
   showAllTags: boolean = false;
   image!: string;
-  name = new FormControl('', [Validators.required]);
+  name = new UntypedFormControl('', [Validators.required]);
 
   constructor(
     private tagS: TagService,

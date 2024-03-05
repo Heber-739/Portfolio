@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/service/modal.service';
 import { EncryptorValidators } from './validators';
 
@@ -10,17 +10,17 @@ import { EncryptorValidators } from './validators';
 })
 export class EncryptorComponent {
   toggle: boolean = true;
-  keyControl = new FormControl('', [
+  keyControl = new UntypedFormControl('', [
     Validators.required,
     Validators.maxLength(4),
     Validators.pattern(/[\d]{4}/),
   ]);
-  encryptTextControl = new FormControl('', [
+  encryptTextControl = new UntypedFormControl('', [
     Validators.required,
     EncryptorValidators.asciiCharRange(),
   ]);
-  decriptTextControl = new FormControl('', [Validators.required]);
-  textControlTwo = new FormControl('', [Validators.required]);
+  decriptTextControl = new UntypedFormControl('', [Validators.required]);
+  textControlTwo = new UntypedFormControl('', [Validators.required]);
 
   constructor(private popup: ModalService) {}
   toggleEncrypt() {

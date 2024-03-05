@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
 import { HardSkill } from 'src/app/Interface/hardSkill';
 import { Tag } from 'src/app/Interface/tag';
@@ -14,9 +14,9 @@ export class FormSkillComponent implements OnInit {
   @Input() edithHS: HardSkill = {} as HardSkill;
   @Output() cancel = new EventEmitter<boolean>();
   image!: string;
-  formHS = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    percentage: new FormControl('', [Validators.required, Validators.max(100)]),
+  formHS = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    percentage: new UntypedFormControl('', [Validators.required, Validators.max(100)]),
   });
   constructor(
     private hsService: HardSkillService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { MailService } from 'src/app/backend/service/mail.service';
 import { Mail } from 'src/app/Interface/mail';
 
@@ -9,10 +9,10 @@ import { Mail } from 'src/app/Interface/mail';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent implements OnInit {
-  emailForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    message: new FormControl('', [
+  emailForm = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    message: new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(20),
     ]),

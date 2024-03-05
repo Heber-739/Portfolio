@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
 import { SoftSkill } from 'src/app/Interface/softSkill';
 
@@ -11,9 +11,9 @@ import { SoftSkill } from 'src/app/Interface/softSkill';
 export class FormSoftSkillComponent implements OnInit {
   @Input() edithSS!: SoftSkill;
   ssId: number = 0;
-  formSS = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+  formSS = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
   });
   constructor(private ssService: SoftSkillService) {}
 

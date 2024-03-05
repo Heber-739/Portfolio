@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, ValidatorFn } from '@angular/forms';
 
 export class MyValidators {
   static haveNumber(patt: RegExp): ValidatorFn {
@@ -30,8 +30,8 @@ export class MyValidators {
 export const confirm: ValidatorFn = (
   group: AbstractControl
 ): { [key: string]: any } | null => {
-  let pass = group.get('password') as FormControl;
-  let confirmPass = group.get('passwordConfirm') as FormControl;
+  let pass = group.get('password') as UntypedFormControl;
+  let confirmPass = group.get('passwordConfirm') as UntypedFormControl;
 
   return pass.value === confirmPass.value ? null : { confirm: true };
 };

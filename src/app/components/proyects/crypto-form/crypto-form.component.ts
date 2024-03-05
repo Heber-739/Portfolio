@@ -6,7 +6,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/service/localStorage.service';
 import { ModalService } from 'src/app/service/modal.service';
 import { Coin } from '../../../interface/coin';
@@ -35,9 +35,9 @@ export class CryptoFormComponent implements OnInit {
     image: '',
     symbol: '',
   };
-  depositForm = new FormGroup({
-    currency: new FormControl('', [Validators.required]),
-    money: new FormControl(''),
+  depositForm = new UntypedFormGroup({
+    currency: new UntypedFormControl('', [Validators.required]),
+    money: new UntypedFormControl(''),
   });
 
   constructor(
