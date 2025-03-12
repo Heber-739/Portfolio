@@ -13,11 +13,10 @@ import { RouterModule } from '@angular/router';
 
 const { user, token, animation, theme } = DATA;
 @Component({
-  selector: 'app-nav',
-  standalone: true,
-  imports: [CommonModule,RouterModule],
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css'],
+    selector: 'app-nav',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './nav.component.html',
+    styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
   selColor: boolean = false;

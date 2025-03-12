@@ -7,11 +7,10 @@ import { AuthService } from 'src/app/backend/service/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-new-registration',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
-  templateUrl: './new-registration.component.html',
-  styleUrls: ['./new-registration.component.css'],
+    selector: 'app-new-registration',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './new-registration.component.html',
+    styleUrls: ['./new-registration.component.css']
 })
 export class NewRegistrationComponent {
   newRegistration!: JwtDto;

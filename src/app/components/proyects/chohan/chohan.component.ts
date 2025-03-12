@@ -10,11 +10,10 @@ interface Regist {
   result: string;
 }
 @Component({
-  selector: 'app-chohan',
-  standalone: true,
-  imports: [CurrencyPipe, ReactiveFormsModule,CommonModule],
-  templateUrl: './chohan.component.html',
-  styleUrls: ['./chohan.component.css'],
+    selector: 'app-chohan',
+    imports: [CurrencyPipe, ReactiveFormsModule, CommonModule],
+    templateUrl: './chohan.component.html',
+    styleUrls: ['./chohan.component.css']
 })
 export class ChohanComponent implements OnInit, OnDestroy {
   registers: Regist[];

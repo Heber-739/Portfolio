@@ -7,11 +7,10 @@ import { Tag } from 'src/app/interface/tag';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
-  selector: 'app-tags',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.css'],
+    selector: 'app-tags',
+    imports: [CommonModule],
+    templateUrl: './tags.component.html',
+    styleUrls: ['./tags.component.css']
 })
 export class TagsComponent implements OnInit {
   @Input() ed!: Education;

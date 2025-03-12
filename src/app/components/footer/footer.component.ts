@@ -8,11 +8,10 @@ import { DataUser } from 'src/app/interface/dataUser';
 const { user } = DATA;
 
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  imports: [],
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css'],
+    selector: 'app-footer',
+    imports: [],
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
   github: string;

@@ -5,13 +5,12 @@ import { Canvas } from './Canvas';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-hanged',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule, CommonModule
-  ],
-  templateUrl: './hanged.component.html',
-  styleUrls: ['./hanged.component.css'],
+    selector: 'app-hanged',
+    imports: [
+        ReactiveFormsModule, CommonModule
+    ],
+    templateUrl: './hanged.component.html',
+    styleUrls: ['./hanged.component.css']
 })
 export class HangedComponent implements AfterViewInit {
   constructor(private popup: ModalService) {}
