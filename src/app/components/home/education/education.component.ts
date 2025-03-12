@@ -14,11 +14,10 @@ import { TagsComponent } from './tags/tags.component';
 const { educations } = DATA;
 
 @Component({
-  selector: 'app-education',
-  standalone: true,
-  imports: [CommonModule,FormEducationComponent,TagsComponent],
-  templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css'],
+    selector: 'app-education',
+    imports: [CommonModule, FormEducationComponent, TagsComponent],
+    templateUrl: './education.component.html',
+    styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit {
   edithMode: boolean = false;

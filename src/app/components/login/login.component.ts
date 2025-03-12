@@ -6,11 +6,10 @@ import { AuthService } from 'src/app/backend/service/auth.service';
 import { NewRegistrationComponent } from './new-registration/new-registration.component';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule, NewRegistrationComponent],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+    selector: 'app-login',
+    imports: [ReactiveFormsModule, CommonModule, NewRegistrationComponent],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   isLogged: boolean = false;

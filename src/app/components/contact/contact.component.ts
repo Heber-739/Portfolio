@@ -4,11 +4,10 @@ import { MailService } from 'src/app/backend/service/mail.service';
 import { Mail } from 'src/app/interface/mail';
 
 @Component({
-  selector: 'app-contact',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css'],
+    selector: 'app-contact',
+    imports: [ReactiveFormsModule],
+    templateUrl: './contact.component.html',
+    styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
   emailForm = new UntypedFormGroup({

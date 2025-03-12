@@ -6,11 +6,10 @@ import { Tag } from 'src/app/interface/tag';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
-  selector: 'app-form-skill',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './form-skill.component.html',
-  styleUrls: ['./form-skill.component.css'],
+    selector: 'app-form-skill',
+    imports: [ReactiveFormsModule],
+    templateUrl: './form-skill.component.html',
+    styleUrls: ['./form-skill.component.css']
 })
 export class FormSkillComponent implements OnInit {
   @Input() edithHS: HardSkill = {} as HardSkill;

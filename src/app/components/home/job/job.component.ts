@@ -13,11 +13,10 @@ import { FormJobComponent } from './form-job/form-job.component';
 const { jobs } = DATA;
 
 @Component({
-  selector: 'app-job',
-  standalone: true,
-  imports: [CommonModule,FormJobComponent],
-  templateUrl: './job.component.html',
-  styleUrls: ['./job.component.css'],
+    selector: 'app-job',
+    imports: [CommonModule, FormJobComponent],
+    templateUrl: './job.component.html',
+    styleUrls: ['./job.component.css']
 })
 export class JobComponent implements OnInit {
   edithMode: boolean = false;

@@ -11,11 +11,10 @@ import { JobComponent } from './job/job.component';
 
 const { token } = DATA;
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [HeaderComponent,SoftSkillsComponent,EducationComponent,JobComponent],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+    selector: 'app-home',
+    imports: [HeaderComponent, SoftSkillsComponent, EducationComponent, JobComponent],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   edithMode: boolean = false;

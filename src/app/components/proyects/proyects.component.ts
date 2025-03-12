@@ -6,11 +6,10 @@ import { SpinnerService } from 'src/app/service/spinner-interceptor/spinner.serv
 import { CryptoFormComponent } from './crypto-form/crypto-form.component';
 
 @Component({
-  selector: 'app-proyects',
-  standalone: true,
-  imports: [CryptoFormComponent],
-  templateUrl: './proyects.component.html',
-  styleUrls: ['./proyects.component.css'],
+    selector: 'app-proyects',
+    imports: [CryptoFormComponent],
+    templateUrl: './proyects.component.html',
+    styleUrls: ['./proyects.component.css']
 })
 export class ProyectsComponent implements OnInit {
   haveBalance: boolean = false;

@@ -6,11 +6,10 @@ import { DataUser } from 'src/app/interface/dataUser';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
-  selector: 'app-new-user',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.css'],
+    selector: 'app-new-user',
+    imports: [ReactiveFormsModule],
+    templateUrl: './new-user.component.html',
+    styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
   user: DataUser = this.local.get<DataUser>('user');

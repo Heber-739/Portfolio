@@ -12,11 +12,10 @@ import { FormSoftSkillComponent } from './form-soft-skill/form-soft-skill.compon
 
 const { softs } = DATA;
 @Component({
-  selector: 'app-soft-skills',
-  standalone: true,
-  imports: [CommonModule, FormSoftSkillComponent],
-  templateUrl: './soft-skills.component.html',
-  styleUrls: ['./soft-skills.component.css'],
+    selector: 'app-soft-skills',
+    imports: [CommonModule, FormSoftSkillComponent],
+    templateUrl: './soft-skills.component.html',
+    styleUrls: ['./soft-skills.component.css']
 })
 export class SoftSkillsComponent implements OnInit {
   edithMode: boolean = false;
