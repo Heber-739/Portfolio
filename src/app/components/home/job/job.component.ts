@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/backend/service/auth.service';
-import { JobService } from 'src/app/backend/service/job.service';
-import { Job } from 'src/app/interface/job';
-import * as jobsJson from '../../../../assets/json/jobs.json';
-import {
-  CRUDLocalService,
-  DATA,
-} from 'src/app/backend/service/CRUD-Local.service';
+import * as jobsJson from '@assets/json/jobs.json';
 import { CommonModule } from '@angular/common';
 import { FormJobComponent } from './form-job/form-job.component';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { JobService } from '@backend/service/job.service';
+import { Job } from '@interface/job';
 
 const { jobs } = DATA;
 

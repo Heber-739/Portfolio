@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { JobService } from 'src/app/backend/service/job.service';
-import { Job } from 'src/app/interface/job';
+import { JobService } from '@backend/service/job.service';
+import { Job } from '@interface/job';
 
 @Component({
     selector: 'app-form-job',

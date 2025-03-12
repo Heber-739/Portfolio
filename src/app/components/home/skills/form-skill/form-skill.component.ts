@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
-import { HardSkill } from 'src/app/interface/hardSkill';
-import { Tag } from 'src/app/interface/tag';
-import { ImageCompressService } from 'src/app/service/image-compress.service';
+import { HardSkillService } from '@backend/service/hard-skill.service';
+import { HardSkill } from '@interface/hardSkill';
+import { Tag } from '@interface/tag';
+import { ImageCompressService } from '@service/image-compress.service';
 
 @Component({
     selector: 'app-form-skill',

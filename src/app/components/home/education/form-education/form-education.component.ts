@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { EducationService } from 'src/app/backend/service/education.service';
-import { Education } from 'src/app/interface/education';
-import { ImageCompressService } from 'src/app/service/image-compress.service';
+import { EducationService } from '@backend/service/education.service';
+import { Education } from '@interface/education';
+import { ImageCompressService } from '@service/image-compress.service';
 
 @Component({
     selector: 'app-form-education',

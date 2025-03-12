@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ModalService } from 'src/app/service/modal.service';
 import { EncryptorValidators } from './validators';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '@service/modal.service';
 
 @Component({
     selector: 'app-encryptor',

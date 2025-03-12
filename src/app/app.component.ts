@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from './service/modal.service';
-import { SpinnerService } from './service/spinner-interceptor/spinner.service';
 import { RouterOutlet } from '@angular/router';
-import { SpinnerInterceptorComponent } from './service/spinner-interceptor/spinner-interceptor.component';
-import { NavComponent } from './components/nav/nav.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '@components/footer/footer.component';
+import { NavComponent } from '@components/nav/nav.component';
+import { ModalService } from '@service/modal.service';
+import { SpinnerInterceptorComponent } from '@service/spinner-interceptor/spinner-interceptor.component';
+import { SpinnerService } from '@service/spinner-interceptor/spinner.service';
 
 @Component({
     selector: 'app-root',

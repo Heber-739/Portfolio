@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
-import { SoftSkill } from 'src/app/interface/softSkill';
+import { SoftSkillService } from '@backend/service/soft-skill.service';
+import { SoftSkill } from '@interface/softSkill';
 
 @Component({
     selector: 'app-form-soft-skill',

@@ -7,11 +7,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { LocalStorageService } from 'src/app/service/localStorage.service';
-import { ModalService } from 'src/app/service/modal.service';
-import { Coin } from '../../../interface/coin';
-import { Wallet } from 'src/app/interface/wallet';
 import { CommonModule } from '@angular/common';
+import { Coin } from '@interface/coin';
+import { Wallet } from '@interface/wallet';
+import { LocalStorageService } from '@service/localStorage.service';
+import { ModalService } from '@service/modal.service';
 
 interface SimpleCoin {
   market_data: { current_price: { usd: number } };

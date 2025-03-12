@@ -1,8 +1,8 @@
 import { AfterViewInit, ViewChild, Component, ElementRef } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { ModalService } from 'src/app/service/modal.service';
 import { Canvas } from './Canvas';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '@service/modal.service';
 
 @Component({
     selector: 'app-hanged',

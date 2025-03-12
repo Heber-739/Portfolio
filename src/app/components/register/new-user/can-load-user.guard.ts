@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
-import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
+import { CRUDLocalService } from '@backend/service/CRUD-Local.service';
 
 @Injectable({
   providedIn: 'root',

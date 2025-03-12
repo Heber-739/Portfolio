@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { confirm, MyValidators } from './validators';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { JwtDto } from 'src/app/backend/interface/jwt-dto';
-import { NewUser } from 'src/app/backend/interface/newUser';
-import { AuthService } from 'src/app/backend/service/auth.service';
 import { CommonModule } from '@angular/common';
+import { JwtDto } from '@backend/interface/jwt-dto';
+import { NewUser } from '@backend/interface/newUser';
+import { AuthService } from '@backend/service/auth.service';
 
 @Component({
     selector: 'app-new-registration',

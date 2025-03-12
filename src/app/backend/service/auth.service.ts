@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalService } from 'src/app/service/modal.service';
-import { environment } from 'src/environments/environment';
-import { JwtDto } from '../interface/jwt-dto';
-import { LoginUser } from '../interface/loginUser';
-import { NewUser } from '../interface/newUser';
 import { CRUDLocalService } from './CRUD-Local.service';
 import { Observable, Subject } from 'rxjs';
-import { Message } from 'src/app/interface/message';
+import { JwtDto } from '@backend/interface/jwt-dto';
+import { LoginUser } from '@backend/interface/loginUser';
+import { NewUser } from '@backend/interface/newUser';
+import { environment } from '@environments/environment';
+import { Message } from '@interface/Message';
+import { ModalService } from '@service/modal.service';
 
 @Injectable({
   providedIn: 'root',

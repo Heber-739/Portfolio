@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  CRUDLocalService,
-  DATA,
-} from 'src/app/backend/service/CRUD-Local.service';
-import { AuthService } from 'src/app/backend/service/auth.service';
-import { DataUser } from 'src/app/interface/dataUser';
-import * as userJson from '../../../../assets/json/user.json';
-import { SkillsComponent } from '../skills/skills.component';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { DataUser } from '@interface/dataUser';
+import * as userJson from '@assets/json/user.json';
+import { SkillsComponent } from '../skills/skills.component';
 
 const { user } = DATA;
 

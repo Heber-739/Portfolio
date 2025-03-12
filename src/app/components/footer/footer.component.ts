@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  DATA,
-  CRUDLocalService,
-} from 'src/app/backend/service/CRUD-Local.service';
-import { DataUser } from 'src/app/interface/dataUser';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { DataUser } from '@interface/dataUser';
 
 const { user } = DATA;
 

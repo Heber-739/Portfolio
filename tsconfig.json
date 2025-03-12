@@ -3,6 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "resolveJsonModule": true,
+    "paths": {
+      "@*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@environments/*": ["src/environments/*"]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "esModuleInterop": true,

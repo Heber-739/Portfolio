@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/backend/service/auth.service';
-import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
-import { SoftSkill } from 'src/app/interface/softSkill';
-import * as softsJson from '../../../../assets/json/Softs.json';
-import {
-  CRUDLocalService,
-  DATA,
-} from 'src/app/backend/service/CRUD-Local.service';
+import * as softsJson from '@assets/json/Softs.json';
 import { CommonModule } from '@angular/common';
 import { FormSoftSkillComponent } from './form-soft-skill/form-soft-skill.component';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { SoftSkillService } from '@backend/service/soft-skill.service';
+import { SoftSkill } from '@interface/softSkill';
 
 const { softs } = DATA;
 @Component({

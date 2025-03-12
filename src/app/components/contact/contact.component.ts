@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MailService } from 'src/app/backend/service/mail.service';
-import { Mail } from 'src/app/interface/mail';
+import { MailService } from '@backend/service/mail.service';
+import { Mail } from '@interface/mail';
 
 @Component({
     selector: 'app-contact',

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
-import { AuthService } from 'src/app/backend/service/auth.service';
-import { HardSkillService } from 'src/app/backend/service/hard-skill.service';
-import { HardSkill } from 'src/app/interface/hardSkill';
-import { DATA } from '../../../backend/service/CRUD-Local.service';
-import * as skillsJson from '../../../../assets/json/skills.json';
+import * as skillsJson from '@assets/json/skills.json';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormSkillComponent } from './form-skill/form-skill.component';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { HardSkillService } from '@backend/service/hard-skill.service';
+import { HardSkill } from '@interface/hardSkill';
 
 const { skills } = DATA;
 @Component({

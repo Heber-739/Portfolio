@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HardSkill } from 'src/app/interface/hardSkill';
-import { Message } from 'src/app/interface/message';
-import { ModalService } from 'src/app/service/modal.service';
-import { environment } from 'src/environments/environment';
 import { CRUDLocalService, DATA } from './CRUD-Local.service';
+import { HardSkill } from '@interface/hardSkill';
+import { environment } from '@environments/environment';
+import { Message } from '@interface/Message';
+import { ModalService } from '@service/modal.service';
 
 const { username, skills, allSkills } = DATA;
 

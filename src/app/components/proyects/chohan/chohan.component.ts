@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { Wallet } from 'src/app/interface/wallet';
 import { MagicDices } from './dados';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { Wallet } from '@interface/wallet';
 
 interface Regist {
   bet: number;

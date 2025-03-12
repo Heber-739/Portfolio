@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { LoginUser } from 'src/app/backend/interface/loginUser';
-import { AuthService } from 'src/app/backend/service/auth.service';
+import { LoginUser } from '@backend/interface/loginUser';
+import { AuthService } from '@backend/service/auth.service';
 import { NewRegistrationComponent } from './new-registration/new-registration.component';
 
 @Component({

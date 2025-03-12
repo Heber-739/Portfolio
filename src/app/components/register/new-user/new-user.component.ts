@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
-import { UserService } from 'src/app/backend/service/user.service';
-import { DataUser } from 'src/app/interface/dataUser';
-import { ImageCompressService } from 'src/app/service/image-compress.service';
+import { CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { UserService } from '@backend/service/user.service';
+import { DataUser } from '@interface/dataUser';
+import { ImageCompressService } from '@service/image-compress.service';
 
 @Component({
     selector: 'app-new-user',
