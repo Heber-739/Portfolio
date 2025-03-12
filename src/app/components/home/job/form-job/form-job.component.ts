@@ -5,11 +5,10 @@ import { JobService } from 'src/app/backend/service/job.service';
 import { Job } from 'src/app/interface/job';
 
 @Component({
-  selector: 'app-form-job',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
-  templateUrl: './form-job.component.html',
-  styleUrls: ['./form-job.component.css'],
+    selector: 'app-form-job',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './form-job.component.html',
+    styleUrls: ['./form-job.component.css']
 })
 export class FormJobComponent implements OnInit {
   @Input() edithJob: Job = {} as Job;

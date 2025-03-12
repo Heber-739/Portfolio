@@ -11,11 +11,10 @@ import { FormSkillComponent } from './form-skill/form-skill.component';
 
 const { skills } = DATA;
 @Component({
-  selector: 'app-skills',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,FormSkillComponent],
-  templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.css'],
+    selector: 'app-skills',
+    imports: [ReactiveFormsModule, CommonModule, FormSkillComponent],
+    templateUrl: './skills.component.html',
+    styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent implements OnInit {
   edithMode: boolean = false;

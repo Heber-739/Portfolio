@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SoftSkillService } from 'src/app/backend/service/soft-skill.service';
 import { SoftSkill } from 'src/app/interface/softSkill';
 
 @Component({
-  selector: 'app-form-soft-skill',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
-  templateUrl: './form-soft-skill.component.html',
-  styleUrls: ['./form-soft-skill.component.css'],
+    selector: 'app-form-soft-skill',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './form-soft-skill.component.html',
+    styleUrls: ['./form-soft-skill.component.css']
 })
 export class FormSoftSkillComponent implements OnInit {
   @Input() edithSS!: SoftSkill;

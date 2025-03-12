@@ -5,11 +5,10 @@ import { EncryptorValidators } from './validators';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-encryptor',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
-  templateUrl: './encryptor.component.html',
-  styleUrls: ['./encryptor.component.css'],
+    selector: 'app-encryptor',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './encryptor.component.html',
+    styleUrls: ['./encryptor.component.css']
 })
 export class EncryptorComponent {
   toggle: boolean = true;

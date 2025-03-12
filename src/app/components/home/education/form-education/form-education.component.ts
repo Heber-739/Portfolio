@@ -6,11 +6,10 @@ import { Education } from 'src/app/interface/education';
 import { ImageCompressService } from 'src/app/service/image-compress.service';
 
 @Component({
-  selector: 'app-form-education',
-  standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
-  templateUrl: './form-education.component.html',
-  styleUrls: ['./form-education.component.css'],
+    selector: 'app-form-education',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './form-education.component.html',
+    styleUrls: ['./form-education.component.css']
 })
 export class FormEducationComponent implements OnInit {
   @Input() edithEd!: Education;
