@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Mail } from 'src/app/Interface/mail';
-import { Message } from 'src/app/Interface/Message';
-import { ModalService } from 'src/app/service/modal.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
+import { Mail } from '@interface/mail';
+import { Message } from '@interface/Message';
+import { ModalService } from '@service/modal.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageService } from 'src/app/service/localStorage.service';
-import { ModalService } from 'src/app/service/modal.service';
-import { SpinnerService } from 'src/app/service/spinner-interceptor/spinner.service';
+import { CryptoFormComponent } from './crypto-form/crypto-form.component';
+import { LocalStorageService } from '@service/localStorage.service';
+import { ModalService } from '@service/modal.service';
+import { SpinnerService } from '@service/spinner-interceptor/spinner.service';
 
 @Component({
-  selector: 'app-proyects',
-  templateUrl: './proyects.component.html',
-  styleUrls: ['./proyects.component.css'],
+    selector: 'app-proyects',
+    imports: [CryptoFormComponent],
+    templateUrl: './proyects.component.html',
+    styleUrls: ['./proyects.component.css']
 })
 export class ProyectsComponent implements OnInit {
   haveBalance: boolean = false;

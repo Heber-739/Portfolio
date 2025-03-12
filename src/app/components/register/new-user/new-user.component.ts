@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CRUDLocalService } from 'src/app/backend/service/CRUD-Local.service';
-import { UserService } from 'src/app/backend/service/user.service';
-import { DataUser } from 'src/app/Interface/dataUser';
-import { ImageCompressService } from 'src/app/service/image-compress.service';
+import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { UserService } from '@backend/service/user.service';
+import { DataUser } from '@interface/dataUser';
+import { ImageCompressService } from '@service/image-compress.service';
 
 @Component({
-  selector: 'app-new-user',
-  templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.css'],
+    selector: 'app-new-user',
+    imports: [ReactiveFormsModule],
+    templateUrl: './new-user.component.html',
+    styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
   user: DataUser = this.local.get<DataUser>('user');
   image!: string;
 
-  userForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    username: new FormControl({
+  userForm = new UntypedFormGroup({
+    name: new UntypedFormControl('', [Validators.required]),
+    surname: new UntypedFormControl('', [Validators.required]),
+    username: new UntypedFormControl({
       value: this.local.get<string>('username'),
       disabled: true,
     }),
-    age: new FormControl('', [Validators.required, Validators.min(10)]),
-    github: new FormControl('', [Validators.required]),
-    linkedin: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    age: new UntypedFormControl('', [Validators.required, Validators.min(10)]),
+    github: new UntypedFormControl('', [Validators.required]),
+    linkedin: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
   });
   constructor(
     private local: CRUDLocalService,

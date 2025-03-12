@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  CRUDLocalService,
-  DATA,
-} from 'src/app/backend/service/CRUD-Local.service';
-import { AuthService } from 'src/app/backend/service/auth.service';
-import { EducationService } from 'src/app/backend/service/education.service';
-import { Education } from 'src/app/Interface/education';
-import * as edsUser from '../../../../assets/json/eds.json';
+import * as edsUser from '@assets/json/eds.json';
+import { CommonModule } from '@angular/common';
+import { FormEducationComponent } from './form-education/form-education.component';
+import { TagsComponent } from './tags/tags.component';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { EducationService } from '@backend/service/education.service';
+import { Education } from '@interface/education';
 
 const { educations } = DATA;
 
 @Component({
-  selector: 'app-education',
-  templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css'],
+    selector: 'app-education',
+    imports: [CommonModule, FormEducationComponent, TagsComponent],
+    templateUrl: './education.component.html',
+    styleUrls: ['./education.component.css']
 })
 export class EducationComponent implements OnInit {
   edithMode: boolean = false;

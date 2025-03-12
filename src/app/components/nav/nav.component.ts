@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import * as userJson from '../../../assets/json/user.json';
+import * as userJson from '@assets/json/user.json';
 import { HttpClient } from '@angular/common/http';
-import {
-  DATA,
-  CRUDLocalService,
-} from 'src/app/backend/service/CRUD-Local.service';
-import { AuthService } from 'src/app/backend/service/auth.service';
-import { UserService } from 'src/app/backend/service/user.service';
-import { DataUser } from 'src/app/Interface/dataUser';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { UserService } from '@backend/service/user.service';
+import { DataUser } from '@interface/dataUser';
 
 const { user, token, animation, theme } = DATA;
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css'],
+    selector: 'app-nav',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './nav.component.html',
+    styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
   selColor: boolean = false;

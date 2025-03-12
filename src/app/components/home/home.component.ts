@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  DATA,
-  CRUDLocalService,
-} from 'src/app/backend/service/CRUD-Local.service';
-import { AuthService } from 'src/app/backend/service/auth.service';
+import { SoftSkillsComponent } from './soft-skills/soft-skills.component';
+import { HeaderComponent } from './header/header.component';
+import { EducationComponent } from './education/education.component';
+import { JobComponent } from './job/job.component';
+import { AuthService } from '@backend/service/auth.service';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
 
 const { token } = DATA;
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+    selector: 'app-home',
+    imports: [HeaderComponent, SoftSkillsComponent, EducationComponent, JobComponent],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   edithMode: boolean = false;

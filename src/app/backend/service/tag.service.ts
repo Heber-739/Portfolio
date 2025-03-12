@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Message } from 'src/app/Interface/Message';
-import { Tag } from 'src/app/Interface/tag';
-import { ModalService } from 'src/app/service/modal.service';
-import { environment } from 'src/environments/environment';
 import { CRUDLocalService, DATA } from './CRUD-Local.service';
+import { ModalService } from '@service/modal.service';
+import { environment } from '@environments/environment';
+import { Message } from '@interface/Message';
+import { Tag } from '@interface/tag';
 
 const { allTags } = DATA;
 

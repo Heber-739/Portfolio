@@ -1,24 +1,27 @@
-import { CONTEXT_NAME } from '@angular/compiler/src/render3/view/util';
 import { AfterViewInit, ViewChild, Component, ElementRef } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { ModalService } from 'src/app/service/modal.service';
+import { ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { Canvas } from './Canvas';
+import { CommonModule } from '@angular/common';
+import { ModalService } from '@service/modal.service';
 
 @Component({
-  selector: 'app-hanged',
-  templateUrl: './hanged.component.html',
-  styleUrls: ['./hanged.component.css'],
+    selector: 'app-hanged',
+    imports: [
+        ReactiveFormsModule, CommonModule
+    ],
+    templateUrl: './hanged.component.html',
+    styleUrls: ['./hanged.component.css']
 })
 export class HangedComponent implements AfterViewInit {
   constructor(private popup: ModalService) {}
   @ViewChild('canvasRef', { static: false }) canvasRef: ElementRef =
     {} as ElementRef;
 
-  inputControl = new FormControl('', [
+  inputControl = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(/^[a-zA-Z]+$/),
   ]);
-  inputTwoControl = new FormControl('', [
+  inputTwoControl = new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(/[A-Za-z]/),
     Validators.maxLength(1),

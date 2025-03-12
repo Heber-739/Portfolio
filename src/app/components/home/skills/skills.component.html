@@ -15,7 +15,7 @@
       [style.width]="edithMode ? '45%' : 'fit-content'"
       *ngFor="let item of skills"
     >
-      <circle-progress
+      <!-- <circle-progress
         [renderOnClick]="false"
         [showBackground]="true"
         [backgroundColor]="'white'"
@@ -32,7 +32,7 @@
         [innerStrokeWidth]="0"
         [outerStrokeColor]="'var(--color5)'"
         [animationDuration]="7000"
-      ></circle-progress>
+      ></circle-progress> -->
 
       <div *ngIf="edithMode" class="cont_edith_btn">
         <button class="edith_btn" (click)="delete(item)">Eliminar</button>

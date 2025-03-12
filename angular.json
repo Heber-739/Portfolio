@@ -15,12 +15,13 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/portafolio",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "namedChunks": true,
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -36,30 +37,25 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "3kb",
-                  "maximumError": "6kb"
+                  "maximumWarning": "13kb",
+                  "maximumError": "16kb"
                 }
               ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
+              "outputHashing": "none",
+              "namedChunks": true,
+              "optimization": true
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
               "sourceMap": true,
+              "outputHashing": "none",
               "namedChunks": true
+
             }
           },
           "defaultConfiguration": "production"
@@ -68,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "portafolio:build:production"
+              "buildTarget": "portafolio:build:production"
             },
             "development": {
-              "browserTarget": "portafolio:build:development"
+              "buildTarget": "portafolio:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,16 +75,17 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "portafolio:build"
+            "buildTarget": "portafolio:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -102,5 +99,7 @@
       }
     }
   },
-  "defaultProject": "portafolio"
+  "cli": {
+    "analytics": false
+  }
 }

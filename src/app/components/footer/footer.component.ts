@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-import {
-  DATA,
-  CRUDLocalService,
-} from 'src/app/backend/service/CRUD-Local.service';
-import { DataUser } from 'src/app/Interface/dataUser';
+import { DATA, CRUDLocalService } from '@backend/service/CRUD-Local.service';
+import { DataUser } from '@interface/dataUser';
 
 const { user } = DATA;
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css'],
+    selector: 'app-footer',
+    imports: [],
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
   github: string;

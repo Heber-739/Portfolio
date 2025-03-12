@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataUser } from 'src/app/Interface/dataUser';
-import { Message } from 'src/app/Interface/Message';
-import { ModalService } from 'src/app/service/modal.service';
-import { environment } from 'src/environments/environment';
 import { CRUDLocalService, DATA } from './CRUD-Local.service';
+import { environment } from '@environments/environment';
+import { DataUser } from '@interface/dataUser';
+import { Message } from '@interface/Message';
+import { ModalService } from '@service/modal.service';
 
 const { username } = DATA;
 
